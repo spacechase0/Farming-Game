@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "FarmingGame.h"
+#include "Game.h"
 
 int main()
 {
-	FarmingGame game;
+	Game game;
 	return game.Run();
 }

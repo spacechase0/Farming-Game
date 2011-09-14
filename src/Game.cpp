@@ -1,21 +1,21 @@
-#include "FarmingGame.h"
+#include "Game.h"
 
 #include <stdexcept>
 
 #include "scenes/Scenes.h"
 
-const sf::Uint8 FarmingGame::SimulationRate = 50;
-const std::string FarmingGame::WindowTitle = "Farming Game";
-const sf::Vector2i FarmingGame::WindowSize( 640, 480 );
+const sf::Uint8 Game::SimulationRate = 50;
+const std::string Game::WindowTitle = "Farming Game";
+const sf::Vector2i Game::WindowSize( 640, 480 );
 
-FarmingGame::FarmingGame()
+Game::Game()
 {
 	AddScene( "MainMenu", ScenePtr( new SceneMainMenu( * this ) ) );
 	
 	ChangeScene( "MainMenu" );
 }
 
-FarmingGame::~FarmingGame()
+Game::~Game()
 {
 	if ( GetCurrentScene() != "" )
 	{
@@ -23,7 +23,7 @@ FarmingGame::~FarmingGame()
 	}
 }
 
-int FarmingGame::Run()
+int Game::Run()
 {
 	window.Create( sf::VideoMode( WindowSize.x, WindowSize.y ), WindowTitle, sf::Style::Titlebar | sf::Style::Close );
 	scenes[ currentScene ]->Initialize();
@@ -37,7 +37,7 @@ int FarmingGame::Run()
 		// Current scene
 		ScenePtr scene = scenes[ currentScene ];
 		
-		// Simulate only FarmingGame::SimulationRate times a second
+		// Simulate only Game::SimulationRate times a second
 		while ( rate > SimulationRate )
 		{
 			// Events, update loop
@@ -60,7 +60,7 @@ int FarmingGame::Run()
 	return 0;
 }
 
-std::string FarmingGame::GetCurrentScene()
+std::string Game::GetCurrentScene()
 {
 	if ( scenes.find( currentScene ) == scenes.end() )
 	{
@@ -70,7 +70,7 @@ std::string FarmingGame::GetCurrentScene()
 	return currentScene;
 }
 
-FarmingGame::ScenePtr FarmingGame::GetScene( const std::string& sceneName )
+Game::ScenePtr Game::GetScene( const std::string& sceneName )
 {
 	if ( scenes.find( sceneName ) == scenes.end() )
 	{
@@ -81,7 +81,7 @@ FarmingGame::ScenePtr FarmingGame::GetScene( const std::string& sceneName )
 	return scenes[ sceneName ];
 }
 
-void FarmingGame::ChangeScene( const std::string& sceneName )
+void Game::ChangeScene( const std::string& sceneName )
 {
 	if ( scenes.find( sceneName ) == scenes.end() )
 	{
@@ -97,7 +97,7 @@ void FarmingGame::ChangeScene( const std::string& sceneName )
 	currentScene = sceneName;
 }
 
-void FarmingGame::AddScene( const std::string& sceneName, ScenePtr scene )
+void Game::AddScene( const std::string& sceneName, ScenePtr scene )
 {
 	if ( scenes.find( sceneName ) != scenes.end() )
 	{
@@ -107,7 +107,7 @@ void FarmingGame::AddScene( const std::string& sceneName, ScenePtr scene )
 	scenes.insert( std::make_pair( sceneName, scene ) );
 }
 
-sf::Texture& FarmingGame::GetTexture( const std::string& filename )
+sf::Texture& Game::GetTexture( const std::string& filename )
 {
 	if ( textures.find( filename ) != textures.end() )
 	{
@@ -124,7 +124,7 @@ sf::Texture& FarmingGame::GetTexture( const std::string& filename )
 	return ( * textures[ filename ] );
 }
 
-sf::Font& FarmingGame::GetFont( const std::string& filename )
+sf::Font& Game::GetFont( const std::string& filename )
 {
 	if ( fonts.find( filename ) != fonts.end() )
 	{
@@ -140,7 +140,7 @@ sf::Font& FarmingGame::GetFont( const std::string& filename )
 	return ( * fonts[ filename ] );
 }
 
-sf::SoundBuffer& FarmingGame::GetSoundBuffer( const std::string& filename )
+sf::SoundBuffer& Game::GetSoundBuffer( const std::string& filename )
 {
 	if ( soundBuffers.find( filename ) != soundBuffers.end() )
 	{

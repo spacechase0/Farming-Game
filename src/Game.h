@@ -1,5 +1,5 @@
-#ifndef FARMINGGAME_H
-#define FARMINGGAME_H
+#ifndef GAME_H
+#define GAME_H
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -7,11 +7,11 @@
 
 #include "scenes/SceneBase.h"
 
-class FarmingGame
+class Game
 {
 	public:
-		FarmingGame();
-		~FarmingGame();
+		Game();
+		~Game();
 		
 		int Run();
 		
@@ -55,4 +55,4 @@ class FarmingGame
 		sf::Clock simulationTimer;
 };
 
-#endif // FARMINGGAME_H
+#endif // GAME_H

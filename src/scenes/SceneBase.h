@@ -3,12 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 
-class FarmingGame;
+class Game;
 
 class SceneBase
 {
 	public:
-		SceneBase( FarmingGame& theGame ) : game( theGame ) {}
+		SceneBase( Game& theGame ) : game( theGame ) {}
 		virtual ~SceneBase() {};
 		
 		virtual void Initialize() = 0;
@@ -19,7 +19,7 @@ class SceneBase
 		virtual void Draw( sf::RenderWindow& window ) = 0;
 	
 	protected:
-		FarmingGame& game;
+		Game& game;
 };
 
 #endif // SCENES_SCENEBASE_H

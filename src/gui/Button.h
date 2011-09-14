@@ -45,7 +45,7 @@ namespace gui
 			virtual void Update( sf::RenderWindow& window, const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
 		
-		private:
+		protected:
 			Callback callback;
 			struct
 			{

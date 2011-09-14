@@ -9,7 +9,7 @@
 class SceneMainMenu : public SceneBase
 {
 	public:
-		SceneMainMenu( FarmingGame& theGame );
+		SceneMainMenu( Game& theGame );
 		
 		virtual void Initialize();
 		virtual void Terminate();
@@ -19,7 +19,7 @@ class SceneMainMenu : public SceneBase
 		virtual void Draw( sf::RenderWindow& window );
 	
 	private:
-		gui::Button button;
+		gui::TextButton button;
 		
 		void ButtonCallback( gui::Button::EventType type, gui::Button& button );
 };
