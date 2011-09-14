@@ -113,6 +113,22 @@ sf::Texture& FarmingGame::GetTexture( const std::string& filename )
 	return ( * textures[ filename ] );
 }
 
+sf::Font& FarmingGame::GetFont( const std::string& filename )
+{
+	if ( fonts.find( filename ) != fonts.end() )
+	{
+		return ( * fonts[ filename ] );
+	}
+	
+	fonts.insert( std::make_pair( filename, new sf::Font() ) );
+	if ( !fonts[ filename ]->LoadFromFile( "res/" + filename ) )
+	{
+		std::cout << "Failed to load resource '" << filename << "'." << std::endl;
+	}
+	
+	return ( * fonts[ filename ] );
+}
+
 sf::SoundBuffer& FarmingGame::GetSoundBuffer( const std::string& filename )
 {
 	if ( soundBuffers.find( filename ) != soundBuffers.end() )

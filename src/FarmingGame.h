@@ -27,6 +27,7 @@ class FarmingGame
 		
 		// Without "res/"
 		sf::Texture& GetTexture( const std::string& filename );
+		sf::Font& GetFont( const std::string& filename );
 		sf::SoundBuffer& GetSoundBuffer( const std::string& filename );
 		
 		static const std::string WindowTitle;
@@ -35,16 +36,19 @@ class FarmingGame
 	
 	private:
 		typedef boost::shared_ptr< sf::Texture > TexturePtr;
+		typedef boost::shared_ptr< sf::Font > FontPtr;
 		typedef boost::shared_ptr< sf::SoundBuffer > SoundBufferPtr;
 		
 		typedef std::map< std::string, ScenePtr > SceneMap;
 		typedef std::map< std::string, TexturePtr > TextureMap;
+		typedef std::map< std::string, FontPtr > FontMap;
 		typedef std::map< std::string, SoundBufferPtr > SoundBufferMap;
 		
 		SceneMap scenes;
 		std::string currentScene;
 		
 		TextureMap textures;
+		FontMap fonts;
 		SoundBufferMap soundBuffers;
 		
 		bool isRunning;
