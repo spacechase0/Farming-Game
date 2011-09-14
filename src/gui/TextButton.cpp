@@ -23,6 +23,16 @@ namespace gui
 		return ( * font );
 	}
 	
+	void TextButton::SetCharacterSize( unsigned int size )
+	{
+		text.SetCharacterSize( size );
+	}
+	
+	unsigned int TextButton::GetCharacterSize()
+	{
+		return text.GetCharacterSize();
+	}
+	
 	void TextButton::SetString( const std::string& str )
 	{
 		text.SetString( str );
