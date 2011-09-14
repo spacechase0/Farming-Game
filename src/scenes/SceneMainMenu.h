@@ -3,10 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "scenes/SceneBase.h"
-#include "gui/Gui.h"
+#include "scenes/SceneGuiBase.h"
 
-class SceneMainMenu : public SceneBase
+class SceneMainMenu : public SceneGuiBase
 {
 	public:
 		SceneMainMenu( Game& theGame );
@@ -19,8 +18,6 @@ class SceneMainMenu : public SceneBase
 		virtual void Draw( sf::RenderWindow& window );
 	
 	private:
-		gui::TextButton button;
-		
 		void ButtonCallback( gui::Button::EventType type, gui::Button& button );
 };
 

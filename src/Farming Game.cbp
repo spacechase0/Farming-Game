@@ -47,8 +47,8 @@
 			<Add option="-std=gnu++0x" />
 			<Add option='-include &quot;Global.h&quot;' />
 		</Compiler>
-		<Unit filename="FarmingGame.cpp" />
-		<Unit filename="FarmingGame.h" />
+		<Unit filename="Game.cpp" />
+		<Unit filename="Game.h" />
 		<Unit filename="Global.h" />
 		<Unit filename="gui\Base.h" />
 		<Unit filename="gui\Button.cpp" />
@@ -58,6 +58,8 @@
 		<Unit filename="gui\TextButton.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="scenes\SceneBase.h" />
+		<Unit filename="scenes\SceneGuiBase.cpp" />
+		<Unit filename="scenes\SceneGuiBase.h" />
 		<Unit filename="scenes\SceneMainMenu.cpp" />
 		<Unit filename="scenes\SceneMainMenu.h" />
 		<Unit filename="scenes\Scenes.h" />
