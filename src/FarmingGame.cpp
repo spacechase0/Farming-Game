@@ -83,6 +83,12 @@ void FarmingGame::ChangeScene( const std::string& sceneName )
 		throw std::invalid_argument( "Scene '" + sceneName + "' does not exist." );
 	}
 	
+	if ( scenes.find( currentScene ) != scenes.end() )
+	{
+		scenes[ currentScene ]->Terminate();
+	}
+	scenes[ sceneName ]->Initialize();
+	
 	currentScene = sceneName;
 }
 
