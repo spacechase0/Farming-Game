@@ -33,5 +33,9 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
-# Build log
+# Codeblocks stuff
 src/Farming Game_build_log.html
+src/Farming Game.depend
+
+# 'obj' directory
+obj

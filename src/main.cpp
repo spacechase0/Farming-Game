@@ -1,7 +1,9 @@
 #include <iostream>
 
+#include "FarmingGame.h"
+
 int main()
 {
-	std::cout << "Coming Soon" << std::endl;
-	return 0;
+	FarmingGame game;
+	return game.Run();
 }
