@@ -53,6 +53,11 @@ int Game::Run()
 		// Render every frame
 		scene->Draw( window );
 		
+		if ( !window.IsOpened() )
+		{
+			isRunning = false;
+		}
+		
 		rate += simulationTimer.GetElapsedTime();
 		simulationTimer.Reset();
 	}
