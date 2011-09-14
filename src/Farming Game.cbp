@@ -52,6 +52,9 @@
 		<Unit filename="Global.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="scenes\SceneBase.h" />
+		<Unit filename="scenes\SceneMainMenu.cpp" />
+		<Unit filename="scenes\SceneMainMenu.h" />
+		<Unit filename="scenes\Scenes.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

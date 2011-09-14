@@ -2,12 +2,17 @@
 
 #include <stdexcept>
 
+#include "scenes/Scenes.h"
+
 const sf::Uint8 FarmingGame::SimulationRate = 50;
 const std::string FarmingGame::WindowTitle = "Farming Game";
 const sf::Vector2i FarmingGame::WindowSize( 640, 480 );
 
 FarmingGame::FarmingGame()
 {
+	AddScene( "MainMenu", ScenePtr( new SceneMainMenu( * this ) ) );
+	
+	ChangeScene( "MainMenu" );
 }
 
 FarmingGame::~FarmingGame()
@@ -94,7 +99,7 @@ void FarmingGame::ChangeScene( const std::string& sceneName )
 
 void FarmingGame::AddScene( const std::string& sceneName, ScenePtr scene )
 {
-	if ( scenes.find( sceneName ) == scenes.end() )
+	if ( scenes.find( sceneName ) != scenes.end() )
 	{
 		throw std::invalid_argument( "Duplicate scene '" + sceneName + "'." );
 	}
