@@ -1,5 +1,5 @@
-#ifndef SCENEMAINMENU_H
-#define SCENEMAINMENU_H
+#ifndef SCENES_SCENEMAINMENU_H
+#define SCENES_SCENEMAINMENU_H
 
 #include <SFML/Graphics.hpp>
 
@@ -24,4 +24,4 @@ class SceneMainMenu : public SceneBase
 		void ButtonCallback( gui::Button::EventType type, gui::Button& button );
 };
 
-#endif // SCENEMAINMENU_H
+#endif // SCENES_SCENEMAINMENU_H
