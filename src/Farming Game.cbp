@@ -44,7 +44,11 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=gnu++0x" />
+			<Add option='-include &quot;Global.h&quot;' />
 		</Compiler>
+		<Unit filename="Global.h" />
+		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
