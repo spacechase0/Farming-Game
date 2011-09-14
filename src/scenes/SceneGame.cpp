@@ -21,6 +21,10 @@ void SceneGame::Update( sf::RenderWindow& window )
 
 void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
 {
+	if ( event.Type == sf::Event::Closed )
+	{
+		window.Close();
+	}
 }
 
 void SceneGame::Draw( sf::RenderWindow& window )
