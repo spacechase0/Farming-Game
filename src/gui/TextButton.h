@@ -15,7 +15,7 @@ namespace gui
 			sf::Font& GetFont() const;
 			
 			void SetCharacterSize( unsigned int size );
-			unsigned int GetCharacterSize();
+			unsigned int GetCharacterSize() const;
 			
 			void SetString( const std::string& str );
 			std::string GetString() const;
