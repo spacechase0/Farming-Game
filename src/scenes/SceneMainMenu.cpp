@@ -12,13 +12,18 @@ void SceneMainMenu::Initialize()
 	sf::Texture& tex = game.GetTexture( "gui/menu-button.png" );
 	sf::Font& font = game.GetFont( "fonts/Grantham/Grantham Bold.ttf" );
 	
+	title.SetFont( font );
+	title.SetCharacterSize( 70 );
+	title.SetString( "Farming Game" );
+	title.SetPosition( ( Game::WindowSize.x - title.GetRect().Width ) / 2, 40 );
+	
 	{
 		boost::shared_ptr< gui::TextButton > button( new gui::TextButton() );
 		button->SetTexture( tex );
 		button->SetRects( sf::IntRect( 0, ( tex.GetHeight() / 3 ) * 0, tex.GetWidth(), tex.GetHeight() / 3 ),
-						 sf::IntRect( 0, ( tex.GetHeight() / 3 ) * 1, tex.GetWidth(), tex.GetHeight() / 3 ),
-						 sf::IntRect( 0, ( tex.GetHeight() / 3 ) * 2, tex.GetWidth(), tex.GetHeight() / 3 ) );
-		button->SetPosition( 0, 0 );
+						  sf::IntRect( 0, ( tex.GetHeight() / 3 ) * 1, tex.GetWidth(), tex.GetHeight() / 3 ),
+						  sf::IntRect( 0, ( tex.GetHeight() / 3 ) * 2, tex.GetWidth(), tex.GetHeight() / 3 ) );
+		button->SetPosition( ( Game::WindowSize.x - tex.GetWidth() ) / 2, 240 );
 		
 		button->SetFont( font );
 		button->SetString( "Play" );
@@ -59,6 +64,7 @@ void SceneMainMenu::Draw( sf::RenderWindow& window )
 	window.Clear( sf::Color::Black );
 	
 	SceneGuiBase::DrawGui( window );
+	window.Draw( title );
 	
 	window.Display();
 }

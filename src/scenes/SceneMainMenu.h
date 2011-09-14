@@ -18,6 +18,8 @@ class SceneMainMenu : public SceneGuiBase
 		virtual void Draw( sf::RenderWindow& window );
 	
 	private:
+		sf::Text title;
+		
 		void ButtonCallback( gui::Button::EventType type, gui::Button& button );
 };
 
