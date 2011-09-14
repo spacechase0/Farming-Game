@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "scenes/SceneBase.h"
+#include "gui/Gui.h"
 
 class SceneMainMenu : public SceneBase
 {
@@ -18,7 +19,9 @@ class SceneMainMenu : public SceneBase
 		virtual void Draw( sf::RenderWindow& window );
 	
 	private:
-		sf::Texture& buttonTex;
+		gui::Button button;
+		
+		void ButtonCallback( gui::Button::EventType type, gui::Button& button );
 };
 
 #endif // SCENEMAINMENU_H

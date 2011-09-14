@@ -3,13 +3,24 @@
 #include "FarmingGame.h"
 
 SceneMainMenu::SceneMainMenu( FarmingGame& theGame )
-   : SceneBase( theGame ),
-     buttonTex( theGame.GetTexture( "gui/menu-button.png" ) )
+   : SceneBase( theGame )
 {
 }
 
 void SceneMainMenu::Initialize()
 {
+	sf::Texture& tex = game.GetTexture( "gui/menu-button.png" );
+	button.SetTexture( tex );
+	button.SetRects( sf::IntRect( 0, ( tex.GetHeight() / 3 ) * 0, tex.GetWidth(), tex.GetHeight() / 3 ),
+					 sf::IntRect( 0, ( tex.GetHeight() / 3 ) * 1, tex.GetWidth(), tex.GetHeight() / 3 ),
+					 sf::IntRect( 0, ( tex.GetHeight() / 3 ) * 2, tex.GetWidth(), tex.GetHeight() / 3 ) );
+	button.SetPosition( 0, 0 );
+	
+	{
+		using namespace std::placeholders;
+		auto callback = std::bind( &SceneMainMenu::ButtonCallback, this, _1, _2 );
+		button.SetCallback( callback );
+	}
 }
 
 void SceneMainMenu::Terminate()
@@ -18,20 +29,29 @@ void SceneMainMenu::Terminate()
 		
 void SceneMainMenu::Update( sf::RenderWindow& window )
 {
+	button.Update( window );
 }
 
 void SceneMainMenu::Update( sf::RenderWindow& window, const sf::Event& event )
 {
+	if ( event.Type == sf::Event::Closed )
+	{
+		window.Close();
+	}
+	
+	button.Update( window, event );
 }
 
 void SceneMainMenu::Draw( sf::RenderWindow& window )
 {
-	window.Clear( sf::Color::White );
+	window.Clear( sf::Color::Black );
 	
-	sf::Sprite spr;
-	spr.SetTexture( buttonTex );
-	spr.SetSubRect( sf::IntRect( 0, 0, buttonTex.GetWidth(), buttonTex.GetHeight() / 3 ) );
-	window.Draw( spr );
+	button.Draw( window );
 	
 	window.Display();
+}
+
+void SceneMainMenu::ButtonCallback( gui::Button::EventType type, gui::Button& button )
+{
+	std::cout << "Button event " << type << std::endl;
 }

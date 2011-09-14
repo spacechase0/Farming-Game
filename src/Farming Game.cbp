@@ -51,6 +51,9 @@
 		<Unit filename="FarmingGame.h" />
 		<Unit filename="Global.h" />
 		<Unit filename="gui\Base.h" />
+		<Unit filename="gui\Button.cpp" />
+		<Unit filename="gui\Button.h" />
+		<Unit filename="gui\Gui.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="scenes\SceneBase.h" />
 		<Unit filename="scenes\SceneMainMenu.cpp" />
