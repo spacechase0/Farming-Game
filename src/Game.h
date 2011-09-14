@@ -46,6 +46,7 @@ class Game
 		
 		SceneMap scenes;
 		std::string currentScene;
+		std::string nextScene;
 		
 		TextureMap textures;
 		FontMap fonts;

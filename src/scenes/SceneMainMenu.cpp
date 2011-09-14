@@ -71,5 +71,11 @@ void SceneMainMenu::Draw( sf::RenderWindow& window )
 
 void SceneMainMenu::ButtonCallback( gui::Button::EventType type, gui::Button& button )
 {
-	std::cout << "Button event " << type << std::endl;
+	if ( static_cast< gui::TextButton* >( &button )->GetString() == "Play" )
+	{
+		if ( type == gui::Button::Release )
+		{
+			game.ChangeScene( "Game" );
+		}
+	}
 }

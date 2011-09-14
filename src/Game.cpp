@@ -11,8 +11,11 @@ const sf::Vector2i Game::WindowSize( 640, 480 );
 Game::Game()
 {
 	AddScene( "MainMenu", ScenePtr( new SceneMainMenu( * this ) ) );
+	AddScene( "Game", ScenePtr( new SceneGame( * this ) ) );
 	
-	ChangeScene( "MainMenu" );
+	// Just trust me on this, ok? :P
+	currentScene = "";
+	nextScene = "MainMenu";
 }
 
 Game::~Game()
@@ -26,7 +29,6 @@ Game::~Game()
 int Game::Run()
 {
 	window.Create( sf::VideoMode( WindowSize.x, WindowSize.y ), WindowTitle, sf::Style::Titlebar | sf::Style::Close );
-	scenes[ currentScene ]->Initialize();
 	
 	sf::Uint32 rate = 0;
 	simulationTimer.Reset();
@@ -34,6 +36,18 @@ int Game::Run()
 	
 	while ( isRunning )
 	{
+		// Process to the next scene, if it's different
+		if ( currentScene != nextScene )
+		{
+			if ( scenes.find( currentScene ) != scenes.end() and scenes[ currentScene ] )
+			{
+				scenes[ currentScene ]->Terminate();
+			}
+			scenes[ nextScene ]->Initialize();
+			
+			currentScene = nextScene;
+		}
+		
 		// Current scene
 		ScenePtr scene = scenes[ currentScene ];
 		
@@ -93,13 +107,7 @@ void Game::ChangeScene( const std::string& sceneName )
 		throw std::invalid_argument( "Scene '" + sceneName + "' does not exist." );
 	}
 	
-	if ( scenes.find( currentScene ) != scenes.end() )
-	{
-		scenes[ currentScene ]->Terminate();
-	}
-	scenes[ sceneName ]->Initialize();
-	
-	currentScene = sceneName;
+	nextScene = sceneName;
 }
 
 void Game::AddScene( const std::string& sceneName, ScenePtr scene )
