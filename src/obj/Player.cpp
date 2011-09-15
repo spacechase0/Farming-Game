@@ -9,9 +9,12 @@ namespace obj
 	const sf::Vector2i Player::FrameSize( 32, 64 );
 	
 	Player::Player( Game& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos )
-	   : GridObject::GridObject( theGame, theTexture, theGridPos )
+	   : GridObject::GridObject( theGame, theTexture, theGridPos ),
+	     movement( None ), nextDir( None ),
+	     renderOffset( 0 )
 	{
-		sprite.SetSubRect( sf::IntRect( 0, 0, FrameSize.x, FrameSize.y ) );
+		sf::IntRect subRect( FrameSize.x * Down, FrameSize.y * 0, FrameSize.x, FrameSize.y );
+		sprite.SetSubRect( subRect );
 	}
 	
 	void Player::Update()
@@ -99,6 +102,13 @@ namespace obj
 			case Left:  moveX = -renderOffset; break;
 			case Right: moveX = renderOffset;  break;
 			default: break;
+		}
+		
+		if ( movement != None )
+		{
+			int direction = static_cast< int >( movement );
+			sf::IntRect subRect( FrameSize.x * direction, FrameSize.y * 0, FrameSize.x, FrameSize.y );
+			sprite.SetSubRect( subRect );
 		}
 		
 		sprite.Move( moveX, moveY );

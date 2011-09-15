@@ -19,12 +19,13 @@ namespace obj
 		private:
 			enum Movement
 			{
-				None,
+				// Making Up be 0 makes the subrect thing a whole lot easier
+				None = -1,
 				
-				Up,
-				Down,
-				Left,
-				Right
+				Up    = 0,
+				Down  = 1,
+				Left  = 2,
+				Right = 3
 			} movement, nextDir;
 			float renderOffset;
 			static const float RenderOffsetThreshold;
