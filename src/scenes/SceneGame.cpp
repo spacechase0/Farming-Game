@@ -62,6 +62,7 @@ void SceneGame::CreateTestLayer()
 	Tile grassTile( texture, 1, false );
 	Tile dirtTile( texture, 0, true );
 	Tile sandTile( texture, 2, true );
+	Tile cropTile( texture, 3, false );
 	
 	layers.push_back( TileLayer( layerSize, grassTile ) );
 	TileLayer& layer = layers[ 0 ];
@@ -76,6 +77,10 @@ void SceneGame::CreateTestLayer()
 			else if ( iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
 			{
 				layer[ ix ][ iy ] = dirtTile;
+			}
+			else if ( ix >= 8 and ix <= 10 and iy >= 8 and iy <= 10 )
+			{
+				layer[ ix ][ iy ] = cropTile;
 			}
 		}
 	}
