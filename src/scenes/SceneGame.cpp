@@ -59,18 +59,23 @@ void SceneGame::CreateTestLayer()
 	sf::Texture& texture = game.GetTexture( "tiles/outside.png" );
 	
 	sf::Vector2i layerSize = Game::WindowSize / 32;
-	Tile defaultTile( texture, 1, false );
-	Tile altTile( texture, 0, true );
+	Tile grassTile( texture, 1, false );
+	Tile dirtTile( texture, 0, true );
+	Tile sandTile( texture, 2, true );
 	
-	layers.push_back( TileLayer( layerSize, defaultTile ) );
+	layers.push_back( TileLayer( layerSize, grassTile ) );
 	TileLayer& layer = layers[ 0 ];
 	for ( size_t ix = 0; ix < layer.GetTiles().size(); ++ix )
 	{
 		for ( size_t iy = 0; iy < layer.GetTiles()[ ix ].size(); ++iy )
 		{
-			if ( ix == 0 or iy == 0 or ix == layer.GetTiles().size() - 1 or iy == layer.GetTiles()[ ix ].size() - 1 )
+			if ( ix == 0 or ix == layer.GetTiles().size() - 1 )
 			{
-				layer[ ix ][ iy ] = altTile;
+				layer[ ix ][ iy ] = sandTile;
+			}
+			else if ( iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
+			{
+				layer[ ix ][ iy ] = dirtTile;
 			}
 		}
 	}
