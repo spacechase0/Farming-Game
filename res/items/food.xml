@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <Items>
-	<Item name="Coconut"   type="edible" index="0" price="24" />
-	<Item name="Pineapple" type="edible" index="1" price="36" />
-	<Item name="Pear"      type="edible" index="2" price="28" />
-	<Item name="Mushroom"  type="edible" index="3" price="12" />
-	<Item name="Egg"       type="edible" index="4" price="7"  />
+	<Item name="Coconut"   type="food" index="0" price="24" />
+	<Item name="Pineapple" type="food" index="1" price="36" />
+	<Item name="Pear"      type="food" index="2" price="28" />
+	<Item name="Mushroom"  type="food" index="3" price="12" />
+	<Item name="Egg"       type="food" index="4" price="7"  />
 </Items>
