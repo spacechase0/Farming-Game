@@ -17,7 +17,7 @@ namespace obj
 			sf::Vector2i GetGridPosition();
 			
 			virtual void Update();
-			virtual void Update( sf::Event& event );
+			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
 		
 		protected:

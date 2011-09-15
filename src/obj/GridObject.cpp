@@ -47,7 +47,7 @@ namespace obj
 	{
 	}
 	
-	void GridObject::Update( sf::Event& event )
+	void GridObject::Update( const sf::Event& event )
 	{
 	}
 	
