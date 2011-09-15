@@ -1,0 +1,4 @@
+<?xml version="1.0" ?>
+<Items>
+	<Item name="Trowel" type="tool" index="0" action="dig" stamina="-3" breakchance="0.05" />
+</Items>

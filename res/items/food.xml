@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<Items>
+	<Item name="Coconut"   type="edible" index="0" hunger="24" stamina="32" />
+	<Item name="Pineapple" type="edible" index="1" hunger="36" stamina="27" />
+	<Item name="Pear"      type="edible" index="2" hunger="28" stamina="29" />
+	<Item name="Mushroom"  type="edible" index="3" hunger="12" stamina="-14" sideeffect="sickness" />
+	<Item name="Egg"       type="edible" index="4" hunger="7"  stamina="3"   sideeffect="sickness" chance="25" />
+</Items>
