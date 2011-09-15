@@ -2,6 +2,7 @@
 #define SCENES_SCENEGAME_H
 
 #include <vector>
+#include <list>
 
 #include "scenes/SceneBase.h"
 #include "TileLayer.h"
@@ -22,7 +23,7 @@ class SceneGame : public SceneBase
 	
 	protected:
 		std::vector< TileLayer > layers;
-		std::vector< boost::shared_ptr< obj::Base > > objects;
+		std::list< boost::shared_ptr< obj::Base > > objects;
 		
 		void CreateTestLayer();
 		void CreateTestObject();

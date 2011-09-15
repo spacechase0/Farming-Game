@@ -1,6 +1,7 @@
 #include "scenes/SceneGame.h"
 
 #include "Game.h"
+#include "obj/Objects.h"
 
 SceneGame::SceneGame( Game& game )
    : SceneBase::SceneBase( game )
@@ -38,6 +39,10 @@ void SceneGame::Draw( sf::RenderWindow& window )
 		TileLayer& layer = ( * it );
 		DrawLayer( window, layer );
 	}
+	for ( auto it = objects.begin(); it != objects.end(); ++it )
+	{
+		( * it )->Draw( window );
+	}
 	
 	window.Display();
 }
@@ -66,7 +71,8 @@ void SceneGame::CreateTestLayer()
 
 void SceneGame::CreateTestObject()
 {
-	//
+	sf::Texture& texture = game.GetTexture( "characters/player-idle.png" );
+	objects.push_back( boost::shared_ptr< obj::Base >( new obj::GridObject( game, texture, sf::Vector2i( 5, 5 ) ) ) );
 }
 
 void SceneGame::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const

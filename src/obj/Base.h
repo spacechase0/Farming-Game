@@ -1,6 +1,8 @@
 #ifndef OBJ_BASE_H
 #define OBJ_BASE_H
 
+#include <SFML/Graphics.hpp>
+
 class Game;
 
 namespace obj

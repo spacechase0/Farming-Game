@@ -61,6 +61,10 @@
 		<Unit filename="gui\TextButton.cpp" />
 		<Unit filename="gui\TextButton.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="obj\Base.h" />
+		<Unit filename="obj\GridObject.cpp" />
+		<Unit filename="obj\GridObject.h" />
+		<Unit filename="obj\Objects.h" />
 		<Unit filename="scenes\SceneBase.h" />
 		<Unit filename="scenes\SceneGame.cpp" />
 		<Unit filename="scenes\SceneGame.h" />
