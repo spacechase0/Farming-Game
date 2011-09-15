@@ -95,14 +95,15 @@ bool SceneGame::IsTileEmpty( sf::Vector2i pos, int layer )
 
 void SceneGame::CreateTestLayer()
 {
-	sf::Texture& texture = game.GetTexture( "tiles/outside.png" );
+	sf::Texture& outsideTileset = game.GetTexture( "tiles/outside.png" );
+	sf::Texture& fenceHorizontal = game.GetTexture( "scenery/fence.png" );
 	
 	sf::Vector2i layerSize = Game::WindowSize / 32;
-	Tile grassTile( texture, 1, false );
-	Tile dirtTile( texture, 0, false );
-	Tile sandTile( texture, 2, false );
-	Tile cropTile( texture, 3, false );
-	Tile noCollideTile( texture, 255, true );
+	Tile grassTile( outsideTileset, 1, false );
+	Tile dirtTile( outsideTileset, 0, false );
+	Tile sandTile( outsideTileset, 2, false );
+	Tile cropTile( outsideTileset, 3, false );
+	Tile noCollideTile( outsideTileset, 255, true );
 	
 	layers.push_back( TileLayer( layerSize, grassTile ) );
 	TileLayer& layer = layers[ 0 ];
@@ -113,6 +114,11 @@ void SceneGame::CreateTestLayer()
 			if ( ix == 0 or ix == layer.GetTiles().size() - 1 or iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
 			{
 				layer[ ix ][ iy ] = noCollideTile;
+				if ( iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
+				{
+					obj::Base* fence = new obj::GridObject( ( * this ), fenceHorizontal, sf::Vector2i( ix, iy ) );
+					objects.push_back( boost::shared_ptr< obj::Base >( fence ) );
+				}
 			}
 			else if ( ix >= 8 and ix <= 10 and iy >= 8 and iy <= 10 )
 			{
