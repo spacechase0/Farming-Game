@@ -21,6 +21,7 @@
 					<Add option="-lsfml-graphics-d" />
 					<Add option="-lsfml-window-d" />
 					<Add option="-lsfml-system-d" />
+					<Add option="-lsc0-xml-d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -39,6 +40,7 @@
 					<Add option="-lsfml-graphics" />
 					<Add option="-lsfml-window" />
 					<Add option="-lsfml-system" />
+					<Add option="-lsc0-xml" />
 				</Linker>
 			</Target>
 		</Build>
@@ -60,6 +62,15 @@
 		<Unit filename="gui\Gui.h" />
 		<Unit filename="gui\TextButton.cpp" />
 		<Unit filename="gui\TextButton.h" />
+		<Unit filename="item\Food.cpp" />
+		<Unit filename="item\Food.h" />
+		<Unit filename="item\Item.cpp" />
+		<Unit filename="item\Item.h" />
+		<Unit filename="item\Items.h" />
+		<Unit filename="item\Seed.cpp" />
+		<Unit filename="item\Seed.h" />
+		<Unit filename="item\Tool.cpp" />
+		<Unit filename="item\Tool.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="obj\Base.h" />
 		<Unit filename="obj\GridObject.cpp" />
