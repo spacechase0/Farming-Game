@@ -28,7 +28,7 @@ namespace gui
 		text.SetCharacterSize( size );
 	}
 	
-	unsigned int TextButton::GetCharacterSize()
+	unsigned int TextButton::GetCharacterSize() const
 	{
 		return text.GetCharacterSize();
 	}
