@@ -5,7 +5,7 @@
 namespace obj
 {
 	const float Player::RenderOffsetThreshold  = Game::TileSize;
-	const float Player::RenderOffsetMultiplier = 2.5;
+	const float Player::RenderOffsetMultiplier = 3.25;
 	
 	Player::Player( Game& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos )
 	   : GridObject::GridObject( theGame, theTexture, theGridPos )
