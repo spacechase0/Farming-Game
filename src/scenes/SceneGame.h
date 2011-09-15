@@ -25,11 +25,11 @@ class SceneGame : public SceneBase
 		virtual void Update( sf::RenderWindow& window );
 		virtual void Update( sf::RenderWindow& window, const sf::Event& event );
 		virtual void Draw( sf::RenderWindow& window );
-	
-	protected:
+		
 		std::vector< TileLayer > layers;
 		std::list< boost::shared_ptr< obj::Base > > objects;
-		
+	
+	protected:
 		void CreateTestLayer();
 		void CreateTestObject();
 		void DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const;
