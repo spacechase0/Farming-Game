@@ -4,56 +4,26 @@
 
 namespace obj
 {
-	const float Player::RenderOffsetThreshold  = Game::TileSize;
-	const float Player::RenderOffsetMultiplier = 3.25;
-	const sf::Vector2i Player::FrameSize( 32, 64 );
-	
 	Player::Player( Game& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos )
-	   : GridObject::GridObject( theGame, theTexture, theGridPos ),
-	     movement( None ), nextDir( None ),
-	     renderOffset( 0 )
+	   : Npc::Npc( theGame, theTexture, sf::Vector2i( 32, 64 ) )
 	{
-		sf::IntRect subRect( FrameSize.x * Down, FrameSize.y * 0, FrameSize.x, FrameSize.y );
-		sprite.SetSubRect( subRect );
+		SetGridPosition( theGridPos );
 	}
 	
 	void Player::Update()
 	{
-		GridObject::Update();
-		if ( movement != None )
-		{
-			renderOffset += ( Game::SimulationRate / Game::TileSize ) * RenderOffsetMultiplier;
-			if ( renderOffset >= RenderOffsetThreshold )
-			{
-				renderOffset -= RenderOffsetThreshold;
-				switch ( movement )
-				{
-					case Up:    --gridPos.y; break;
-					case Down:  ++gridPos.y; break;
-					case Left:  --gridPos.x; break;
-					case Right: ++gridPos.x; break;
-					default:    break; // Gets rid of "warning: enumeration value 'None' not handled in switch"
-				}
-				SetGridPosition( gridPos ); // Take a look at GridObject::SetGridPosition to see why. :P
-				movement = nextDir;
-			}
-		}
-		else
-		{
-			renderOffset = 0.00;
-			movement = nextDir;
-		}
+		Npc::Update();
 	}
 	
 	void Player::Update( const sf::Event& event )
 	{
-		GridObject::Update( event );
+		Npc::Update( event );
 		if ( event.Type == sf::Event::KeyPressed )
 		{
 			switch ( event.Key.Code )
 			{
 				#define DoKey(a) case sf::Keyboard::a: \
-									nextDir = a;       \
+									Walk( a );         \
 									break;
 				
 				DoKey( Up );
@@ -67,15 +37,14 @@ namespace obj
 					break;
 			};
 		}
-		else 
-		if ( event.Type == sf::Event::KeyReleased )
+		else if ( event.Type == sf::Event::KeyReleased )
 		{
 			switch ( event.Key.Code )
 			{
 				#define DoKey(a) case sf::Keyboard::a:  \
 									if ( nextDir == a ) \
 									{                   \
-										nextDir = None; \
+										StopWalking();  \
 									}                   \
 									break;
 				
@@ -94,25 +63,6 @@ namespace obj
 	
 	void Player::Draw( sf::RenderWindow& window )
 	{
-		float moveX = 0.f, moveY = 0.f;
-		switch ( movement )
-		{
-			case Up:    moveY = -renderOffset; break;
-			case Down:  moveY = renderOffset;  break;
-			case Left:  moveX = -renderOffset; break;
-			case Right: moveX = renderOffset;  break;
-			default: break;
-		}
-		
-		if ( movement != None )
-		{
-			int direction = static_cast< int >( movement );
-			sf::IntRect subRect( FrameSize.x * direction, FrameSize.y * 0, FrameSize.x, FrameSize.y );
-			sprite.SetSubRect( subRect );
-		}
-		
-		sprite.Move( moveX, moveY );
-		GridObject::Draw( window );
-		sprite.Move( -moveX, -moveY );
+		Npc::Draw( window );
 	}
 }
