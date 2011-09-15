@@ -133,7 +133,9 @@ void SceneGame::CreateTestLayer()
 void SceneGame::CreateTestObject()
 {
 	sf::Texture& texture = game.GetTexture( "characters/player.png" );
-	objects.push_back( boost::shared_ptr< obj::Base >( new obj::Player( ( * this ), texture, sf::Vector2i( 5, 5 ) ) ) );
+	player = boost::shared_ptr< obj::Player >( new obj::Player( ( * this ), texture, sf::Vector2i( 13, 5 ) ) );
+	
+	objects.push_back( player );
 }
 
 void SceneGame::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const

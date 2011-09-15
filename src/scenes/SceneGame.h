@@ -12,6 +12,7 @@ namespace obj
 {
 	class Base;
 	class GridObject;
+	class Player;
 }
 
 class SceneGame : public SceneBase
@@ -31,6 +32,7 @@ class SceneGame : public SceneBase
 		
 		std::vector< TileLayer > layers;
 		std::list< boost::shared_ptr< obj::Base > > objects;
+		boost::shared_ptr< obj::Player > player;
 	
 	protected:
 		void CreateTestLayer();
