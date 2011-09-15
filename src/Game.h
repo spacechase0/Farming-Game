@@ -33,6 +33,7 @@ class Game
 		static const std::string WindowTitle;
 		static const sf::Vector2i WindowSize;
 		static const sf::Uint8 SimulationRate;
+		static const sf::Uint8 TileSize;
 	
 	private:
 		typedef boost::shared_ptr< sf::Texture > TexturePtr;

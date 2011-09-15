@@ -1,7 +1,10 @@
 #ifndef SCENES_SCENEGAME_H
 #define SCENES_SCENEGAME_H
 
+#include <vector>
+
 #include "scenes/SceneBase.h"
+#include "TileLayer.h"
 
 class SceneGame : public SceneBase
 {
@@ -16,7 +19,8 @@ class SceneGame : public SceneBase
 		virtual void Draw( sf::RenderWindow& window );
 	
 	protected:
-		// Coming soon
+		std::vector< TileLayer > layers;
+		void DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const;
 };
 
 #endif // SCENES_SCENEGAME_H
