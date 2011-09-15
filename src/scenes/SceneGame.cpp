@@ -97,7 +97,7 @@ void SceneGame::CreateTestLayer()
 
 void SceneGame::CreateTestObject()
 {
-	sf::Texture& texture = game.GetTexture( "characters/player-idle.png" );
+	sf::Texture& texture = game.GetTexture( "characters/player.png" );
 	objects.push_back( boost::shared_ptr< obj::Base >( new obj::Player( game, texture, sf::Vector2i( 5, 5 ) ) ) );
 }
 

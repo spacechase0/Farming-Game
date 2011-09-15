@@ -6,11 +6,12 @@ namespace obj
 {
 	const float Player::RenderOffsetThreshold  = Game::TileSize;
 	const float Player::RenderOffsetMultiplier = 3.25;
+	const sf::Vector2i Player::FrameSize( 32, 64 );
 	
 	Player::Player( Game& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos )
 	   : GridObject::GridObject( theGame, theTexture, theGridPos )
 	{
-		sprite.SetSubRect( sf::IntRect( 0, 0, texture->GetWidth(), texture->GetHeight() ) );
+		sprite.SetSubRect( sf::IntRect( 0, 0, FrameSize.x, FrameSize.y ) );
 	}
 	
 	void Player::Update()

@@ -29,6 +29,7 @@ namespace obj
 			float renderOffset;
 			static const float RenderOffsetThreshold;
 			static const float RenderOffsetMultiplier;
+			static const sf::Vector2i FrameSize;
 	};
 }
 
