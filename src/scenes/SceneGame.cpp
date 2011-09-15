@@ -1,5 +1,7 @@
 #include "scenes/SceneGame.h"
 
+#include <typeinfo>
+
 #include "Game.h"
 #include "obj/Objects.h"
 
@@ -39,6 +41,11 @@ void SceneGame::Draw( sf::RenderWindow& window )
 		TileLayer& layer = ( * it );
 		DrawLayer( window, layer );
 	}
+	{
+		using namespace std::placeholders;
+		auto compare = std::bind( &SceneGame::CompareObjects, this, _1, _2 );
+		objects.sort( compare );
+	}
 	for ( auto it = objects.begin(); it != objects.end(); ++it )
 	{
 		( * it )->Draw( window );
@@ -73,6 +80,7 @@ void SceneGame::CreateTestObject()
 {
 	sf::Texture& texture = game.GetTexture( "characters/player-idle.png" );
 	objects.push_back( boost::shared_ptr< obj::Base >( new obj::GridObject( game, texture, sf::Vector2i( 5, 5 ) ) ) );
+	objects.push_back( boost::shared_ptr< obj::Base >( new obj::GridObject( game, texture, sf::Vector2i( 5, 4 ) ) ) );
 }
 
 void SceneGame::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const
@@ -94,4 +102,17 @@ void SceneGame::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) co
 			window.Draw( spr );
 		}
 	}
+}
+
+bool SceneGame::CompareObjects( const boost::shared_ptr< obj::Base >& obj1, const boost::shared_ptr< obj::Base >& obj2 )
+{
+	if ( typeid( * obj1 ) != typeid( obj::GridObject ) or typeid( * obj2 ) != typeid( obj::GridObject ) )
+	{
+		return false;
+	}
+	
+	obj::GridObject* firstObj = static_cast< obj::GridObject* >( &( * obj1 ) );
+	obj::GridObject* secondObj = static_cast< obj::GridObject* >( &( * obj2 ) );
+	
+	return ( -firstObj->GetGridPosition().y ) > ( -secondObj->GetGridPosition().y );
 }

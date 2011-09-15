@@ -28,6 +28,8 @@ class SceneGame : public SceneBase
 		void CreateTestLayer();
 		void CreateTestObject();
 		void DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const;
+		
+		bool CompareObjects( const boost::shared_ptr< obj::Base >& obj1, const boost::shared_ptr< obj::Base >& obj2 );
 };
 
 #endif // SCENES_SCENEGAME_H
