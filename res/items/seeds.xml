@@ -1,4 +1,4 @@
 <?xml version="1.0" ?>
 <Items>
-	<Item name="Pineapple Seed" type="seed" index="0" stages="6" stageTime="12" stageData="101010" product="Pineapple" revert="0" />
+	<Item name="Pineapple Seed" type="seed" index="0" crop="Pineapple" />
 </Items>

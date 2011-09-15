@@ -1,0 +1,4 @@
+<?xml version="1.0" ?>
+<Crops>
+	<Item name="Pineapple" index="0" width="1" height="1" stages="6" stageTime="12" stageData="101010" product="Pineapple" revert="0" />
+</Crops>
