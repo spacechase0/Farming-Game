@@ -1,12 +1,10 @@
 #include "obj/Npc.h"
 
-#include "Game.h"
-
 namespace obj
 {
 	const float Npc::RenderOffsetThreshold = Game::TileSize;
 	
-	Npc::Npc( Game& theGame, sf::Texture& theTexture, sf::Vector2i theFrameSize )
+	Npc::Npc( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theFrameSize )
 	   : GridObject::GridObject( theGame, theTexture, sf::Vector2i( 0, 0 ) ),
 	     movement( None ), nextDir( None ),
 	     renderOffset( 0 ),

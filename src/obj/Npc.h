@@ -10,7 +10,7 @@ namespace obj
 	class Npc : public GridObject
 	{
 		public:
-			Npc( Game& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos );
+			Npc( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos );
 			
 			virtual void Update();
 			virtual void Update( const sf::Event& event );

@@ -8,7 +8,7 @@ namespace obj
 	class GridObject : public Base
 	{
 		public:
-			GridObject( Game& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos );
+			GridObject( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos );
 			
 			void SetTexture( sf::Texture& theTexture );
 			sf::Texture& GetTexture() const;

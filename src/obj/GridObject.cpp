@@ -1,10 +1,8 @@
 #include "obj/GridObject.h"
 
-#include "Game.h"
-
 namespace obj
 {
-	GridObject::GridObject( Game& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos )
+	GridObject::GridObject( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos )
 	   : Base::Base( theGame )
 	{
 		SetTexture( theTexture );

@@ -7,7 +7,12 @@
 #include "scenes/SceneBase.h"
 #include "TileLayer.h"
 #include "util/Grid.h"
-#include "obj/Base.h"
+
+namespace obj
+{
+	class Base;
+	class GridObject;
+}
 
 class SceneGame : public SceneBase
 {

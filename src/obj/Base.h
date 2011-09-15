@@ -3,14 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 
-class Game;
+#include "scenes/SceneGame.h"
+#include "Game.h"
 
 namespace obj
 {
 	class Base
 	{
 		public:
-			Base( Game& theGame ) : game( theGame ) {}
+			Base( SceneGame& theGame ) : game( theGame ) {}
 			virtual ~Base() {}
 			
 			virtual void Update() = 0;
@@ -18,7 +19,7 @@ namespace obj
 			virtual void Draw( sf::RenderWindow& window ) = 0;
 		
 		protected:
-			::Game& game;
+			::SceneGame& game;
 	};
 }
 
