@@ -26,6 +26,9 @@ class SceneGame : public SceneBase
 		virtual void Update( sf::RenderWindow& window, const sf::Event& event );
 		virtual void Draw( sf::RenderWindow& window );
 		
+		bool IsTileEmpty( int x, int y, int layer = -1 );
+		bool IsTileEmpty( sf::Vector2i pos, int layer = -1 );
+		
 		std::vector< TileLayer > layers;
 		std::list< boost::shared_ptr< obj::Base > > objects;
 	

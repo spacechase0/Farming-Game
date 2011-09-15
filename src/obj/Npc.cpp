@@ -21,7 +21,16 @@ namespace obj
 		GridObject::Update();
 		if ( movement != None )
 		{
-			renderOffset += ( Game::SimulationRate / Game::TileSize ) * renderOffsetSpeed;
+			if ( IsDirectionEmpty( movement ) )
+			{
+				renderOffset += ( Game::SimulationRate / Game::TileSize ) * renderOffsetSpeed;
+			}
+			else
+			{
+				renderOffset = 0;
+				movement = nextDir;
+			}
+			
 			if ( renderOffset >= RenderOffsetThreshold )
 			{
 				renderOffset -= RenderOffsetThreshold;
@@ -39,7 +48,7 @@ namespace obj
 		}
 		else
 		{
-			renderOffset = 0.00;
+			renderOffset = 0;
 			movement = nextDir;
 		}
 	}
@@ -81,5 +90,20 @@ namespace obj
 	void Npc::StopWalking()
 	{
 		nextDir = None;
+	}
+	
+	bool Npc::IsDirectionEmpty( MovementDirection& dir )
+	{
+		sf::Vector2i nextGridPos = gridPos;
+		switch ( movement )
+		{
+			case Up:    --nextGridPos.y; break;
+			case Down:  ++nextGridPos.y; break;
+			case Left:  --nextGridPos.x; break;
+			case Right: ++nextGridPos.x; break;
+			default:    break; // Gets rid of "warning: enumeration value 'None' not handled in switch"
+		}
+		
+		return !game.IsTileEmpty( nextGridPos );
 	}
 }

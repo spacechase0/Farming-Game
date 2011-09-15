@@ -63,15 +63,46 @@ void SceneGame::Draw( sf::RenderWindow& window )
 	window.Display();
 }
 
+
+bool SceneGame::IsTileEmpty( int x, int y, int layer )
+{
+	if ( layer <= -1 )
+	{
+		for ( auto it = layers.begin(); it != layers.end(); ++it )
+		{
+			bool solid = ( * it )[ x ][ y ].GetCollision();
+			if ( solid )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	else if ( static_cast< unsigned int >( layer ) >= layers.size() )
+	{
+		return false;
+	}
+	else
+	{
+		return layers[ layer ][ x ][ y ].GetCollision();
+	}
+}
+
+bool SceneGame::IsTileEmpty( sf::Vector2i pos, int layer )
+{
+	return IsTileEmpty( pos.x, pos.y, layer );
+}
+
 void SceneGame::CreateTestLayer()
 {
 	sf::Texture& texture = game.GetTexture( "tiles/outside.png" );
 	
 	sf::Vector2i layerSize = Game::WindowSize / 32;
 	Tile grassTile( texture, 1, false );
-	Tile dirtTile( texture, 0, true );
-	Tile sandTile( texture, 2, true );
+	Tile dirtTile( texture, 0, false );
+	Tile sandTile( texture, 2, false );
 	Tile cropTile( texture, 3, false );
+	Tile noCollideTile( texture, 255, true );
 	
 	layers.push_back( TileLayer( layerSize, grassTile ) );
 	TileLayer& layer = layers[ 0 ];
@@ -79,17 +110,21 @@ void SceneGame::CreateTestLayer()
 	{
 		for ( size_t iy = 0; iy < layer.GetTiles()[ ix ].size(); ++iy )
 		{
-			if ( ix == 0 or ix == layer.GetTiles().size() - 1 )
+			if ( ix == 0 or ix == layer.GetTiles().size() - 1 or iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
 			{
-				layer[ ix ][ iy ] = sandTile;
-			}
-			else if ( iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
-			{
-				layer[ ix ][ iy ] = dirtTile;
+				layer[ ix ][ iy ] = noCollideTile;
 			}
 			else if ( ix >= 8 and ix <= 10 and iy >= 8 and iy <= 10 )
 			{
 				layer[ ix ][ iy ] = cropTile;
+			}
+			else if ( ix >= 6 and ix <= 8 and iy >= 2 and iy <= 4 )
+			{
+				layer[ ix ][ iy ] = dirtTile;
+			}
+			else if ( ix >= 12 and ix <= 14 and iy >= 4 and iy <= 6 )
+			{
+				layer[ ix ][ iy ] = sandTile;
 			}
 		}
 	}

@@ -36,6 +36,8 @@ namespace obj
 			const sf::Vector2i frameSize;
 			
 			static const float RenderOffsetThreshold;
+			
+			bool IsDirectionEmpty( MovementDirection& dir );
 	};
 }
 
