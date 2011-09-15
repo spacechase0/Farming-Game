@@ -21,6 +21,11 @@ std::vector< Tile >& TileLayer::operator [] ( size_t index )
 	return grid[ index ];
 }
 
+void TileLayer::SetTile( size_t xIndex, size_t yIndex, Tile tile )
+{
+	grid[ xIndex ][ yIndex ] = tile;
+}
+
 const Tile& TileLayer::GetTile( size_t xIndex, size_t yIndex ) const
 {
 	return grid[ xIndex ][ yIndex ];

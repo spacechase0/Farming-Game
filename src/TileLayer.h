@@ -15,6 +15,7 @@ class TileLayer
 		const std::vector< Tile >& operator [] ( size_t index ) const;
 		std::vector< Tile >& operator [] ( size_t index );
 		
+		void SetTile( size_t xIndex, size_t yIndex, Tile tile );
 		const Tile& GetTile( size_t xIndex, size_t yIndex ) const;
 		Tile& GetTile( size_t xIndex, size_t yIndex );
 		
