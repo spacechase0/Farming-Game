@@ -5,6 +5,8 @@
 
 #include "scenes/SceneBase.h"
 #include "TileLayer.h"
+#include "util/Grid.h"
+#include "obj/Base.h"
 
 class SceneGame : public SceneBase
 {
@@ -20,6 +22,10 @@ class SceneGame : public SceneBase
 	
 	protected:
 		std::vector< TileLayer > layers;
+		std::vector< boost::shared_ptr< obj::Base > > objects;
+		
+		void CreateTestLayer();
+		void CreateTestObject();
 		void DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const;
 };
 

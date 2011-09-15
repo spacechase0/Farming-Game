@@ -9,24 +9,8 @@ SceneGame::SceneGame( Game& game )
 
 void SceneGame::Initialize()
 {
-	sf::Texture& texture = game.GetTexture( "tiles/outside.png" );
-	
-	sf::Vector2i layerSize = Game::WindowSize / 32;
-	Tile defaultTile( texture, 1, false );
-	Tile altTile( texture, 0, true );
-	
-	layers.push_back( TileLayer( layerSize, defaultTile ) );
-	TileLayer& layer = layers[ 0 ];
-	for ( size_t ix = 0; ix < layer.GetTiles().size(); ++ix )
-	{
-		for ( size_t iy = 0; iy < layer.GetTiles()[ ix ].size(); ++iy )
-		{
-			if ( ix == 0 or iy == 0 or ix == layer.GetTiles().size() - 1 or iy == layer.GetTiles()[ ix ].size() - 1 )
-			{
-				layer[ ix ][ iy ] = altTile;
-			}
-		}
-	}
+	CreateTestLayer();
+	CreateTestObject();
 }
 
 void SceneGame::Terminate()
@@ -56,6 +40,33 @@ void SceneGame::Draw( sf::RenderWindow& window )
 	}
 	
 	window.Display();
+}
+
+void SceneGame::CreateTestLayer()
+{
+	sf::Texture& texture = game.GetTexture( "tiles/outside.png" );
+	
+	sf::Vector2i layerSize = Game::WindowSize / 32;
+	Tile defaultTile( texture, 1, false );
+	Tile altTile( texture, 0, true );
+	
+	layers.push_back( TileLayer( layerSize, defaultTile ) );
+	TileLayer& layer = layers[ 0 ];
+	for ( size_t ix = 0; ix < layer.GetTiles().size(); ++ix )
+	{
+		for ( size_t iy = 0; iy < layer.GetTiles()[ ix ].size(); ++iy )
+		{
+			if ( ix == 0 or iy == 0 or ix == layer.GetTiles().size() - 1 or iy == layer.GetTiles()[ ix ].size() - 1 )
+			{
+				layer[ ix ][ iy ] = altTile;
+			}
+		}
+	}
+}
+
+void SceneGame::CreateTestObject()
+{
+	//
 }
 
 void SceneGame::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const

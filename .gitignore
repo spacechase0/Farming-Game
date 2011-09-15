@@ -40,3 +40,4 @@ src/Farming Game.layout
 
 # 'obj' directory
 obj
+!src/obj
