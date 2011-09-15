@@ -65,6 +65,8 @@
 		<Unit filename="obj\GridObject.cpp" />
 		<Unit filename="obj\GridObject.h" />
 		<Unit filename="obj\Objects.h" />
+		<Unit filename="obj\Player.cpp" />
+		<Unit filename="obj\Player.h" />
 		<Unit filename="scenes\SceneBase.h" />
 		<Unit filename="scenes\SceneGame.cpp" />
 		<Unit filename="scenes\SceneGame.h" />

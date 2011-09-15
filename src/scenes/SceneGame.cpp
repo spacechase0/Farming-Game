@@ -22,6 +22,10 @@ void SceneGame::Terminate()
 
 void SceneGame::Update( sf::RenderWindow& window )
 {
+	for ( auto it = objects.begin(); it != objects.end(); ++it )
+	{
+		( * it )->Update();
+	}
 }
 
 void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
@@ -29,6 +33,11 @@ void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
 	if ( event.Type == sf::Event::Closed )
 	{
 		window.Close();
+	}
+	
+	for ( auto it = objects.begin(); it != objects.end(); ++it )
+	{
+		( * it )->Update( event );
 	}
 }
 
@@ -89,8 +98,7 @@ void SceneGame::CreateTestLayer()
 void SceneGame::CreateTestObject()
 {
 	sf::Texture& texture = game.GetTexture( "characters/player-idle.png" );
-	objects.push_back( boost::shared_ptr< obj::Base >( new obj::GridObject( game, texture, sf::Vector2i( 5, 5 ) ) ) );
-	objects.push_back( boost::shared_ptr< obj::Base >( new obj::GridObject( game, texture, sf::Vector2i( 5, 4 ) ) ) );
+	objects.push_back( boost::shared_ptr< obj::Base >( new obj::Player( game, texture, sf::Vector2i( 5, 5 ) ) ) );
 }
 
 void SceneGame::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const
