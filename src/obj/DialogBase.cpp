@@ -9,17 +9,17 @@ namespace obj
 	{
 	}
 			
-	void SetPosition( sf::Vector2f pos )
+	void DialogBase::SetPosition( sf::Vector2f pos )
 	{
 		sprite.SetPosition( pos );
 	}
 	
-	void SetPosition( float x, float y )
+	void DialogBase::SetPosition( float x, float y )
 	{
 		sprite.SetPosition( x, y );
 	}
 	
-	sf::Vector2f GetPosition() const
+	sf::Vector2f DialogBase::GetPosition() const
 	{
 		return sprite.GetPosition();
 	}
@@ -42,6 +42,8 @@ namespace obj
 	
 	void DialogBase::Draw( sf::RenderWindow& window )
 	{
+		window.Draw( sprite );
+		
 		for ( auto it = gui.begin(); it != gui.end(); ++it )
 		{
 			( * it )->Draw( window );
