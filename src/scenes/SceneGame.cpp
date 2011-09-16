@@ -391,7 +391,7 @@ item::Tool::Action SceneGame::ToAction( const std::string& str )
 
 bool SceneGame::CompareObjects( const boost::shared_ptr< obj::Base >& obj1, const boost::shared_ptr< obj::Base >& obj2 )
 {
-	if ( typeid( * obj1 ) != typeid( obj::GridObject ) or typeid( * obj2 ) != typeid( obj::GridObject ) )
+	if ( !dynamic_cast< obj::GridObject* >( obj1.get() ) or !dynamic_cast< obj::GridObject* >( obj2.get() ) )
 	{
 		return false;
 	}
