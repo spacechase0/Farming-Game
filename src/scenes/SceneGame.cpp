@@ -19,8 +19,11 @@ void SceneGame::Initialize()
 	LoadItems( "seeds.xml" );
 	LoadItems( "tools.xml" );
 	LoadItems( "misc.xml" );
+	
 	CreateTestLayer();
 	CreateTestObject();
+	
+	simulateWorld = true;
 }
 
 void SceneGame::Terminate()
@@ -30,7 +33,8 @@ void SceneGame::Terminate()
 
 void SceneGame::Update( sf::RenderWindow& window )
 {
-	for ( auto it = objects.begin(); it != objects.end(); ++it )
+	std::list< boost::shared_ptr< obj::Base > >& container = simulateWorld ? gameObjects : menuObjects;
+	for ( auto it = container.begin(); it != container.end(); ++it )
 	{
 		( * it )->Update();
 	}
@@ -43,7 +47,8 @@ void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
 		window.Close();
 	}
 	
-	for ( auto it = objects.begin(); it != objects.end(); ++it )
+	std::list< boost::shared_ptr< obj::Base > >& container = simulateWorld ? gameObjects : menuObjects;
+	for ( auto it = container.begin(); it != container.end(); ++it )
 	{
 		( * it )->Update( event );
 	}
@@ -61,9 +66,14 @@ void SceneGame::Draw( sf::RenderWindow& window )
 	{
 		using namespace std::placeholders;
 		auto compare = std::bind( &SceneGame::CompareObjects, this, _1, _2 );
-		objects.sort( compare );
+		gameObjects.sort( compare );
+		
+		for ( auto it = gameObjects.begin(); it != gameObjects.end(); ++it )
+		{
+			( * it )->Draw( window );
+		}
 	}
-	for ( auto it = objects.begin(); it != objects.end(); ++it )
+	for ( auto it = menuObjects.begin(); it != menuObjects.end(); ++it )
 	{
 		( * it )->Draw( window );
 	}
@@ -133,7 +143,7 @@ void SceneGame::CreateTestLayer()
 				{
 					fence = new obj::GridObject( ( * this ), fenceVertical, sf::Vector2i( ix, iy ) );
 				}
-				objects.push_back( boost::shared_ptr< obj::Base >( fence ) );
+				gameObjects.push_back( boost::shared_ptr< obj::Base >( fence ) );
 			}
 			else if ( ix >= 8 and ix <= 10 and iy >= 8 and iy <= 10 )
 			{
@@ -156,7 +166,7 @@ void SceneGame::CreateTestObject()
 	sf::Texture& texture = game.GetTexture( "characters/player.png" );
 	player = boost::shared_ptr< obj::Player >( new obj::Player( ( * this ), texture, sf::Vector2i( 13, 5 ) ) );
 	
-	objects.push_back( player );
+	gameObjects.push_back( player );
 }
 
 void SceneGame::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const

@@ -32,9 +32,12 @@ class SceneGame : public SceneBase
 		bool IsTileEmpty( sf::Vector2i pos, int layer = -1 );
 		
 		std::vector< TileLayer > layers;
-		std::list< boost::shared_ptr< obj::Base > > objects;
-		boost::shared_ptr< obj::Player > player;
+		std::list< boost::shared_ptr< obj::Base > > gameObjects;
+		std::list< boost::shared_ptr< obj::Base > > menuObjects;
 		std::map< std::string, boost::shared_ptr< item::Item > > itemDefs;
+		
+		boost::shared_ptr< obj::Player > player;
+		bool simulateWorld;
 	
 	protected:
 		void CreateTestLayer();
