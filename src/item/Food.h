@@ -8,7 +8,7 @@ namespace item
 	class Food : public Item
 	{
 		public:
-			Food( const std::string& theName, size_t theIndex, size_t thePrice );
+			Food( const std::string& theName, const std::string& theDesc, size_t theIndex, size_t thePrice );
 			
 			virtual Type GetType() const;
 			size_t price;

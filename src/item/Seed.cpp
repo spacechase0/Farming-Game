@@ -2,8 +2,8 @@
 
 namespace item
 {
-	Seed::Seed( const std::string& theName, size_t theIndex, const std::string& theCrop )
-	   : Item::Item( theName, theIndex ),
+	Seed::Seed( const std::string& theName, const std::string& theDesc, size_t theIndex, const std::string& theCrop )
+	   : Item::Item( theName, theDesc, theIndex ),
 	     crop( theCrop )
 	{
 	}

@@ -14,10 +14,12 @@ namespace item
 			{
 				Dig,
 				Chop,
-				Fish
+				Fish,
+				
+				None
 			};
 			
-			Tool( const std::string& theName, size_t theIndex, Action theAction, float theBreakChance );
+			Tool( const std::string& theName, const std::string& theDesc, size_t theIndex, Action theAction, float theBreakChance );
 			
 			virtual Type GetType() const;
 			Action action;

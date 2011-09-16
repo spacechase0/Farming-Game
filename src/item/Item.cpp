@@ -2,8 +2,9 @@
 
 namespace item
 {
-	Item::Item( const std::string& theName, size_t theIndex )
+	Item::Item( const std::string& theName, const std::string& theDesc, size_t theIndex )
 	   : name( theName ),
+	     desc( theDesc ),
 	     index( theIndex )
 	{
 	}

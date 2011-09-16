@@ -2,8 +2,8 @@
 
 namespace item
 {
-	Food::Food( const std::string& theName, size_t theIndex, size_t thePrice )
-	   : Item::Item( theName, theIndex ),
+	Food::Food( const std::string& theName, const std::string& theDesc, size_t theIndex, size_t thePrice )
+	   : Item::Item( theName, theDesc, theIndex ),
 	     price( thePrice )
 	{
 	}

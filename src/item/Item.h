@@ -8,7 +8,7 @@ namespace item
 	class Item
 	{
 		public:
-			Item( const std::string& theName, size_t theIndex );
+			Item( const std::string& theName, const std::string& theDesc, size_t theIndex );
 			virtual ~Item() {}
 			
 			enum Type
@@ -23,6 +23,7 @@ namespace item
 			};
 			virtual Type GetType() const;
 			const std::string name;
+			const std::string desc;
 			const size_t index;
 	};
 }

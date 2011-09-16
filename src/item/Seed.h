@@ -10,7 +10,7 @@ namespace item
 	class Seed : public Item
 	{
 		public:
-			Seed( const std::string& theName, size_t theIndex, const std::string& theCrop );
+			Seed( const std::string& theName, const std::string& theDesc, size_t theIndex, const std::string& theCrop );
 		
 			virtual Type GetType() const;
 			std::string crop;

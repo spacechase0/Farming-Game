@@ -1,8 +1,8 @@
 #ifndef ITEMS_ITEMS_H
 #define ITEMS_ITEMS_H
 
-#include "items/Food.h"
-#include "items/Seed.h"
-#include "items/Tool.h"
+#include "item/Food.h"
+#include "item/Seed.h"
+#include "item/Tool.h"
 
 #endif // ITEMS_ITEMS_H
