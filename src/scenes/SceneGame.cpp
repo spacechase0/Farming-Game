@@ -169,7 +169,8 @@ void SceneGame::CreateTestLayer()
 	sf::Texture& fenceVertical = game.GetTexture( "scenery/fence_v.png" );
 	
 	sf::Vector2i layerSize = Game::WindowSize / 32;
-	layerSize.y *= 1.5;
+	layerSize.x *= 1.25;
+	layerSize.y *= 1.25;
 	
 	Tile grassTile( outsideTileset, 1, false );
 	Tile dirtTile( outsideTileset, 0, false );
