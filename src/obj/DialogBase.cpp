@@ -8,7 +8,22 @@ namespace obj
 	     sprite( theBackgroundTexture )
 	{
 	}
+			
+	void SetPosition( sf::Vector2f pos )
+	{
+		sprite.SetPosition( pos );
+	}
 	
+	void SetPosition( float x, float y )
+	{
+		sprite.SetPosition( x, y );
+	}
+	
+	sf::Vector2f GetPosition() const
+	{
+		return sprite.GetPosition();
+	}
+
 	void DialogBase::Update()
 	{
 		for ( auto it = gui.begin(); it != gui.end(); ++it )

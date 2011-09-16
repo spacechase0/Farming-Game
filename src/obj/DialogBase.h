@@ -11,6 +11,10 @@ namespace obj
 		public:
 			DialogBase( SceneGame& theGame, sf::Texture& theBackgroundTexture );
 			
+			void SetPosition( sf::Vector2f pos );
+			void SetPosition( float x, float y );
+			sf::Vector2f GetPosition() const;
+			
 			virtual void Update();
 			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
