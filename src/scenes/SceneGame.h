@@ -48,8 +48,8 @@ class SceneGame : public SceneBase
 		std::list< Garbage > garbageObjects;
 		std::map< std::string, ItemPtr > itemDefs;
 		
-		boost::shared_ptr< obj::Player > player;
-		boost::shared_ptr< obj::CameraController > cameraController;
+		obj::Player* player;
+		obj::CameraController* cameraController;
 		bool simulateWorld;
 		
 		void CreateChatDialog( const std::vector< std::string >& messages );

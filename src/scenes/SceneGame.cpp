@@ -34,16 +34,22 @@ void SceneGame::Initialize()
 	CreateTestLayer();
 	CreateTestObject();
 	
-	auto cc = new obj::CameraController( ( * this ), game.window );
-	cameraController = boost::shared_ptr< obj::CameraController >( cc );
-	gameObjects.push_back( ObjectPtr( cameraController.get() ) );
+	cameraController = new obj::CameraController( ( * this ), game.window );
+	gameObjects.push_back( ObjectPtr( cameraController ) );
 	
 	simulateWorld = true;
 }
 
 void SceneGame::Terminate()
 {
+	layers.clear();
+	gameObjects.clear();
+	menuObjects.clear();
+	garbageObjects.clear();
 	itemDefs.clear();
+	
+	player = NULL;
+	cameraController = NULL;
 }
 
 void SceneGame::Update( sf::RenderWindow& window )
@@ -224,9 +230,9 @@ void SceneGame::CreateTestLayer()
 void SceneGame::CreateTestObject()
 {
 	sf::Texture& texture = game.GetTexture( "characters/player.png" );
-	player = boost::shared_ptr< obj::Player >( new obj::Player( ( * this ), texture, sf::Vector2i( 13, 5 ) ) );
+	player = new obj::Player( ( * this ), texture, sf::Vector2i( 13, 5 ) );
 	
-	gameObjects.push_back( player );
+	gameObjects.push_back( boost::shared_ptr< obj::Base >( player ) );
 }
 
 void SceneGame::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const
