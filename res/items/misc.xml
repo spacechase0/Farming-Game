@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<Items>
+	<Item name="Axe" desc="Shouldn't this go in tools?" type="misc" index="0" />
+	<Item name="Empty Bowl"    desc="An empty bowl." type="misc" index="1" />
+	<Item name="Bowl of Milk"  desc="A bowl full of milk." type="misc" index="2" />
+	<Item name="Bowl of Water" desc="A bowl full of water." type="misc" index="3" />
+	<Item name="Fish Bowl"     desc="A bowl for a fish." type="misc" index="4" />
+	<Item name="???"  desc="???" type="misc" index="5" />
+	<Item name="Key"  desc="A key." type="misc" index="6" />
+	<Item name="Leaf" desc="A leaf." type="misc" index="7" />
+	<Item name="Lightbulb" desc="???" type="misc" index="8" />
+	<Item name="Log"       desc="A log." type="misc" index="9" />
+	<Item name="Pickaxe"   desc="Shouldn't this go in tools?" type="misc" index="10" />
+	<Item name="Ruby"      desc="A red gem." type="misc" index="11" />
+	<Item name="Sapphire"  desc="A blue gem." type="misc" index="12" />
+	<Item name="Snowball"  desc="A ball of snow." type="misc" index="13" />
+	<Item name="Stick" desc="A stick. type="misc" index="14" />
+	<Item name="???"   desc="A white gem." type="misc" index="15" />
+	<Item name="Fish"  desc="A fish." type="misc" index="16" />
+</Items>
