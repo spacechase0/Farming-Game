@@ -73,6 +73,8 @@
 		<Unit filename="item\Tool.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="obj\Base.h" />
+		<Unit filename="obj\DialogBase.cpp" />
+		<Unit filename="obj\DialogBase.h" />
 		<Unit filename="obj\GridObject.cpp" />
 		<Unit filename="obj\GridObject.h" />
 		<Unit filename="obj\Npc.cpp" />
