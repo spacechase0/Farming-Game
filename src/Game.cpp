@@ -8,6 +8,8 @@ const std::string Game::WindowTitle = "Farming Game";
 const sf::Vector2i Game::WindowSize( 640, 480 );
 const sf::Uint8 Game::SimulationRate = 50;
 const sf::Uint8 Game::TileSize = 32;
+const sf::Keyboard::Key Game::PrimaryKey = sf::Keyboard::Z;
+const sf::Keyboard::Key Game::SecondaryKey = sf::Keyboard::X;
 
 Game::Game()
 {

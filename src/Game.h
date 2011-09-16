@@ -34,6 +34,8 @@ class Game
 		static const sf::Vector2i WindowSize;
 		static const sf::Uint8 SimulationRate;
 		static const sf::Uint8 TileSize;
+		static const sf::Keyboard::Key PrimaryKey;
+		static const sf::Keyboard::Key SecondaryKey;
 	
 	private:
 		typedef boost::shared_ptr< sf::Texture > TexturePtr;

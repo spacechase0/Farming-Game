@@ -1,5 +1,7 @@
 #include "obj/Player.h"
 
+#include "Game.h"
+
 namespace obj
 {
 	Player::Player( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos )
@@ -31,17 +33,16 @@ namespace obj
 				
 				#undef DoKey
 				
-				case sf::Keyboard::Z:
-					{
-						std::vector< std::string > str;
-						str.push_back( "Hello World!" );
-						game.CreateChatDialog( str );
-					}
-					break;
-				
 				default:
 					break;
 			};
+			
+			if ( event.Key.Code == Game::PrimaryKey )
+			{
+				std::vector< std::string > str;
+				str.push_back( "Hello World!" );
+				game.CreateChatDialog( str );
+			}
 		}
 		else if ( event.Type == sf::Event::KeyReleased )
 		{
