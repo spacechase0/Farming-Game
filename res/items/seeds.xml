@@ -1,4 +1,4 @@
 <?xml version="1.0" ?>
 <Items>
-	<Item name="Pineapple Seed" type="seed" index="0" crop="Pineapple" />
+	<Item name="Pineapple Seed" desc="A pineapple seed." type="seed" index="0" crop="Pineapple" />
 </Items>
