@@ -18,7 +18,7 @@ void SceneGuiBase::Update( sf::RenderWindow& window )
 {
 	for ( auto it = gui.begin(); it != gui.end(); ++it )
 	{
-		( * it )->Update( window );
+		( * it )->Update();
 	}
 }
 
@@ -26,7 +26,7 @@ void SceneGuiBase::Update( sf::RenderWindow& window, const sf::Event& event )
 {
 	for ( auto it = gui.begin(); it != gui.end(); ++it )
 	{
-		( * it )->Update( window, event );
+		( * it )->Update( event );
 	}
 }
 

@@ -82,12 +82,12 @@ namespace gui
 		return ( * texture );
 	}
 	
-	void Button::Update( sf::RenderWindow& window )
+	void Button::Update()
 	{
 		UpdateSpriteRect();
 	}
 	
-	void Button::Update( sf::RenderWindow& window, const sf::Event& event )
+	void Button::Update( const sf::Event& event )
 	{
 		// Convenience variables
 		sf::IntRect spriteRect( sprite.GetPosition().x, sprite.GetPosition().y, sprite.GetSubRect().Width, sprite.GetSubRect().Height );

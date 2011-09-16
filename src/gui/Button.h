@@ -41,8 +41,8 @@ namespace gui
 			void SetTexture( sf::Texture& theTexture );
 			sf::Texture& GetTexture() const;
 			
-			virtual void Update( sf::RenderWindow& window );
-			virtual void Update( sf::RenderWindow& window, const sf::Event& event );
+			virtual void Update();
+			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
 		
 		protected:
