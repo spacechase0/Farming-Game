@@ -173,6 +173,12 @@ void SceneGame::CreateTestLayer()
 		{
 			if ( ix == 0 or ix == layer.GetTiles().size() - 1 or iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
 			{
+				if ( ( ix >= 8 and ix <= 11 ) or ( iy >= 6 and iy <= 8 ) )
+				{
+					layer[ ix ][ iy ] = grassTile;
+					continue;
+				}
+				
 				layer[ ix ][ iy ] = noCollideTile;
 				
 				obj::Base* fence;
