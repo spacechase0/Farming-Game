@@ -7,6 +7,7 @@
 #include "scenes/SceneBase.h"
 #include "TileLayer.h"
 #include "util/Grid.h"
+#include "item/Items.h"
 
 namespace obj
 {
@@ -33,11 +34,16 @@ class SceneGame : public SceneBase
 		std::vector< TileLayer > layers;
 		std::list< boost::shared_ptr< obj::Base > > objects;
 		boost::shared_ptr< obj::Player > player;
+		std::map< std::string, boost::shared_ptr< item::Item > > itemDefs;
 	
 	protected:
 		void CreateTestLayer();
 		void CreateTestObject();
 		void DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const;
+		
+		void LoadItems( const std::string& filename );
+		item::Item::Type ToType( const std::string& str );
+		item::Tool::Action ToAction( const std::string& str );
 		
 		bool CompareObjects( const boost::shared_ptr< obj::Base >& obj1, const boost::shared_ptr< obj::Base >& obj2 );
 };

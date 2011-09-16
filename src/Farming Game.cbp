@@ -88,6 +88,7 @@
 		<Unit filename="scenes\SceneMainMenu.cpp" />
 		<Unit filename="scenes\SceneMainMenu.h" />
 		<Unit filename="scenes\Scenes.h" />
+		<Unit filename="util\Convert.h" />
 		<Unit filename="util\Grid.h" />
 		<Extensions>
 			<code_completion />
