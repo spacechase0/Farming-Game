@@ -56,7 +56,6 @@ namespace obj
 		{
 			pos.y = ( layerSize.y * Game::TileSize ) - halfScreen.y - Game::TileSize;
 		}
-		std::cout << pos.y << std::endl;
 		
 		pos.x = static_cast< int >( pos.x );
 		pos.y = static_cast< int >( pos.y + ( Game::TileSize / 2 ) );
