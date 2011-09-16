@@ -7,6 +7,8 @@
 
 namespace obj
 {
+	class CameraController;
+	
 	class Npc : public GridObject
 	{
 		public:
@@ -38,6 +40,8 @@ namespace obj
 			static const float RenderOffsetThreshold;
 			
 			bool IsDirectionEmpty( MovementDirection& dir );
+			
+			friend class CameraController;
 	};
 }
 

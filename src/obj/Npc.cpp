@@ -60,7 +60,7 @@ namespace obj
 	
 	void Npc::Draw( sf::RenderWindow& window )
 	{
-		float moveX = 0.f, moveY = 0.f;
+		int moveX = 0.f, moveY = 0.f;
 		switch ( movement )
 		{
 			case Up:    moveY = -renderOffset; break;

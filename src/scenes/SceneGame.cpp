@@ -34,6 +34,10 @@ void SceneGame::Initialize()
 	CreateTestLayer();
 	CreateTestObject();
 	
+	auto cc = new obj::CameraController( ( * this ), game.window );
+	cameraController = boost::shared_ptr< obj::CameraController >( cc );
+	gameObjects.push_back( ObjectPtr( cameraController.get() ) );
+	
 	simulateWorld = true;
 }
 
@@ -117,7 +121,8 @@ bool SceneGame::IsTileEmpty( int x, int y, int layer )
 	{
 		for ( auto it = layers.begin(); it != layers.end(); ++it )
 		{
-			if ( x >= static_cast< int >( it->GetTiles().size() ) or y >= static_cast< int >( ( * it )[ x ].size() ) )
+			if ( x < 0 or x >= static_cast< int >( it->GetTiles().size() ) or
+				 y < 0 or y >= static_cast< int >( ( * it )[ x ].size() ) )
 			{
 				return false;
 			}

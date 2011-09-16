@@ -5,6 +5,8 @@
 
 namespace obj
 {
+	class CameraController;
+	
 	class GridObject : public Base
 	{
 		public:
@@ -24,6 +26,8 @@ namespace obj
 			sf::Sprite sprite;
 			sf::Texture* texture;
 			sf::Vector2i gridPos;
+			
+			friend class CameraController;
 	};
 }
 

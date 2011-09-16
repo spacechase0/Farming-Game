@@ -14,6 +14,7 @@ namespace obj
 	class Base;
 	class GridObject;
 	class Player;
+	class CameraController;
 }
 
 class SceneGame : public SceneBase
@@ -48,6 +49,7 @@ class SceneGame : public SceneBase
 		std::map< std::string, ItemPtr > itemDefs;
 		
 		boost::shared_ptr< obj::Player > player;
+		boost::shared_ptr< obj::CameraController > cameraController;
 		bool simulateWorld;
 		
 		void CreateChatDialog( const std::vector< std::string >& messages );

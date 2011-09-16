@@ -73,6 +73,8 @@
 		<Unit filename="item\Tool.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="obj\Base.h" />
+		<Unit filename="obj\CameraController.cpp" />
+		<Unit filename="obj\CameraController.h" />
 		<Unit filename="obj\DialogBase.cpp" />
 		<Unit filename="obj\DialogBase.h" />
 		<Unit filename="obj\DialogChat.cpp" />
