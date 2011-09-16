@@ -117,7 +117,7 @@ bool SceneGame::IsTileEmpty( int x, int y, int layer )
 	{
 		for ( auto it = layers.begin(); it != layers.end(); ++it )
 		{
-			if ( x >= it->GetTiles().size() or y >= ( * it )[ x ].size() )
+			if ( x >= static_cast< int >( it->GetTiles().size() ) or y >= static_cast< int >( ( * it )[ x ].size() ) )
 			{
 				return false;
 			}
