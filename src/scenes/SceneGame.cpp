@@ -117,6 +117,11 @@ bool SceneGame::IsTileEmpty( int x, int y, int layer )
 	{
 		for ( auto it = layers.begin(); it != layers.end(); ++it )
 		{
+			if ( x >= it->GetTiles().size() or y >= ( * it )[ x ].size() )
+			{
+				return false;
+			}
+			
 			bool solid = ( * it )[ x ][ y ].GetCollision();
 			if ( solid )
 			{
