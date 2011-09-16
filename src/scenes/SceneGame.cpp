@@ -2,11 +2,22 @@
 
 #include <typeinfo>
 #include <fstream>
+#include <algorithm>
 
 #include "Game.h"
 #include "obj/Objects.h"
 #include <xml/Xml.h>
 #include "util/Convert.h"
+
+#define ValidateLoop(a) \
+		if ( std::distance( a.begin(), it ) >= static_cast< int >( a.size() ) ) \
+		{          \
+			break; \
+		}          \
+		if ( !( * it ) ) \
+		{             \
+			continue; \
+		}             \
 
 SceneGame::SceneGame( Game& game )
    : SceneBase::SceneBase( game )
@@ -36,6 +47,7 @@ void SceneGame::Update( sf::RenderWindow& window )
 	std::list< boost::shared_ptr< obj::Base > >& container = simulateWorld ? gameObjects : menuObjects;
 	for ( auto it = container.begin(); it != container.end(); ++it )
 	{
+		ValidateLoop( container );
 		( * it )->Update();
 	}
 }
@@ -50,6 +62,7 @@ void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
 	std::list< boost::shared_ptr< obj::Base > >& container = simulateWorld ? gameObjects : menuObjects;
 	for ( auto it = container.begin(); it != container.end(); ++it )
 	{
+		ValidateLoop( container );
 		( * it )->Update( event );
 	}
 }
@@ -70,15 +83,31 @@ void SceneGame::Draw( sf::RenderWindow& window )
 		
 		for ( auto it = gameObjects.begin(); it != gameObjects.end(); ++it )
 		{
+			ValidateLoop( gameObjects );
 			( * it )->Draw( window );
 		}
 	}
 	for ( auto it = menuObjects.begin(); it != menuObjects.end(); ++it )
 	{
+		ValidateLoop( menuObjects );
 		( * it )->Draw( window );
 	}
 	
 	window.Display();
+	
+	// Don't ask why I do it here instead of Update
+	for ( auto it = garbageObjects.begin(); it != garbageObjects.end(); ++it )
+	{
+		if ( it->second == GarbageType::GameGarbage )
+		{
+			gameObjects.erase( it->first );
+		}
+		else if ( it->second == GarbageType::MenuGarbage )
+		{
+			menuObjects.erase( it->first );
+		}
+	}
+	garbageObjects.clear();
 }
 
 
@@ -109,6 +138,18 @@ bool SceneGame::IsTileEmpty( int x, int y, int layer )
 bool SceneGame::IsTileEmpty( sf::Vector2i pos, int layer )
 {
 	return IsTileEmpty( pos.x, pos.y, layer );
+}
+
+void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
+{
+	sf::Texture& background = game.GetTexture( "dialogs/chat-base.png" );
+	sf::Texture& button = game.GetTexture( "dialogs/chat-button.png" );
+	sf::Font& font = game.GetFont( "fonts/Grantham/Grantham Bold.ttf" );
+	
+	obj::Base* chat = new obj::DialogChat( ( * this ), background, button, font, messages );
+	menuObjects.push_back( boost::shared_ptr< obj::Base >( chat ) );
+	
+	simulateWorld = false;
 }
 
 void SceneGame::CreateTestLayer()

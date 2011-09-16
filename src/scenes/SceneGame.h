@@ -31,13 +31,26 @@ class SceneGame : public SceneBase
 		bool IsTileEmpty( int x, int y, int layer = -1 );
 		bool IsTileEmpty( sf::Vector2i pos, int layer = -1 );
 		
+		enum GarbageType
+		{
+			GameGarbage,
+			MenuGarbage
+		};
+		typedef boost::shared_ptr< obj::Base > ObjectPtr;
+		typedef std::list< ObjectPtr > ObjectList;
+		typedef std::pair< ObjectList::iterator, GarbageType > Garbage;
+		typedef boost::shared_ptr< item::Item > ItemPtr;
+		
 		std::vector< TileLayer > layers;
-		std::list< boost::shared_ptr< obj::Base > > gameObjects;
-		std::list< boost::shared_ptr< obj::Base > > menuObjects;
-		std::map< std::string, boost::shared_ptr< item::Item > > itemDefs;
+		ObjectList gameObjects;
+		ObjectList menuObjects;
+		std::list< Garbage > garbageObjects;
+		std::map< std::string, ItemPtr > itemDefs;
 		
 		boost::shared_ptr< obj::Player > player;
 		bool simulateWorld;
+		
+		void CreateChatDialog( const std::vector< std::string >& messages );
 	
 	protected:
 		void CreateTestLayer();
