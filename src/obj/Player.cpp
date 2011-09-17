@@ -10,7 +10,7 @@ namespace obj
 	{
 		SetPosition( thePos );
 	}
-	
+
 	void Player::Update()
 	{
 		Npc::Update();
@@ -31,7 +31,7 @@ namespace obj
 			Walk( Right, 3.25 );
 		}
 	}
-	
+
 	void Player::Update( const sf::Event& event )
 	{
 		Npc::Update( event );
@@ -78,9 +78,14 @@ namespace obj
 			{
 				pressed.right = false;
 			}
+			else if ( event.Key.Code == sf::Keyboard::Escape )
+			{
+			    #warning TODO: Goto main menu
+				//game.ChangeScene( "MainMenu" );
+			}
 		}
 	}
-	
+
 	void Player::Draw( sf::RenderWindow& window )
 	{
 		Npc::Draw( window );

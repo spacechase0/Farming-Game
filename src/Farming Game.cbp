@@ -93,6 +93,8 @@
 		<Unit filename="scenes\SceneGuiBase.h" />
 		<Unit filename="scenes\SceneMainMenu.cpp" />
 		<Unit filename="scenes\SceneMainMenu.h" />
+		<Unit filename="scenes\SceneOptions.cpp" />
+		<Unit filename="scenes\SceneOptions.h" />
 		<Unit filename="scenes\Scenes.h" />
 		<Unit filename="util\Convert.h" />
 		<Unit filename="util\Grid.h" />

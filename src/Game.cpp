@@ -15,7 +15,8 @@ Game::Game()
 {
 	AddScene( "MainMenu", ScenePtr( new SceneMainMenu( * this ) ) );
 	AddScene( "Game", ScenePtr( new SceneGame( * this ) ) );
-	
+	AddScene( "Options", ScenePtr( new SceneOptions( * this ) ) );
+
 	// Just trust me on this, ok? :P
 	currentScene = "";
 	nextScene = "MainMenu";
@@ -32,11 +33,11 @@ Game::~Game()
 int Game::Run()
 {
 	window.Create( sf::VideoMode( WindowSize.x, WindowSize.y ), WindowTitle, sf::Style::Titlebar | sf::Style::Close );
-	
+
 	sf::Uint32 rate = 0;
 	simulationTimer.Reset();
 	isRunning = true;
-	
+
 	while ( isRunning )
 	{
 		// Process to the next scene, if it's different
@@ -47,13 +48,13 @@ int Game::Run()
 				scenes[ currentScene ]->Terminate();
 			}
 			scenes[ nextScene ]->Initialize();
-			
+
 			currentScene = nextScene;
 		}
-		
+
 		// Current scene
 		ScenePtr scene = scenes[ currentScene ];
-		
+
 		// Simulate only Game::SimulationRate times a second
 		while ( rate > SimulationRate )
 		{
@@ -64,21 +65,21 @@ int Game::Run()
 				scene->Update( window, event );
 			}
 			scene->Update( window );
-			
+
 			rate -= ( 1000 / SimulationRate );
 		}
 		// Render every frame
 		scene->Draw( window );
-		
+
 		if ( !window.IsOpened() )
 		{
 			isRunning = false;
 		}
-		
+
 		rate += simulationTimer.GetElapsedTime();
 		simulationTimer.Reset();
 	}
-	
+
 	return 0;
 }
 
@@ -88,7 +89,7 @@ std::string Game::GetCurrentScene()
 	{
 		return "";
 	}
-	
+
 	return currentScene;
 }
 
@@ -99,7 +100,7 @@ Game::ScenePtr Game::GetScene( const std::string& sceneName )
 		std::cout << "Warning: Scene '" << sceneName << "' does not exist." << std::endl;
 		return ScenePtr();
 	}
-	
+
 	return scenes[ sceneName ];
 }
 
@@ -109,7 +110,7 @@ void Game::ChangeScene( const std::string& sceneName )
 	{
 		throw std::invalid_argument( "Scene '" + sceneName + "' does not exist." );
 	}
-	
+
 	nextScene = sceneName;
 }
 
@@ -119,7 +120,7 @@ void Game::AddScene( const std::string& sceneName, ScenePtr scene )
 	{
 		throw std::invalid_argument( "Duplicate scene '" + sceneName + "'." );
 	}
-	
+
 	scenes.insert( std::make_pair( sceneName, scene ) );
 }
 
@@ -129,14 +130,14 @@ sf::Texture& Game::GetTexture( const std::string& filename )
 	{
 		return ( * textures[ filename ] );
 	}
-	
+
 	textures.insert( std::make_pair( filename, new sf::Texture() ) );
 	if ( !textures[ filename ]->LoadFromFile( "res/" + filename ) )
 	{
 		std::cout << "Failed to load resource '" << filename << "'." << std::endl;
 	}
 	textures[ filename ]->SetSmooth( false );
-	
+
 	return ( * textures[ filename ] );
 }
 
@@ -146,13 +147,13 @@ sf::Font& Game::GetFont( const std::string& filename )
 	{
 		return ( * fonts[ filename ] );
 	}
-	
+
 	fonts.insert( std::make_pair( filename, new sf::Font() ) );
 	if ( !fonts[ filename ]->LoadFromFile( "res/" + filename ) )
 	{
 		std::cout << "Failed to load resource '" << filename << "'." << std::endl;
 	}
-	
+
 	return ( * fonts[ filename ] );
 }
 
@@ -162,12 +163,12 @@ sf::SoundBuffer& Game::GetSoundBuffer( const std::string& filename )
 	{
 		return ( * soundBuffers[ filename ] );
 	}
-	
+
 	soundBuffers.insert( std::make_pair( filename, new sf::SoundBuffer() ) );
 	if ( !soundBuffers[ filename ]->LoadFromFile( "res/" + filename ) )
 	{
 		std::cout << "Failed to load resource '" << filename << "'." << std::endl;
 	}
-	
+
 	return ( * soundBuffers[ filename ] );
 }

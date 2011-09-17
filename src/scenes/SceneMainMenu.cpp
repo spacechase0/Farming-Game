@@ -148,7 +148,7 @@ void SceneMainMenu::ButtonCallback( gui::Button::EventType type, gui::Button& bu
 	{
 		if ( type == gui::Button::Release )
 		{
-
+            game.ChangeScene( "Options" );
 		}
 	}
 	if ( static_cast< gui::TextButton* >( &button )->GetString() == "Quit" )
