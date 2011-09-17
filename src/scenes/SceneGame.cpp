@@ -203,11 +203,11 @@ void SceneGame::CreateTestLayer()
 				obj::Base* fence;
 				if ( iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
 				{
-					fence = new obj::GridObject( ( * this ), fenceHorizontal, sf::Vector2i( ix, iy ) );
+					fence = new obj::RenderObject( ( * this ), fenceHorizontal, sf::Vector2f( ix * Game::TileSize, iy * Game::TileSize ) );
 				}
 				else
 				{
-					fence = new obj::GridObject( ( * this ), fenceVertical, sf::Vector2i( ix, iy ) );
+					fence = new obj::RenderObject( ( * this ), fenceVertical, sf::Vector2f( ix * Game::TileSize, iy * Game::TileSize ) );
 				}
 				gameObjects.push_back( boost::shared_ptr< obj::Base >( fence ) );
 			}
@@ -230,7 +230,7 @@ void SceneGame::CreateTestLayer()
 void SceneGame::CreateTestObject()
 {
 	sf::Texture& texture = game.GetTexture( "characters/player.png" );
-	player = new obj::Player( ( * this ), texture, sf::Vector2i( 13, 5 ) );
+	player = new obj::Player( ( * this ), texture, sf::Vector2f( 13 * Game::TileSize, 5 * Game::TileSize ) );
 	
 	gameObjects.push_back( boost::shared_ptr< obj::Base >( player ) );
 }
@@ -397,13 +397,13 @@ item::Tool::Action SceneGame::ToAction( const std::string& str )
 
 bool SceneGame::CompareObjects( const boost::shared_ptr< obj::Base >& obj1, const boost::shared_ptr< obj::Base >& obj2 )
 {
-	if ( !dynamic_cast< obj::GridObject* >( obj1.get() ) or !dynamic_cast< obj::GridObject* >( obj2.get() ) )
+	if ( !dynamic_cast< obj::RenderObject* >( obj1.get() ) or !dynamic_cast< obj::RenderObject* >( obj2.get() ) )
 	{
 		return false;
 	}
 	
-	obj::GridObject* firstObj = static_cast< obj::GridObject* >( &( * obj1 ) );
-	obj::GridObject* secondObj = static_cast< obj::GridObject* >( &( * obj2 ) );
+	obj::RenderObject* firstObj = static_cast< obj::RenderObject* >( &( * obj1 ) );
+	obj::RenderObject* secondObj = static_cast< obj::RenderObject* >( &( * obj2 ) );
 	
-	return ( -firstObj->GetGridPosition().y ) > ( -secondObj->GetGridPosition().y );
+	return ( -firstObj->GetPosition().y ) > ( -secondObj->GetPosition().y );
 }

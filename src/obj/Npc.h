@@ -3,13 +3,13 @@
 
 #include <SFML/System.hpp>
 
-#include "obj/GridObject.h"
+#include "obj/RenderObject.h"
 
 namespace obj
 {
 	class CameraController;
 	
-	class Npc : public GridObject
+	class Npc : public RenderObject
 	{
 		public:
 			Npc( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos );
@@ -28,20 +28,17 @@ namespace obj
 				Left  = 2,
 				Right = 3
 			};
-			void Walk( MovementDirection theNextDir );
-			void StopWalking();
+			virtual void Walk( MovementDirection theMovement, float speed = 3.25 );
+			
+			sf::Vector2i GetGridPosition() const;
+			bool IsDirectionEmpty( MovementDirection& theDir, float speed = 3.25 ) const;
 		
 		protected:
-			MovementDirection movement, nextDir;
-			float renderOffset;
-			float renderOffsetSpeed;
 			const sf::Vector2i frameSize;
 			
-			static const float RenderOffsetThreshold;
-			
-			bool IsDirectionEmpty( MovementDirection& dir );
-			
 			friend class CameraController;
+			
+			bool Movement( MovementDirection a, char b, int c );
 	};
 }
 

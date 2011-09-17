@@ -2,15 +2,9 @@
 
 namespace obj
 {
-	const float Npc::RenderOffsetThreshold = Game::TileSize;
-	
 	Npc::Npc( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theFrameSize )
-	   : GridObject::GridObject( theGame, theTexture, sf::Vector2i( 0, 0 ) ),
-	     movement( None ), nextDir( None ),
-	     renderOffset( 0 ),
-	     renderOffsetSpeed( 3.25 ),
+	   : RenderObject::RenderObject( theGame, theTexture, sf::Vector2f( 0, 0 ) ),
 	     frameSize( theFrameSize )
-	     
 	{
 		sf::IntRect subRect( frameSize.x * Down, frameSize.y * 0, frameSize.x, frameSize.y );
 		sprite.SetSubRect( subRect );
@@ -18,92 +12,109 @@ namespace obj
 	
 	void Npc::Update()
 	{
-		GridObject::Update();
-		if ( movement != None )
+		RenderObject::Update();
+		/*
+		if ( movement != None and IsDirectionEmpty( movement ) )
 		{
-			if ( IsDirectionEmpty( movement ) )
-			{
-				renderOffset += ( Game::SimulationRate / Game::TileSize ) * renderOffsetSpeed;
-			}
-			else
-			{
-				renderOffset = 0;
-				movement = nextDir;
-			}
-			
-			if ( renderOffset >= RenderOffsetThreshold )
-			{
-				renderOffset -= RenderOffsetThreshold;
-				switch ( movement )
-				{
-					case Up:    --gridPos.y; break;
-					case Down:  ++gridPos.y; break;
-					case Left:  --gridPos.x; break;
-					case Right: ++gridPos.x; break;
-					default:    break; // Gets rid of "warning: enumeration value 'None' not handled in switch"
-				}
-				SetGridPosition( gridPos ); // Take a look at GridObject::SetGridPosition to see why. :P
-				movement = nextDir;
-			}
+			Movement( Up,    'y', -1 );
+			Movement( Down,  'y',  1 );
+			Movement( Left,  'x', -1 );
+			Movement( Right, 'x',  1 );
 		}
-		else
-		{
-			renderOffset = 0;
-			movement = nextDir;
-		}
+		//*/
 	}
 	
 	void Npc::Update( const sf::Event& event )
 	{
-		GridObject::Update( event );
+		RenderObject::Update( event );
 	}
 	
 	void Npc::Draw( sf::RenderWindow& window )
 	{
-		int moveX = 0.f, moveY = 0.f;
-		switch ( movement )
+		RenderObject::Draw( window );
+	}
+	
+	void Npc::Walk( MovementDirection theMovement, float speed )
+	{
+		if ( !IsDirectionEmpty( theMovement ) )
 		{
-			case Up:    moveY = -renderOffset; break;
-			case Down:  moveY = renderOffset;  break;
-			case Left:  moveX = -renderOffset; break;
-			case Right: moveX = renderOffset;  break;
-			default: break;
+			return;
 		}
 		
-		if ( movement != None )
+		switch ( theMovement )
 		{
-			int direction = static_cast< int >( movement );
-			sf::IntRect subRect( frameSize.x * direction, frameSize.y * 0, frameSize.x, frameSize.y );
-			sprite.SetSubRect( subRect );
+			case Up:
+				Movement( theMovement, 'y', -speed );
+				break;
+			
+			case Down:
+				Movement( theMovement, 'y',  speed );
+				break;
+			
+			case Left:
+				Movement( theMovement, 'x', -speed );
+				break;
+			
+			case Right:
+				Movement( theMovement, 'x',  speed );
+				break;
+			
+			default:
+				break;
+		}
+	}
+	
+	sf::Vector2i Npc::GetGridPosition() const
+	{
+		sf::Vector2i gridPos( sprite.GetPosition().x, sprite.GetPosition().y );
+		gridPos -= sf::Vector2i( Game::TileSize / 2, Game::TileSize / 2 );
+		gridPos.x /= Game::TileSize;
+		gridPos.y /= Game::TileSize;
+		return gridPos;
+	}
+	
+	bool Npc::IsDirectionEmpty( MovementDirection& dir, float speed ) const
+	{
+		sf::Vector2f pos = sprite.GetPosition();
+		switch ( dir )
+		{
+			case Up:
+				pos.y -= speed;
+				break;
+			
+			case Down:
+				pos.y += Game::TileSize + speed;
+				break;
+			
+			case Left:
+				pos.x -= speed;
+				break;
+			
+			case Right:
+				pos.x += Game::TileSize + speed;
+				break;
+			
+			// Gets rid of "warning: enumeration value 'None' not handled in switch"
+			default:
+				break;
 		}
 		
-		sprite.Move( moveX, moveY );
-		GridObject::Draw( window );
-		sprite.Move( -moveX, -moveY );
-	}
-	
-	void Npc::Walk( MovementDirection theNextDir )
-	{
-		nextDir = theNextDir;
-	}
-	
-	void Npc::StopWalking()
-	{
-		nextDir = None;
-	}
-	
-	bool Npc::IsDirectionEmpty( MovementDirection& dir )
-	{
-		sf::Vector2i nextGridPos = gridPos;
-		switch ( movement )
-		{
-			case Up:    --nextGridPos.y; break;
-			case Down:  ++nextGridPos.y; break;
-			case Left:  --nextGridPos.x; break;
-			case Right: ++nextGridPos.x; break;
-			default:    break; // Gets rid of "warning: enumeration value 'None' not handled in switch"
-		}
+		sf::Vector2i nextGridPos( pos.x / Game::TileSize, pos.y / Game::TileSize );
 		
 		return !game.IsTileEmpty( nextGridPos );
+	}
+	
+	bool Npc::Movement( MovementDirection a, char b, int c )
+	{
+		if ( b == 'x' )
+		{
+			sprite.Move( c, 0 );
+		}
+		else
+		{
+			sprite.Move( 0, c );
+		}
+		
+		return true;
 	}
 }

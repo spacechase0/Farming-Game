@@ -4,15 +4,32 @@
 
 namespace obj
 {
-	Player::Player( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos )
-	   : Npc::Npc( theGame, theTexture, sf::Vector2i( 32, 64 ) )
+	Player::Player( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2f thePos )
+	   : Npc::Npc( theGame, theTexture, sf::Vector2i( 32, 64 ) ),
+	     pressed{ false, false, false, false }
 	{
-		SetGridPosition( theGridPos );
+		SetPosition( thePos );
 	}
 	
 	void Player::Update()
 	{
 		Npc::Update();
+		if ( pressed.up )
+		{
+			Walk( Up, 3.25 );
+		}
+		if ( pressed.down )
+		{
+			Walk( Down, 3.25 );
+		}
+		if ( pressed.left )
+		{
+			Walk( Left, 3.25 );
+		}
+		if ( pressed.right )
+		{
+			Walk( Right, 3.25 );
+		}
 	}
 	
 	void Player::Update( const sf::Event& event )
@@ -20,24 +37,23 @@ namespace obj
 		Npc::Update( event );
 		if ( event.Type == sf::Event::KeyPressed )
 		{
-			switch ( event.Key.Code )
+			if ( event.Key.Code == sf::Keyboard::Up )
 			{
-				#define DoKey(a) case sf::Keyboard::a: \
-									Walk( a );         \
-									break;
-				
-				DoKey( Up );
-				DoKey( Down );
-				DoKey( Left );
-				DoKey( Right );
-				
-				#undef DoKey
-				
-				default:
-					break;
-			};
-			
-			if ( event.Key.Code == Game::PrimaryKey )
+				pressed.up = true;
+			}
+			else if ( event.Key.Code == sf::Keyboard::Down )
+			{
+				pressed.down = true;
+			}
+			else if ( event.Key.Code == sf::Keyboard::Left )
+			{
+				pressed.left = true;
+			}
+			else if ( event.Key.Code == sf::Keyboard::Right )
+			{
+				pressed.right = true;
+			}
+			else if ( event.Key.Code == Game::PrimaryKey )
 			{
 				std::vector< std::string > str;
 				str.push_back( "Hello World!" );
@@ -46,25 +62,22 @@ namespace obj
 		}
 		else if ( event.Type == sf::Event::KeyReleased )
 		{
-			switch ( event.Key.Code )
+			if ( event.Key.Code == sf::Keyboard::Up )
 			{
-				#define DoKey(a) case sf::Keyboard::a:  \
-									if ( nextDir == a ) \
-									{                   \
-										StopWalking();  \
-									}                   \
-									break;
-				
-				DoKey( Up );
-				DoKey( Down );
-				DoKey( Left );
-				DoKey( Right );
-				
-				#undef DoKey
-				
-				default:
-					break;
-			};
+				pressed.up = false;
+			}
+			else if ( event.Key.Code == sf::Keyboard::Down )
+			{
+				pressed.down = false;
+			}
+			else if ( event.Key.Code == sf::Keyboard::Left )
+			{
+				pressed.left = false;
+			}
+			else if ( event.Key.Code == sf::Keyboard::Right )
+			{
+				pressed.right = false;
+			}
 		}
 	}
 	

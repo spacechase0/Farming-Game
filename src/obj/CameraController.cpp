@@ -23,17 +23,7 @@ namespace obj
 	void CameraController::Draw( sf::RenderWindow& window )
 	{
 		const sf::Sprite& playerSprite = game.player->sprite;
-		float renderOffset = game.player->renderOffset;
-		
 		sf::Vector2f pos = playerSprite.GetPosition();
-		switch ( game.player->movement )
-		{
-			case Npc::Up:    pos.y += -renderOffset; break;
-			case Npc::Down:  pos.y += renderOffset;  break;
-			case Npc::Left:  pos.x += -renderOffset; break;
-			case Npc::Right: pos.x += renderOffset;  break;
-			default: break;
-		}
 		
 		sf::Vector2i layerSize( game.layers[ 0 ].GetTiles().size(), game.layers[ 0 ].GetTiles()[ 0 ].size() );
 		sf::Vector2i visibleTiles( Game::WindowSize.x / Game::TileSize, Game::WindowSize.y / Game::TileSize );

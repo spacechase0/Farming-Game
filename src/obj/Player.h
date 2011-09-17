@@ -8,14 +8,17 @@ namespace obj
 	class Player : public Npc // Ok, so NPC is an inaccurate parent for this. :P
 	{
 		public:
-			Player( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theGridPos );
+			Player( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2f thePos );
 			
 			virtual void Update();
 			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
 		
 		protected:
-			// Coming... Eventually
+			struct
+			{
+				bool up, down, left, right;
+			} pressed;
 	};
 }
 
