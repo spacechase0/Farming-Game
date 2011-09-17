@@ -20,6 +20,15 @@ Game::Game()
 	// Just trust me on this, ok? :P
 	currentScene = "";
 	nextScene = "MainMenu";
+
+	//Debug
+	sf::Font& font = GetFont( "fonts/Grantham/Grantham Bold.ttf" );
+	debug.SetFont( font );
+	debug.SetCharacterSize( 12 );
+	debug.SetString( "Farming Game" );
+	debug.SetPosition( 0, 0 );
+	debug.SetColor(sf::Color(0, 128, 128));
+	//Debug
 }
 
 Game::~Game()
@@ -78,6 +87,10 @@ int Game::Run()
 
 		rate += simulationTimer.GetElapsedTime();
 		simulationTimer.Reset();
+
+		//Debug
+	    window.Draw( debug );
+	    //Debug
 	}
 
 	return 0;
