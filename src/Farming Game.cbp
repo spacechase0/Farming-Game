@@ -52,6 +52,7 @@
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
 		<Unit filename="Global.h" />
+		<Unit filename="MapLoader.h" />
 		<Unit filename="Tile.cpp" />
 		<Unit filename="Tile.h" />
 		<Unit filename="TileLayer.cpp" />
