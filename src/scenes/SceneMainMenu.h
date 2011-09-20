@@ -20,6 +20,7 @@ class SceneMainMenu : public SceneGuiBase
 	private:
 		sf::Text title;
 		
+		void CreateButton( const std::string& text, sf::Vector2f pos, sf::Texture& tex, sf::Font& font, size_t charSize );
 		void ButtonCallback( gui::Button::EventType type, gui::Button& button );
 };
 
