@@ -57,10 +57,6 @@ class Game
 
 		bool isRunning;
 		sf::Clock simulationTimer;
-
-		//Debug
-        sf::Text debug;
-        //Debug
 };
 
 #endif // GAME_H

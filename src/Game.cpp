@@ -20,15 +20,6 @@ Game::Game()
 	// Just trust me on this, ok? :P
 	currentScene = "";
 	nextScene = "MainMenu";
-
-	//Debug
-	sf::Font& font = GetFont( "fonts/Grantham/Grantham Bold.ttf" );
-	debug.SetFont( font );
-	debug.SetCharacterSize( 12 );
-	debug.SetString( "Farming Game" );
-	debug.SetPosition( 0, 0 );
-	debug.SetColor(sf::Color(0, 128, 128));
-	//Debug
 }
 
 Game::~Game()
@@ -42,6 +33,9 @@ Game::~Game()
 int Game::Run()
 {
 	window.Create( sf::VideoMode( WindowSize.x, WindowSize.y ), WindowTitle, sf::Style::Titlebar | sf::Style::Close );
+	sf::Image icon;
+    icon.LoadFromFile("res/icon.png");
+    window.SetIcon(32,32,icon.GetPixelsPtr());
 
 	sf::Uint32 rate = 0;
 	simulationTimer.Reset();
@@ -87,10 +81,6 @@ int Game::Run()
 
 		rate += simulationTimer.GetElapsedTime();
 		simulationTimer.Reset();
-
-		//Debug
-	    window.Draw( debug );
-	    //Debug
 	}
 
 	return 0;

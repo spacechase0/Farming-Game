@@ -78,11 +78,6 @@ namespace obj
 			{
 				pressed.right = false;
 			}
-			else if ( event.Key.Code == sf::Keyboard::Escape )
-			{
-			    #warning TODO: Goto main menu
-				//game.ChangeScene( "MainMenu" );
-			}
 		}
 	}
 
