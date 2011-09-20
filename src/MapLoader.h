@@ -2,7 +2,7 @@
 #define MAPLOADER_H
 
 #include "TileLayer.h"
-#include "SceneGame.h"
+#include "scenes/SceneGame.h"
 
 class MapLoader
 {
