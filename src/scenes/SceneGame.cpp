@@ -69,9 +69,12 @@ void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
 		window.Close();
 	}
 
-	if ( event.Key.Code == sf::Keyboard::Escape )
+	if ( event.Type == sf::Event::KeyPressed )
 	{
-	    game.ChangeScene( "MainMenu" );
+		if( event.Key.Code == sf::Keyboard::Escape )
+		{
+			game.ChangeScene( "MainMenu" );
+		}
 	}
 
 	std::list< boost::shared_ptr< obj::Base > >& container = simulateWorld ? gameObjects : menuObjects;
