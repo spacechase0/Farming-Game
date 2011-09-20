@@ -8,6 +8,7 @@
 #include "obj/Objects.h"
 #include <xml/Xml.h>
 #include "util/Convert.h"
+#include "MapLoader.h"
 
 #define ValidateLoop(a) \
 		if ( std::distance( a.begin(), it ) >= static_cast< int >( a.size() ) ) \
@@ -32,12 +33,15 @@ void SceneGame::Initialize()
 	LoadItems( "misc.xml" );
 
 	CreateTestLayer();
-	CreateTestObject();
+	if ( layers.size() > 0 )
+	{
+		CreateTestObject();
 
-	cameraController = new obj::CameraController( ( * this ), game.window );
-	gameObjects.push_back( ObjectPtr( cameraController ) );
+		cameraController = new obj::CameraController( ( * this ), game.window );
+		gameObjects.push_back( ObjectPtr( cameraController ) );
 
-	simulateWorld = true;
+		simulateWorld = true;
+	}
 }
 
 void SceneGame::Terminate()
@@ -187,6 +191,14 @@ void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
 
 void SceneGame::CreateTestLayer()
 {
+	MapLoader loader( game, layers, gameObjects );
+	if ( !loader.LoadMap( "testing" ) )
+	{
+		std::vector< std::string > str;
+		str.push_back( "Map failed to load." );
+		CreateChatDialog( str );
+	}
+	/*
 	sf::Texture& outsideTileset = game.GetTexture( "tiles/outside.png" );
 	sf::Texture& fenceHorizontal = game.GetTexture( "scenery/fence_h.png" );
 	sf::Texture& fenceVertical = game.GetTexture( "scenery/fence_v.png" );
@@ -242,6 +254,7 @@ void SceneGame::CreateTestLayer()
 			}
 		}
 	}
+	*/
 }
 
 void SceneGame::CreateTestObject()

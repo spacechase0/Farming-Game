@@ -52,6 +52,7 @@
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
 		<Unit filename="Global.h" />
+		<Unit filename="MapLoader.cpp" />
 		<Unit filename="MapLoader.h" />
 		<Unit filename="Tile.cpp" />
 		<Unit filename="Tile.h" />
@@ -99,6 +100,8 @@
 		<Unit filename="scenes\Scenes.h" />
 		<Unit filename="util\Convert.h" />
 		<Unit filename="util\Grid.h" />
+		<Unit filename="util\Tokenize.cpp" />
+		<Unit filename="util\Tokenize.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
