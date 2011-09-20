@@ -53,6 +53,9 @@ int Game::Run()
 			scenes[ nextScene ]->Initialize();
 
 			currentScene = nextScene;
+			
+			// Fix the view
+			window.SetView( window.GetDefaultView() );
 		}
 
 		// Current scene
