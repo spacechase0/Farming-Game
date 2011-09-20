@@ -20,4 +20,73 @@
 		255 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 255
 		255 255 255 255 255 255 255 255 255 255 1 1 1 1 1 255 255 255 255 255 255 255 255 255 255
 	</TileLayer>
+	<StaticObjects>
+		<Scenery file="fence_v" x="0" y="1" />
+		<Scenery file="fence_v" x="0" y="2" />
+		<Scenery file="fence_v" x="0" y="3" />
+		<Scenery file="fence_v" x="0" y="4" />
+		<Scenery file="fence_v" x="0" y="5" />
+		<Scenery file="fence_v" x="0" y="6" />
+		<Scenery file="fence_v" x="0" y="11" />
+		<Scenery file="fence_v" x="0" y="12" />
+		<Scenery file="fence_v" x="0" y="13" />
+		<Scenery file="fence_v" x="0" y="14" />
+		<Scenery file="fence_v" x="0" y="15" />
+		<Scenery file="fence_v" x="0" y="16" />
+		
+		<Scenery file="fence_v" x="24" y="1" />
+		<Scenery file="fence_v" x="24" y="2" />
+		<Scenery file="fence_v" x="24" y="3" />
+		<Scenery file="fence_v" x="24" y="4" />
+		<Scenery file="fence_v" x="24" y="5" />
+		<Scenery file="fence_v" x="24" y="6" />
+		<Scenery file="fence_v" x="24" y="11" />
+		<Scenery file="fence_v" x="24" y="12" />
+		<Scenery file="fence_v" x="24" y="13" />
+		<Scenery file="fence_v" x="24" y="14" />
+		<Scenery file="fence_v" x="24" y="15" />
+		<Scenery file="fence_v" x="24" y="16" />
+		
+		<Scenery file="fence_h" x="0" y="0" />
+		<Scenery file="fence_h" x="1" y="0" />
+		<Scenery file="fence_h" x="2" y="0" />
+		<Scenery file="fence_h" x="3" y="0" />
+		<Scenery file="fence_h" x="4" y="0" />
+		<Scenery file="fence_h" x="5" y="0" />
+		<Scenery file="fence_h" x="6" y="0" />
+		<Scenery file="fence_h" x="7" y="0" />
+		<Scenery file="fence_h" x="8" y="0" />
+		<Scenery file="fence_h" x="9" y="0" />
+		<Scenery file="fence_h" x="15" y="0" />
+		<Scenery file="fence_h" x="16" y="0" />
+		<Scenery file="fence_h" x="17" y="0" />
+		<Scenery file="fence_h" x="18" y="0" />
+		<Scenery file="fence_h" x="19" y="0" />
+		<Scenery file="fence_h" x="20" y="0" />
+		<Scenery file="fence_h" x="21" y="0" />
+		<Scenery file="fence_h" x="22" y="0" />
+		<Scenery file="fence_h" x="23" y="0" />
+		<Scenery file="fence_h" x="24" y="0" />
+		
+		<Scenery file="fence_h" x="0" y="17" />
+		<Scenery file="fence_h" x="1" y="17" />
+		<Scenery file="fence_h" x="2" y="17" />
+		<Scenery file="fence_h" x="3" y="17" />
+		<Scenery file="fence_h" x="4" y="17" />
+		<Scenery file="fence_h" x="5" y="17" />
+		<Scenery file="fence_h" x="6" y="17" />
+		<Scenery file="fence_h" x="7" y="17" />
+		<Scenery file="fence_h" x="8" y="17" />
+		<Scenery file="fence_h" x="9" y="17" />
+		<Scenery file="fence_h" x="15" y="17" />
+		<Scenery file="fence_h" x="16" y="17" />
+		<Scenery file="fence_h" x="17" y="17" />
+		<Scenery file="fence_h" x="18" y="17" />
+		<Scenery file="fence_h" x="19" y="17" />
+		<Scenery file="fence_h" x="20" y="17" />
+		<Scenery file="fence_h" x="21" y="17" />
+		<Scenery file="fence_h" x="22" y="17" />
+		<Scenery file="fence_h" x="23" y="17" />
+		<Scenery file="fence_h" x="24" y="17" />
+	</StaticObjects>
 </Map>

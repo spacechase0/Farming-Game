@@ -6,9 +6,11 @@
 #include "Game.h"
 #include "util/Convert.h"
 #include "util/Tokenize.h"
+#include "obj/Objects.h"
 
-MapLoader::MapLoader( Game& theGame, std::vector< TileLayer >& theLayers, SceneGame::ObjectList& theObjects )
+MapLoader::MapLoader( Game& theGame, SceneGame& theScene, std::vector< TileLayer >& theLayers, SceneGame::ObjectList& theObjects )
    : game( theGame ),
+     scene( theScene ),
      layers( theLayers ),
      objects( theObjects )
 {
@@ -37,6 +39,13 @@ bool MapLoader::LoadMap( const std::string& mapName )
 		if ( node.GetName() == "TileLayer" )
 		{
 			if ( !ParseTileLayer( node ) )
+			{
+				return false;
+			}
+		}
+		else if ( node.GetName() == "StaticObjects" )
+		{
+			if ( !ParseStaticObjects( node ) )
 			{
 				return false;
 			}
@@ -149,4 +158,39 @@ std::vector< Tile > MapLoader::LoadTileTypes( sf::Texture& tex, const std::strin
 	}
 	
 	return tiles;
+}
+
+bool MapLoader::ParseStaticObjects( xml::Node& node )
+{
+	auto children = node.GetChildren();
+	for ( auto it = children.begin(); it != children.end(); ++it )
+	{
+		xml::Node& node = ( * it->get() );
+		if ( node.GetName() == "Scenery" )
+		{
+			if ( !ParseSceneryObject( node ) )
+			{
+				return false;
+			}
+		}
+	}
+	
+	return true;
+}
+
+bool MapLoader::ParseSceneryObject( xml::Node& node )
+{
+	sf::Texture& tex = game.GetTexture( "scenery/" + xml::GetAttribute( node, "file" ).GetValue() + ".png" );
+	std::string xStr = xml::GetAttribute( node, "x" ).GetValue();
+	std::string yStr = xml::GetAttribute( node, "y" ).GetValue();
+	
+	float x = util::FromString< float >( xStr );
+	float y = util::FromString< float >( yStr );
+	
+	sf::Vector2f pos( x * Game::TileSize, y * Game::TileSize );
+	
+	boost::shared_ptr< obj::Base > scenery( new obj::RenderObject( scene, tex, pos ) );
+	objects.push_back( scenery );
+	
+	return true;
 }

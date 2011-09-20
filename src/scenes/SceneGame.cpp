@@ -191,7 +191,7 @@ void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
 
 void SceneGame::CreateTestLayer()
 {
-	MapLoader loader( game, layers, gameObjects );
+	MapLoader loader( game, ( * this ), layers, gameObjects );
 	if ( !loader.LoadMap( "testing" ) )
 	{
 		std::vector< std::string > str;
