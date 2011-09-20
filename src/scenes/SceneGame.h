@@ -55,7 +55,7 @@ class SceneGame : public SceneBase
 		void CreateChatDialog( const std::vector< std::string >& messages );
 	
 	protected:
-		void CreateTestLayer();
+		void LoadMap( const std::string& map );
 		void CreateTestObject();
 		void DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const;
 		

@@ -32,7 +32,7 @@ void SceneGame::Initialize()
 	LoadItems( "tools.xml" );
 	LoadItems( "misc.xml" );
 
-	CreateTestLayer();
+	LoadMap( "testing" );
 	if ( layers.size() > 0 )
 	{
 		CreateTestObject();
@@ -189,72 +189,15 @@ void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
 	simulateWorld = false;
 }
 
-void SceneGame::CreateTestLayer()
+void SceneGame::LoadMap( const std::string& map )
 {
 	MapLoader loader( game, ( * this ), layers, gameObjects );
-	if ( !loader.LoadMap( "testing" ) )
+	if ( !loader.LoadMap( map ) )
 	{
 		std::vector< std::string > str;
-		str.push_back( "Map failed to load." );
+		str.push_back( "Map '" + map + "'failed to load." );
 		CreateChatDialog( str );
 	}
-	/*
-	sf::Texture& outsideTileset = game.GetTexture( "tiles/outside.png" );
-	sf::Texture& fenceHorizontal = game.GetTexture( "scenery/fence_h.png" );
-	sf::Texture& fenceVertical = game.GetTexture( "scenery/fence_v.png" );
-
-	sf::Vector2i layerSize = Game::WindowSize / 32;
-	layerSize.x *= 1.25;
-	layerSize.y *= 1.25;
-
-	Tile grassTile( outsideTileset, 1, false );
-	Tile dirtTile( outsideTileset, 0, false );
-	Tile sandTile( outsideTileset, 2, false );
-	Tile cropTile( outsideTileset, 3, false );
-	Tile noCollideTile( outsideTileset, 255, true );
-
-	layers.push_back( TileLayer( layerSize, grassTile ) );
-	TileLayer& layer = layers[ 0 ];
-	for ( size_t ix = 0; ix < layer.GetTiles().size(); ++ix )
-	{
-		for ( size_t iy = 0; iy < layer.GetTiles()[ ix ].size(); ++iy )
-		{
-			if ( ix == 0 or ix == layer.GetTiles().size() - 1 or iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
-			{
-				if ( ( ix >= 8 and ix <= 11 ) or ( iy >= 6 and iy <= 8 ) )
-				{
-					layer[ ix ][ iy ] = grassTile;
-					continue;
-				}
-
-				layer[ ix ][ iy ] = noCollideTile;
-
-				obj::Base* fence;
-				if ( iy == 0 or iy == layer.GetTiles()[ ix ].size() - 1 )
-				{
-					fence = new obj::RenderObject( ( * this ), fenceHorizontal, sf::Vector2f( ix * Game::TileSize, iy * Game::TileSize ) );
-				}
-				else
-				{
-					fence = new obj::RenderObject( ( * this ), fenceVertical, sf::Vector2f( ix * Game::TileSize, iy * Game::TileSize ) );
-				}
-				gameObjects.push_back( boost::shared_ptr< obj::Base >( fence ) );
-			}
-			else if ( ix >= 8 and ix <= 10 and iy >= 8 and iy <= 10 )
-			{
-				layer[ ix ][ iy ] = cropTile;
-			}
-			else if ( ix >= 6 and ix <= 8 and iy >= 2 and iy <= 4 )
-			{
-				layer[ ix ][ iy ] = dirtTile;
-			}
-			else if ( ix >= 12 and ix <= 14 and iy >= 4 and iy <= 6 )
-			{
-				layer[ ix ][ iy ] = sandTile;
-			}
-		}
-	}
-	*/
 }
 
 void SceneGame::CreateTestObject()
