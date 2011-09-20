@@ -102,10 +102,19 @@ void SceneGame::Draw( sf::RenderWindow& window )
 			( * it )->Draw( window );
 		}
 	}
-	for ( auto it = menuObjects.begin(); it != menuObjects.end(); ++it )
 	{
-		ValidateLoop( menuObjects );
-		( * it )->Draw( window );
+		// We want the GUI to have a static position on the screen
+		sf::View oldView = window.GetView();
+		sf::View newView( sf::Vector2f( Game::WindowSize.x / 2, Game::WindowSize.y / 2 ), sf::Vector2f( Game::WindowSize ) );
+		window.SetView( newView );
+		
+		for ( auto it = menuObjects.begin(); it != menuObjects.end(); ++it )
+		{
+			ValidateLoop( menuObjects );
+			( * it )->Draw( window );
+		}
+		
+		window.SetView( oldView );
 	}
 
 	window.Display();
