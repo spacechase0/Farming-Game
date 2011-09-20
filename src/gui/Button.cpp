@@ -84,6 +84,17 @@ namespace gui
 	
 	void Button::Update()
 	{
+		// No idea why this fixes it, but whatever
+		sf::FloatRect rect( sprite.GetPosition().x, sprite.GetPosition().y, sprite.GetSubRect().Width, sprite.GetSubRect().Height );
+		if ( state.inside and !rect.Contains( mousePos.x, mousePos.y ) )
+		{
+			state.inside = false;
+		}
+		if ( !state.inside and state.pressed )
+		{
+			state.pressed = false;
+		}
+		
 		UpdateSpriteRect();
 	}
 	
