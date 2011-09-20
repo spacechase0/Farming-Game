@@ -78,32 +78,23 @@ void SceneMainMenu::CreateButton( const std::string& text, sf::Vector2f pos, sf:
 
 void SceneMainMenu::ButtonCallback( gui::Button::EventType type, gui::Button& button )
 {
-	if ( static_cast< gui::TextButton* >( &button )->GetString() == "New Game" )
+	if ( type != gui::Button::Release )
 	{
-		if ( type == gui::Button::Release )
-		{
-			game.ChangeScene( "Game" );
-		}
+		return;
 	}
-	if ( static_cast< gui::TextButton* >( &button )->GetString() == "Load Game" )
+	
+	gui::TextButton* btn = static_cast< gui::TextButton* >( &button );
+	
+	if ( btn->GetString() == "New Game" or btn->GetString() == "Load Game" )
 	{
-		if ( type == gui::Button::Release )
-		{
-			game.ChangeScene( "Game" );
-		}
+		game.ChangeScene( "Game" );
 	}
-	if ( static_cast< gui::TextButton* >( &button )->GetString() == "Options" )
+	if ( btn->GetString() == "Options" )
 	{
-		if ( type == gui::Button::Release )
-		{
-            game.ChangeScene( "Options" );
-		}
+		game.ChangeScene( "Options" );
 	}
-	if ( static_cast< gui::TextButton* >( &button )->GetString() == "Quit" )
+	if ( btn->GetString() == "Quit" )
 	{
-		if ( type == gui::Button::Release )
-		{
-		    game.window.Close();
-		}
+		game.window.Close();
 	}
 }
