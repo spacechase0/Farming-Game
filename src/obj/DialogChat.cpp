@@ -1,5 +1,6 @@
 #include "obj/DialogChat.h"
 
+#include "scenes/SceneGame.h"
 #include "Game.h"
 
 namespace obj
@@ -50,7 +51,7 @@ namespace obj
 	void DialogChat::CloseDialog()
 	{
 		game.simulateWorld = true;
-		for ( auto it = game.menuObjects.begin(); it != game.menuObjects.end(); ++it )
+		for ( auto it = game.maps.menuObjects.begin(); it != game.maps.menuObjects.end(); ++it )
 		{
 			if ( !( * it ) )
 			{
@@ -60,7 +61,7 @@ namespace obj
 			obj::Base* obj = it->get();
 			if ( obj == this )
 			{
-				game.garbageObjects.push_back( SceneGame::Garbage( it, SceneGame::MenuGarbage ) );
+				game.maps.AddGarbage( it, &game.maps.menuObjects );
 				return;
 			}
 		}

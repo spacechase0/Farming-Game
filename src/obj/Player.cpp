@@ -1,11 +1,12 @@
 #include "obj/Player.h"
 
 #include "Game.h"
+#include "scenes/SceneGame.h"
 
 namespace obj
 {
-	Player::Player( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2f thePos )
-	   : Npc::Npc( theGame, theTexture, sf::Vector2i( 32, 64 ) ),
+	Player::Player( SceneGame& theGame, MapManager::Map& theMap, sf::Texture& theTexture, sf::Vector2f thePos )
+	   : Npc::Npc( theGame, theMap, theTexture, sf::Vector2i( 32, 64 ) ),
 	     pressed{ false, false, false, false }
 	{
 		SetPosition( thePos );

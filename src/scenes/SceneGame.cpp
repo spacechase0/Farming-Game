@@ -11,16 +11,6 @@
 #include "MapLoader.h"
 #include "util/Type.h"
 
-#define ValidateLoop(a) \
-		if ( std::distance( a.begin(), it ) >= static_cast< int >( a.size() ) ) \
-		{          \
-			break; \
-		}          \
-		if ( !( * it ) ) \
-		{             \
-			continue; \
-		}             \
-
 SceneGame::SceneGame( Game& game )
    : SceneBase::SceneBase( game )
 {
@@ -34,12 +24,12 @@ void SceneGame::Initialize()
 	LoadItems( "misc.xml" );
 
 	LoadMap( "testing" );
-	if ( layers.size() > 0 )
+	maps.currentMap = "testing";
+	if ( maps.maps.size() > 0 )
 	{
 		CreateTestObject();
 
 		cameraController = new obj::CameraController( ( * this ), game.window );
-		gameObjects.push_back( ObjectPtr( cameraController ) );
 
 		simulateWorld = true;
 	}
@@ -47,10 +37,7 @@ void SceneGame::Initialize()
 
 void SceneGame::Terminate()
 {
-	layers.clear();
-	gameObjects.clear();
-	menuObjects.clear();
-	garbageObjects.clear();
+	maps = MapManager();
 	itemDefs.clear();
 
 	player = NULL;
@@ -59,12 +46,7 @@ void SceneGame::Terminate()
 
 void SceneGame::Update( sf::RenderWindow& window )
 {
-	std::list< boost::shared_ptr< obj::Base > >& container = simulateWorld ? gameObjects : menuObjects;
-	for ( auto it = container.begin(); it != container.end(); ++it )
-	{
-		ValidateLoop( container );
-		( * it )->Update();
-	}
+	maps.Update();
 }
 
 void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
@@ -81,101 +63,65 @@ void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
 			game.ChangeScene( "MainMenu" );
 		}
 	}
-
-	std::list< boost::shared_ptr< obj::Base > >& container = simulateWorld ? gameObjects : menuObjects;
-	for ( auto it = container.begin(); it != container.end(); ++it )
-	{
-		ValidateLoop( container );
-		( * it )->Update( event );
-	}
+	
+	maps.Update( event );
 }
 
 void SceneGame::Draw( sf::RenderWindow& window )
 {
 	window.Clear( sf::Color::Black );
-
-	for ( auto it = layers.begin(); it != layers.end(); ++it )
-	{
-		TileLayer& layer = ( * it );
-		DrawLayer( window, layer );
-	}
-	{
-		using namespace std::placeholders;
-		auto compare = std::bind( &SceneGame::CompareObjects, this, _1, _2 );
-		gameObjects.sort( compare );
-
-		for ( auto it = gameObjects.begin(); it != gameObjects.end(); ++it )
-		{
-			ValidateLoop( gameObjects );
-			( * it )->Draw( window );
-		}
-	}
-	{
-		// We want the GUI to have a static position on the screen
-		sf::View oldView = window.GetView();
-		sf::View newView( sf::Vector2f( Game::WindowSize.x / 2, Game::WindowSize.y / 2 ), sf::Vector2f( Game::WindowSize ) );
-		window.SetView( newView );
-		
-		for ( auto it = menuObjects.begin(); it != menuObjects.end(); ++it )
-		{
-			ValidateLoop( menuObjects );
-			( * it )->Draw( window );
-		}
-		
-		window.SetView( oldView );
-	}
+	
+	cameraController->Draw( window );
+	maps.Draw( window );
 
 	window.Display();
-
-	// Don't ask why I do it here instead of Update
-	for ( auto it = garbageObjects.begin(); it != garbageObjects.end(); ++it )
-	{
-		if ( it->second == GarbageType::GameGarbage )
-		{
-			gameObjects.erase( it->first );
-		}
-		else if ( it->second == GarbageType::MenuGarbage )
-		{
-			menuObjects.erase( it->first );
-		}
-	}
-	garbageObjects.clear();
+	
+	maps.CollectGarbage();
 }
 
 
-bool SceneGame::IsTileEmpty( int x, int y, int layer )
+bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 {
-	if ( layer <= -1 )
+	for ( auto it = map.layers.begin(); it != map.layers.end(); ++it )
 	{
-		for ( auto it = layers.begin(); it != layers.end(); ++it )
+		if ( x < 0 or x >= static_cast< int >( it->GetTiles().size() ) or
+			 y < 0 or y >= static_cast< int >( ( * it )[ x ].size() ) )
 		{
-			if ( x < 0 or x >= static_cast< int >( it->GetTiles().size() ) or
-				 y < 0 or y >= static_cast< int >( ( * it )[ x ].size() ) )
-			{
-				return false;
-			}
-
-			bool solid = ( * it )[ x ][ y ].GetCollision();
-			if ( solid )
-			{
-				return true;
-			}
+			break;
 		}
-		return false;
+
+		bool solid = ( * it )[ x ][ y ].GetCollision();
+		if ( solid )
+		{
+			return true;
+		}
 	}
-	else if ( static_cast< unsigned int >( layer ) >= layers.size() )
+	
+	for ( auto it = map.objects.begin(); it != map.objects.end(); ++it )
 	{
-		return false;
+		if ( !util::IsOfType< obj::RenderObject* >( it->get() ) )
+		{
+			continue;
+		}
+		
+		obj::RenderObject* object = static_cast< obj::RenderObject* >( it->get() );
+		if ( !object->CanCollide() )
+		{
+			continue;
+		}
+		
+		if ( object->GetCollisionRect().Contains( x * Game::TileSize, y * Game::TileSize ) )
+		{
+			return false;
+		}
 	}
-	else
-	{
-		return layers[ layer ][ x ][ y ].GetCollision();
-	}
+	
+	return true;
 }
 
-bool SceneGame::IsTileEmpty( sf::Vector2i pos, int layer )
+bool SceneGame::IsTileEmpty( MapManager::Map& map, sf::Vector2i pos )
 {
-	return IsTileEmpty( pos.x, pos.y, layer );
+	return IsTileEmpty( map, pos.x, pos.y );
 }
 
 void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
@@ -185,49 +131,32 @@ void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
 	sf::Font& font = game.GetFont( "fonts/Grantham/Grantham Bold.ttf" );
 
 	obj::Base* chat = new obj::DialogChat( ( * this ), background, button, font, messages );
-	menuObjects.push_back( boost::shared_ptr< obj::Base >( chat ) );
+	maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( chat ) );
 
 	simulateWorld = false;
 }
 
-void SceneGame::LoadMap( const std::string& map )
+void SceneGame::LoadMap( const std::string& mapName )
 {
-	MapLoader loader( game, ( * this ), layers, gameObjects );
-	if ( !loader.LoadMap( map ) )
+	maps.maps.insert( std::make_pair( mapName, MapManager::MapPtr( new MapManager::Map ) ) );
+	MapManager::Map& map = ( * maps[ mapName ] );
+	
+	MapLoader loader( game, ( * this ), map.layers, map.objects );
+	if ( !loader.LoadMap( mapName ) )
 	{
 		std::vector< std::string > str;
-		str.push_back( "Map '" + map + "'failed to load." );
+		str.push_back( "Map '" + mapName + "'failed to load." );
 		CreateChatDialog( str );
+		maps.maps.erase( maps.maps.find( mapName ) );
 	}
 }
 
 void SceneGame::CreateTestObject()
 {
 	sf::Texture& texture = game.GetTexture( "characters/player.png" );
-	player = new obj::Player( ( * this ), texture, sf::Vector2f( 13 * Game::TileSize, 5 * Game::TileSize ) );
+	player = new obj::Player( ( * this ), ( * maps[ maps.currentMap ] ), texture, sf::Vector2f( 13 * Game::TileSize, 5 * Game::TileSize ) );
 
-	gameObjects.push_back( boost::shared_ptr< obj::Base >( player ) );
-}
-
-void SceneGame::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) const
-{
-	sf::Texture& texture = game.GetTexture( "tiles/outside.png" );
-	sf::Sprite spr( texture );
-
-	for ( size_t ix = 0; ix < layer.GetTiles().size(); ++ix )
-	{
-		for ( size_t iy = 0; iy < layer.GetTiles()[ ix ].size(); ++iy )
-		{
-			const Tile& tile = layer.GetTile( ix, iy );
-			sf::Uint8 index = tile.GetIndex();
-
-			sf::Vector2i texturePos( ( index % 16 ) * Game::TileSize, ( index / 16 ) * Game::TileSize );
-			spr.SetSubRect( sf::IntRect( texturePos.x, texturePos.y, Game::TileSize, Game::TileSize ) );
-			spr.SetPosition( ix * 32, iy * 32 );
-
-			window.Draw( spr );
-		}
-	}
+	maps[ maps.currentMap ]->objects.push_back( boost::shared_ptr< obj::Base >( player ) );
 }
 
 void SceneGame::LoadItems( const std::string& filename )
@@ -367,17 +296,4 @@ item::Tool::Action SceneGame::ToAction( const std::string& str )
 	}
 
 	return Tool::Action::None;
-}
-
-bool SceneGame::CompareObjects( const boost::shared_ptr< obj::Base >& obj1, const boost::shared_ptr< obj::Base >& obj2 )
-{
-	if ( !util::IsOfType< obj::RenderObject* >( obj1.get() ) or !util::IsOfType< obj::RenderObject* >( obj2.get() ) )
-	{
-		return false;
-	}
-
-	obj::RenderObject* firstObj = static_cast< obj::RenderObject* >( &( * obj1 ) );
-	obj::RenderObject* secondObj = static_cast< obj::RenderObject* >( &( * obj2 ) );
-
-	return ( -firstObj->GetPosition().y ) > ( -secondObj->GetPosition().y );
 }

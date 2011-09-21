@@ -3,8 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "scenes/SceneGame.h"
-#include "Game.h"
+class SceneGame;
 
 namespace obj
 {

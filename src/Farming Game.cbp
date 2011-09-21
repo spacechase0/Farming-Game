@@ -54,6 +54,8 @@
 		<Unit filename="Global.h" />
 		<Unit filename="MapLoader.cpp" />
 		<Unit filename="MapLoader.h" />
+		<Unit filename="MapManager.cpp" />
+		<Unit filename="MapManager.h" />
 		<Unit filename="Tile.cpp" />
 		<Unit filename="Tile.h" />
 		<Unit filename="TileLayer.cpp" />
@@ -81,6 +83,8 @@
 		<Unit filename="obj\DialogBase.h" />
 		<Unit filename="obj\DialogChat.cpp" />
 		<Unit filename="obj\DialogChat.h" />
+		<Unit filename="obj\Entrance.cpp" />
+		<Unit filename="obj\Entrance.h" />
 		<Unit filename="obj\Npc.cpp" />
 		<Unit filename="obj\Npc.h" />
 		<Unit filename="obj\Objects.h" />
@@ -88,6 +92,8 @@
 		<Unit filename="obj\Player.h" />
 		<Unit filename="obj\RenderObject.cpp" />
 		<Unit filename="obj\RenderObject.h" />
+		<Unit filename="obj\Scenery.cpp" />
+		<Unit filename="obj\Scenery.h" />
 		<Unit filename="scenes\SceneBase.h" />
 		<Unit filename="scenes\SceneGame.cpp" />
 		<Unit filename="scenes\SceneGame.h" />

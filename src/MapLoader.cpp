@@ -8,7 +8,7 @@
 #include "util/Tokenize.h"
 #include "obj/Objects.h"
 
-MapLoader::MapLoader( Game& theGame, SceneGame& theScene, std::vector< TileLayer >& theLayers, SceneGame::ObjectList& theObjects )
+MapLoader::MapLoader( Game& theGame, SceneGame& theScene, std::vector< TileLayer >& theLayers, MapManager::ObjectList& theObjects )
    : game( theGame ),
      scene( theScene ),
      layers( theLayers ),
@@ -189,7 +189,7 @@ bool MapLoader::ParseSceneryObject( xml::Node& node )
 
 	sf::Vector2f pos( x * Game::TileSize, y * Game::TileSize );
 
-	boost::shared_ptr< obj::Base > scenery( new obj::RenderObject( scene, tex, pos ) );
+	boost::shared_ptr< obj::Base > scenery( new obj::Scenery( scene, tex, pos ) );
 	objects.push_back( scenery );
 
 	return true;

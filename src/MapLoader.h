@@ -10,7 +10,7 @@ class Game;
 class MapLoader
 {
 	public:
-		MapLoader( Game& theGame, SceneGame& theScene, std::vector< TileLayer >& theLayers, SceneGame::ObjectList& theObjects );
+		MapLoader( Game& theGame, SceneGame& theScene, std::vector< TileLayer >& theLayers, MapManager::ObjectList& theObjects );
 		
 		bool LoadMap( const std::string& mapName );
 	
@@ -18,7 +18,7 @@ class MapLoader
 		Game& game;
 		SceneGame& scene;
 		std::vector< TileLayer >& layers;
-		SceneGame::ObjectList& objects;
+		MapManager::ObjectList& objects;
 		size_t width, height;
 		
 		bool LoadXml( xml::Document& doc, const std::string& mapName );

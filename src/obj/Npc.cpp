@@ -1,9 +1,13 @@
 #include "obj/Npc.h"
 
+#include "Game.h"
+#include "scenes/SceneGame.h"
+
 namespace obj
 {
-	Npc::Npc( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2i theFrameSize )
+	Npc::Npc( SceneGame& theGame, MapManager::Map& theMap, sf::Texture& theTexture, sf::Vector2i theFrameSize )
 	   : RenderObject::RenderObject( theGame, theTexture, sf::Vector2f( 0, 0 ) ),
+	     map( &theMap ),
 	     frameSize( theFrameSize )
 	{
 		sf::IntRect subRect( frameSize.x * Down, frameSize.y * 0, frameSize.x, frameSize.y );
@@ -101,7 +105,7 @@ namespace obj
 		
 		sf::Vector2i nextGridPos( pos.x / Game::TileSize, pos.y / Game::TileSize );
 		
-		return !game.IsTileEmpty( nextGridPos );
+		return game.IsTileEmpty( ( * map ), nextGridPos );
 	}
 	
 	bool Npc::Movement( MovementDirection a, char b, int c )

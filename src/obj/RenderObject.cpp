@@ -1,5 +1,7 @@
 #include "obj/RenderObject.h"
 
+#include "Game.h"
+
 namespace obj
 {
 	RenderObject::RenderObject( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2f thePos )
@@ -70,6 +72,6 @@ namespace obj
 	
 	sf::FloatRect RenderObject::GetCollisionRect() const
 	{
-		return sf::FloatRect( sprite.GetPosition().x, sprite.GetPosition().y, sprite.GetSubRect().Width, sprite.GetSubRect().Height );
+		return sf::FloatRect( sprite.GetPosition().x - sprite.GetOrigin().x, sprite.GetPosition().y - sprite.GetOrigin().y, sprite.GetSubRect().Width, sprite.GetSubRect().Height );
 	}
 }

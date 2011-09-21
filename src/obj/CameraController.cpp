@@ -2,6 +2,7 @@
 
 #include "scenes/SceneGame.h"
 #include "obj/Player.h"
+#include "Game.h"
 
 namespace obj
 {
@@ -25,7 +26,8 @@ namespace obj
 		const sf::Sprite& playerSprite = game.player->sprite;
 		sf::Vector2f pos = playerSprite.GetPosition();
 		
-		sf::Vector2i layerSize( game.layers[ 0 ].GetTiles().size(), game.layers[ 0 ].GetTiles()[ 0 ].size() );
+		TileLayer& layer = game.maps[ game.maps.currentMap ]->layers[ 0 ];
+		sf::Vector2i layerSize( layer.GetTiles().size(), layer.GetTiles()[ 0 ].size() );
 		sf::Vector2i visibleTiles( Game::WindowSize.x / Game::TileSize, Game::WindowSize.y / Game::TileSize );
 		sf::Vector2i halfScreen( ( visibleTiles.x / 2 ) * Game::TileSize, ( visibleTiles.y / 2 ) * Game::TileSize );
 		

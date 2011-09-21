@@ -5,5 +5,5 @@
 	<Type name="Sand" index="2" collide="0" />
 	<Type name="Soil" index="3" collide="0" />
 	
-	<Type name="Collider" index="255" collide="1" />
+	<Type name="Collider" index="255" collide="0" />
 </TileTypes>
