@@ -93,7 +93,7 @@ bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 		bool solid = ( * it )[ x ][ y ].GetCollision();
 		if ( solid )
 		{
-			return true;
+			return false;
 		}
 	}
 	

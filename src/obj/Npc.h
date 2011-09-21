@@ -39,8 +39,6 @@ namespace obj
 			const sf::Vector2i frameSize;
 			
 			friend class CameraController;
-			
-			bool Movement( MovementDirection a, char b, int c );
 	};
 }
 

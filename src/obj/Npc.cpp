@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "scenes/SceneGame.h"
+#include "util/Type.h"
 
 namespace obj
 {
@@ -48,19 +49,19 @@ namespace obj
 		switch ( theMovement )
 		{
 			case Up:
-				Movement( theMovement, 'y', -speed );
+				sprite.Move( 0, -speed );
 				break;
 			
 			case Down:
-				Movement( theMovement, 'y',  speed );
+				sprite.Move( 0, speed );
 				break;
 			
 			case Left:
-				Movement( theMovement, 'x', -speed );
+				sprite.Move( -speed, 0 );
 				break;
 			
 			case Right:
-				Movement( theMovement, 'x',  speed );
+				sprite.Move( speed, 0 );
 				break;
 			
 			default:
@@ -105,19 +106,33 @@ namespace obj
 		
 		sf::Vector2i nextGridPos( pos.x / Game::TileSize, pos.y / Game::TileSize );
 		
-		return game.IsTileEmpty( ( * map ), nextGridPos );
-	}
-	
-	bool Npc::Movement( MovementDirection a, char b, int c )
-	{
-		if ( b == 'x' )
+		if ( !game.IsTileEmpty( ( * map ), nextGridPos ) )
 		{
-			sprite.Move( c, 0 );
+			return false;
 		}
-		else
+		
+		#warning TO DO: Implement object collision
+		/*
+		sf::FloatRect rect( pos.x - sprite.GetOrigin().x, pos.y - sprite.GetOrigin().y, Game::TileSize, Game::TileSize );
+		for ( auto it = map->objects.begin(); it != map->objects.end(); ++it )
 		{
-			sprite.Move( 0, c );
+			if ( !util::IsOfType< obj::RenderObject* >( it->get() ) )
+			{
+				continue;
+			}
+			
+			obj::RenderObject* object = static_cast< obj::RenderObject* >( it->get() );
+			if ( !object->CanCollide() )
+			{
+				continue;
+			}
+			
+			if ( object->GetCollisionRect().Intersects( rect ) )
+			{
+				return false;
+			}
 		}
+		//*/
 		
 		return true;
 	}
