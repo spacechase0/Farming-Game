@@ -3,6 +3,6 @@
 	<Item name="Coconut" desc="A coconut." type="food" index="0" price="24" />
 	<Item name="Pineapple" desc="A pineapple." type="food" index="1" price="36" />
 	<Item name="Pear" desc="A pear." type="food" index="2" price="28" />
-	<Item name="Mushroom" desc="A mushroom." type="food" index="3" price="12" />
-	<Item name="Egg" desc="Am egg." type="food" index="4" price="7"  />
+	<Item name="Mushroom" desc="A brown mushroom." type="food" index="3" price="12" />
+	<Item name="Egg" desc="An egg." type="food" index="4" price="7"  />
 </Items>
