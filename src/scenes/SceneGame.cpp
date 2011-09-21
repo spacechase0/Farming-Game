@@ -9,6 +9,7 @@
 #include <xml/Xml.h>
 #include "util/Convert.h"
 #include "MapLoader.h"
+#include "util/Type.h"
 
 #define ValidateLoop(a) \
 		if ( std::distance( a.begin(), it ) >= static_cast< int >( a.size() ) ) \
@@ -370,7 +371,7 @@ item::Tool::Action SceneGame::ToAction( const std::string& str )
 
 bool SceneGame::CompareObjects( const boost::shared_ptr< obj::Base >& obj1, const boost::shared_ptr< obj::Base >& obj2 )
 {
-	if ( !dynamic_cast< obj::RenderObject* >( obj1.get() ) or !dynamic_cast< obj::RenderObject* >( obj2.get() ) )
+	if ( !util::IsOfType< obj::RenderObject* >( obj1.get() ) or !util::IsOfType< obj::RenderObject* >( obj2.get() ) )
 	{
 		return false;
 	}

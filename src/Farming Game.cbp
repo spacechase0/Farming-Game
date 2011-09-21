@@ -102,6 +102,7 @@
 		<Unit filename="util\Grid.h" />
 		<Unit filename="util\Tokenize.cpp" />
 		<Unit filename="util\Tokenize.h" />
+		<Unit filename="util\Type.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
