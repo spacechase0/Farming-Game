@@ -63,4 +63,13 @@ namespace obj
 		window.Draw( sprite );
 	}
 	
+	bool RenderObject::CanCollide() const
+	{
+		return false;
+	}
+	
+	sf::FloatRect RenderObject::GetCollisionRect() const
+	{
+		return sf::FloatRect( sprite.GetPosition().x, sprite.GetPosition().y, sprite.GetSubRect().Width, sprite.GetSubRect().Height );
+	}
 }

@@ -22,6 +22,9 @@ namespace obj
 			virtual void Update();
 			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
+			
+			virtual bool CanCollide() const;
+			virtual sf::FloatRect GetCollisionRect() const;
 		
 		protected:
 			sf::Sprite sprite;
