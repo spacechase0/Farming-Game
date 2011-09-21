@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<Save>
+	<Player>
+		<Name value="Name" />
+		<Inventory>
+			<Slot id="0" item="" amount="" />
+			<Slot id="1" item="" amount="" />
+			<Slot id="2" item="" amount="" />
+			<Slot id="3" item="" amount="" />
+			<Slot id="4" item="" amount="" />
+			<Slot id="5" item="" amount="" />
+			<Slot id="6" item="" amount="" />
+			<Slot id="7" item="" amount="" />
+			<Slot id="8" item="" amount="" />
+			<Slot id="9" item="" amount="" />
+			<Slot id="10" item="" amount="" />
+			<Slot id="11" item="" amount="" />
+			<Slot id="12" item="" amount="" />
+			<Slot id="13" item="" amount="" />
+			<Slot id="14" item="" amount="" />
+			<Slot id="15" item="" amount="" />
+			<Slot id="16" item="" amount="" />
+			<Slot id="17" item="" amount="" />
+		</Inventory>
+	</Player>
+	<DynamicData>
+		
+	</DynamicData>
+</Save>
