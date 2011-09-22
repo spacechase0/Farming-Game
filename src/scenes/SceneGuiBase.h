@@ -10,16 +10,16 @@ class SceneGuiBase : public SceneBase
 {
 	public:
 		SceneGuiBase( Game& theGame );
-		
+
 		virtual void Initialize();
 		virtual void Terminate();
-		
+
 		virtual void Update( sf::RenderWindow& window );
 		virtual void Update( sf::RenderWindow& window, const sf::Event& event );
-	
+
 	protected:
 		std::vector< boost::shared_ptr< gui::Base > > gui;
-		
+
 		void DrawGui( sf::RenderWindow& window );
 };
 

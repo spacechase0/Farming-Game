@@ -1,36 +1,37 @@
-#include "scenes/SceneOptions.h"
+#include "scenes/SceneNew.h"
 
 #include "Game.h"
 
-SceneOptions::SceneOptions( Game& theGame )
+SceneNew::SceneNew( Game& theGame )
    : SceneGuiBase::SceneGuiBase( theGame )
 {
 }
 
-void SceneOptions::Initialize()
+void SceneNew::Initialize()
 {
 	sf::Texture& tex = game.GetTexture( "gui/menu-button.png" );
 	sf::Font& font = game.GetFont( "fonts/Grantham/Grantham Bold.ttf" );
 
 	title.SetFont( font );
 	title.SetCharacterSize( 50 );
-	title.SetString( "Options" );
+	title.SetString( "New Game" );
 	title.SetPosition( ( Game::WindowSize.x - title.GetRect().Width ) / 2, 40 );
 
-	CreateButton( "Back",  sf::Vector2f( ( Game::WindowSize.x - tex.GetWidth() ) / 2,   400 ), tex, font, 24 );
+    CreateButton( "Start",  sf::Vector2f( ( Game::WindowSize.x - tex.GetWidth() ) / 5,   400 ), tex, font, 24 );
+	CreateButton( "Back",  sf::Vector2f( ( Game::WindowSize.x - tex.GetWidth() ) / 1.3,   400 ), tex, font, 24 );
 }
 
-void SceneOptions::Terminate()
+void SceneNew::Terminate()
 {
 	SceneGuiBase::Terminate();
 }
 
-void SceneOptions::Update( sf::RenderWindow& window )
+void SceneNew::Update( sf::RenderWindow& window )
 {
 	SceneGuiBase::Update( window );
 }
 
-void SceneOptions::Update( sf::RenderWindow& window, const sf::Event& event )
+void SceneNew::Update( sf::RenderWindow& window, const sf::Event& event )
 {
 	if ( event.Type == sf::Event::Closed )
 	{
@@ -40,7 +41,7 @@ void SceneOptions::Update( sf::RenderWindow& window, const sf::Event& event )
 	SceneGuiBase::Update( window, event );
 }
 
-void SceneOptions::Draw( sf::RenderWindow& window )
+void SceneNew::Draw( sf::RenderWindow& window )
 {
 	window.Clear( sf::Color::Black );
 
@@ -50,7 +51,7 @@ void SceneOptions::Draw( sf::RenderWindow& window )
 	window.Display();
 }
 
-void SceneOptions::CreateButton( const std::string& text, sf::Vector2f pos, sf::Texture& tex, sf::Font& font, size_t charSize )
+void SceneNew::CreateButton( const std::string& text, sf::Vector2f pos, sf::Texture& tex, sf::Font& font, size_t charSize )
 {
     boost::shared_ptr< gui::TextButton > button( new gui::TextButton() );
     button->SetTexture( tex );
@@ -66,16 +67,16 @@ void SceneOptions::CreateButton( const std::string& text, sf::Vector2f pos, sf::
 
     {
         using namespace std::placeholders;
-        auto callback = std::bind( &SceneOptions::ButtonCallback, this, _1, _2 );
+        auto callback = std::bind( &SceneNew::ButtonCallback, this, _1, _2 );
         button->SetCallback( callback );
     }
 
     gui.push_back( button );
 }
 
-void SceneOptions::ButtonCallback( gui::Button::EventType type, gui::Button& button )
+void SceneNew::ButtonCallback( gui::Button::EventType type, gui::Button& button )
 {
-	if ( type != gui::Button::Release )
+    if ( type != gui::Button::Release )
 	{
 		return;
 	}
@@ -85,5 +86,9 @@ void SceneOptions::ButtonCallback( gui::Button::EventType type, gui::Button& but
 	if ( btn->GetString() == "Back" )
 	{
 		game.ChangeScene( "MainMenu" );
+	}
+	if ( btn->GetString() == "Start" )
+	{
+		game.ChangeScene( "Game" );
 	}
 }

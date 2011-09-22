@@ -82,12 +82,16 @@ void SceneMainMenu::ButtonCallback( gui::Button::EventType type, gui::Button& bu
 	{
 		return;
 	}
-	
+
 	gui::TextButton* btn = static_cast< gui::TextButton* >( &button );
-	
-	if ( btn->GetString() == "New Game" or btn->GetString() == "Load Game" )
+
+	if ( btn->GetString() == "New Game" )
 	{
-		game.ChangeScene( "Game" );
+		game.ChangeScene( "NewGame" );
+	}
+	if ( btn->GetString() == "Load Game" )
+	{
+		game.ChangeScene( "LoadGame" );
 	}
 	if ( btn->GetString() == "Options" )
 	{

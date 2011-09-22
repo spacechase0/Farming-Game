@@ -1,14 +1,14 @@
-#ifndef SCENES_SCENEOPTIONS_H
-#define SCENES_SCENEOPTIONS_H
+#ifndef SCENES_SCENELOAD_H
+#define SCENES_SCENELOAD_H
 
 #include <SFML/Graphics.hpp>
 
 #include "scenes/SceneGuiBase.h"
 
-class SceneOptions : public SceneGuiBase
+class SceneLoad : public SceneGuiBase
 {
 	public:
-		SceneOptions( Game& theGame );
+		SceneLoad( Game& theGame );
 
 		virtual void Initialize();
 		virtual void Terminate();
@@ -24,4 +24,4 @@ class SceneOptions : public SceneGuiBase
 		void ButtonCallback( gui::Button::EventType type, gui::Button& button );
 };
 
-#endif // SCENES_SCENEOPTIONS_H
+#endif // SCENES_SCENELOAD_H

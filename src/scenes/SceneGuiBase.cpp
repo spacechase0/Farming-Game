@@ -37,4 +37,3 @@ void SceneGuiBase::DrawGui( sf::RenderWindow& window )
 		( * it )->Draw( window );
 	}
 }
-

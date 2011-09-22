@@ -1,36 +1,36 @@
-#include "scenes/SceneOptions.h"
+#include "scenes/SceneLoad.h"
 
 #include "Game.h"
 
-SceneOptions::SceneOptions( Game& theGame )
+SceneLoad::SceneLoad( Game& theGame )
    : SceneGuiBase::SceneGuiBase( theGame )
 {
 }
 
-void SceneOptions::Initialize()
+void SceneLoad::Initialize()
 {
 	sf::Texture& tex = game.GetTexture( "gui/menu-button.png" );
 	sf::Font& font = game.GetFont( "fonts/Grantham/Grantham Bold.ttf" );
 
 	title.SetFont( font );
 	title.SetCharacterSize( 50 );
-	title.SetString( "Options" );
+	title.SetString( "Load Game" );
 	title.SetPosition( ( Game::WindowSize.x - title.GetRect().Width ) / 2, 40 );
 
 	CreateButton( "Back",  sf::Vector2f( ( Game::WindowSize.x - tex.GetWidth() ) / 2,   400 ), tex, font, 24 );
 }
 
-void SceneOptions::Terminate()
+void SceneLoad::Terminate()
 {
 	SceneGuiBase::Terminate();
 }
 
-void SceneOptions::Update( sf::RenderWindow& window )
+void SceneLoad::Update( sf::RenderWindow& window )
 {
 	SceneGuiBase::Update( window );
 }
 
-void SceneOptions::Update( sf::RenderWindow& window, const sf::Event& event )
+void SceneLoad::Update( sf::RenderWindow& window, const sf::Event& event )
 {
 	if ( event.Type == sf::Event::Closed )
 	{
@@ -40,7 +40,7 @@ void SceneOptions::Update( sf::RenderWindow& window, const sf::Event& event )
 	SceneGuiBase::Update( window, event );
 }
 
-void SceneOptions::Draw( sf::RenderWindow& window )
+void SceneLoad::Draw( sf::RenderWindow& window )
 {
 	window.Clear( sf::Color::Black );
 
@@ -50,7 +50,7 @@ void SceneOptions::Draw( sf::RenderWindow& window )
 	window.Display();
 }
 
-void SceneOptions::CreateButton( const std::string& text, sf::Vector2f pos, sf::Texture& tex, sf::Font& font, size_t charSize )
+void SceneLoad::CreateButton( const std::string& text, sf::Vector2f pos, sf::Texture& tex, sf::Font& font, size_t charSize )
 {
     boost::shared_ptr< gui::TextButton > button( new gui::TextButton() );
     button->SetTexture( tex );
@@ -66,16 +66,16 @@ void SceneOptions::CreateButton( const std::string& text, sf::Vector2f pos, sf::
 
     {
         using namespace std::placeholders;
-        auto callback = std::bind( &SceneOptions::ButtonCallback, this, _1, _2 );
+        auto callback = std::bind( &SceneLoad::ButtonCallback, this, _1, _2 );
         button->SetCallback( callback );
     }
 
     gui.push_back( button );
 }
 
-void SceneOptions::ButtonCallback( gui::Button::EventType type, gui::Button& button )
+void SceneLoad::ButtonCallback( gui::Button::EventType type, gui::Button& button )
 {
-	if ( type != gui::Button::Release )
+    if ( type != gui::Button::Release )
 	{
 		return;
 	}

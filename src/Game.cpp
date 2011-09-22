@@ -14,6 +14,8 @@ const sf::Keyboard::Key Game::SecondaryKey = sf::Keyboard::X;
 Game::Game()
 {
 	AddScene( "MainMenu", ScenePtr( new SceneMainMenu( * this ) ) );
+	AddScene( "NewGame", ScenePtr( new SceneNew( * this ) ) );
+	AddScene( "LoadGame", ScenePtr( new SceneLoad( * this ) ) );
 	AddScene( "Game", ScenePtr( new SceneGame( * this ) ) );
 	AddScene( "Options", ScenePtr( new SceneOptions( * this ) ) );
 
@@ -53,7 +55,7 @@ int Game::Run()
 			scenes[ nextScene ]->Initialize();
 
 			currentScene = nextScene;
-			
+
 			// Fix the view
 			window.SetView( window.GetDefaultView() );
 		}
