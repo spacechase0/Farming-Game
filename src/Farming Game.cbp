@@ -56,6 +56,10 @@
 		<Unit filename="MapLoader.h" />
 		<Unit filename="MapManager.cpp" />
 		<Unit filename="MapManager.h" />
+		<Unit filename="Resource.h" />
+		<Unit filename="Resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Unit filename="Tile.cpp" />
 		<Unit filename="Tile.h" />
 		<Unit filename="TileLayer.cpp" />
@@ -79,6 +83,7 @@
 		<Unit filename="obj\Base.h" />
 		<Unit filename="obj\CameraController.cpp" />
 		<Unit filename="obj\CameraController.h" />
+		<Unit filename="obj\Debug.cpp" />
 		<Unit filename="obj\DialogBase.cpp" />
 		<Unit filename="obj\DialogBase.h" />
 		<Unit filename="obj\DialogChat.cpp" />

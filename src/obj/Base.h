@@ -12,11 +12,11 @@ namespace obj
 		public:
 			Base( SceneGame& theGame ) : game( theGame ) {}
 			virtual ~Base() {}
-			
+
 			virtual void Update() = 0;
 			virtual void Update( const sf::Event& event ) = 0;
 			virtual void Draw( sf::RenderWindow& window ) = 0;
-		
+
 		protected:
 			::SceneGame& game;
 	};

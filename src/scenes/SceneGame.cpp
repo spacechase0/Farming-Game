@@ -10,6 +10,7 @@
 #include "util/Convert.h"
 #include "MapLoader.h"
 #include "util/Type.h"
+#include "obj/Debug.h"
 
 SceneGame::SceneGame( Game& game )
    : SceneBase::SceneBase( game )
@@ -33,6 +34,9 @@ void SceneGame::Initialize()
 
 		simulateWorld = true;
 	}
+
+	obj::Base* debug = new obj::Debug( *this );
+	maps[ maps.currentMap ]->objects.push_back( boost::shared_ptr< obj::Base >( debug ) );
 }
 
 void SceneGame::Terminate()
@@ -63,19 +67,19 @@ void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
 			game.ChangeScene( "MainMenu" );
 		}
 	}
-	
+
 	maps.Update( event );
 }
 
 void SceneGame::Draw( sf::RenderWindow& window )
 {
 	window.Clear( sf::Color::Black );
-	
+
 	cameraController->Draw( window );
 	maps.Draw( window );
 
 	window.Display();
-	
+
 	maps.CollectGarbage();
 }
 
@@ -96,26 +100,26 @@ bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 			return false;
 		}
 	}
-	
+
 	for ( auto it = map.objects.begin(); it != map.objects.end(); ++it )
 	{
 		if ( !util::IsOfType< obj::RenderObject* >( it->get() ) )
 		{
 			continue;
 		}
-		
+
 		obj::RenderObject* object = static_cast< obj::RenderObject* >( it->get() );
 		if ( !object->CanCollide() )
 		{
 			continue;
 		}
-		
+
 		if ( object->IsSolid() and object->GetCollisionRect().Contains( x * Game::TileSize, y * Game::TileSize ) )
 		{
 			return false;
 		}
 	}
-	
+
 	return true;
 }
 
@@ -140,7 +144,7 @@ void SceneGame::LoadMap( const std::string& mapName )
 {
 	maps.maps.insert( std::make_pair( mapName, MapManager::MapPtr( new MapManager::Map ) ) );
 	MapManager::Map& map = ( * maps[ mapName ] );
-	
+
 	MapLoader loader( game, ( * this ), map.layers, map.objects );
 	if ( !loader.LoadMap( mapName ) )
 	{
