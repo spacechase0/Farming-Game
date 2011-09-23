@@ -105,15 +105,16 @@ namespace obj
 		}
 		
 		sf::Vector2i nextGridPos( pos.x / Game::TileSize, pos.y / Game::TileSize );
-		
+		/*
 		if ( !game.IsTileEmpty( ( * map ), nextGridPos ) )
 		{
 			return false;
 		}
+		//*/
 		
 		#warning TO DO: Implement object collision
-		/*
-		sf::FloatRect rect( pos.x - sprite.GetOrigin().x, pos.y - sprite.GetOrigin().y, Game::TileSize, Game::TileSize );
+		//*
+		sf::FloatRect rect( pos.x, pos.y, Game::TileSize, Game::TileSize );
 		for ( auto it = map->objects.begin(); it != map->objects.end(); ++it )
 		{
 			if ( !util::IsOfType< obj::RenderObject* >( it->get() ) )
@@ -127,7 +128,7 @@ namespace obj
 				continue;
 			}
 			
-			if ( object->GetCollisionRect().Intersects( rect ) )
+			if ( object->IsSolid() and object->GetCollisionRect().Intersects( rect ) )
 			{
 				return false;
 			}

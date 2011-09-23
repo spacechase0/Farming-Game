@@ -110,7 +110,7 @@ bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 			continue;
 		}
 		
-		if ( object->GetCollisionRect().Contains( x * Game::TileSize, y * Game::TileSize ) )
+		if ( object->IsSolid() and object->GetCollisionRect().Contains( x * Game::TileSize, y * Game::TileSize ) )
 		{
 			return false;
 		}

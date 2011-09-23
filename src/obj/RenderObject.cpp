@@ -63,6 +63,8 @@ namespace obj
 	void RenderObject::Draw( sf::RenderWindow& window )
 	{
 		window.Draw( sprite );
+		sf::Shape shape = sf::Shape::Rectangle( GetCollisionRect(), sf::Color( 0, 0, 0, 0 ), 2.f, sf::Color::Red );
+		window.Draw( shape );
 	}
 	
 	bool RenderObject::CanCollide() const
@@ -70,8 +72,13 @@ namespace obj
 		return false;
 	}
 	
+	bool RenderObject::IsSolid() const
+	{
+		return false;
+	}
+	
 	sf::FloatRect RenderObject::GetCollisionRect() const
 	{
-		return sf::FloatRect( sprite.GetPosition().x - sprite.GetOrigin().x, sprite.GetPosition().y - sprite.GetOrigin().y, sprite.GetSubRect().Width, sprite.GetSubRect().Height );
+		return sf::FloatRect( sprite.GetPosition().x, sprite.GetPosition().y, Game::TileSize, Game::TileSize );
 	}
 }

@@ -11,4 +11,9 @@ namespace obj
 	{
 		return true;
 	}
+	
+	bool Scenery::IsSolid() const
+	{
+		return true;
+	}
 }

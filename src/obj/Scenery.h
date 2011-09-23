@@ -11,6 +11,7 @@ namespace obj
 			Scenery( SceneGame& theGame, sf::Texture& theTexture, sf::Vector2f thePos );
 			
 			virtual bool CanCollide() const;
+			virtual bool IsSolid() const;
 	};
 }
 
