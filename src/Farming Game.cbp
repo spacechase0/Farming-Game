@@ -99,8 +99,12 @@
 		<Unit filename="scenes\SceneGame.h" />
 		<Unit filename="scenes\SceneGuiBase.cpp" />
 		<Unit filename="scenes\SceneGuiBase.h" />
+		<Unit filename="scenes\SceneLoad.cpp" />
+		<Unit filename="scenes\SceneLoad.h" />
 		<Unit filename="scenes\SceneMainMenu.cpp" />
 		<Unit filename="scenes\SceneMainMenu.h" />
+		<Unit filename="scenes\SceneNew.cpp" />
+		<Unit filename="scenes\SceneNew.h" />
 		<Unit filename="scenes\SceneOptions.cpp" />
 		<Unit filename="scenes\SceneOptions.h" />
 		<Unit filename="scenes\Scenes.h" />
