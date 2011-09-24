@@ -48,6 +48,8 @@ namespace obj
 		
 		game.maps.AddGarbage( it, &map->objects );
 		theMap.objects.push_back( alive );
+		
+		map = &theMap;
 	}
 	
 	MapManager::Map& Npc::GetMap() const
