@@ -2,9 +2,10 @@
 
 namespace obj
 {
-    Debug::Debug( SceneGame& game ) : Base( game ), enabled( true )
+    Debug::Debug( SceneGame& game )
+       : Base( game ),
+         enabled( true )
     {
-
     }
 
     void Debug::setText( const std::string& msg )
@@ -39,12 +40,10 @@ namespace obj
 
     void Debug::Update()
 	{
-
 	}
 
 	void Debug::Update( const sf::Event& event )
 	{
-
 	}
 
     void Debug::Draw( sf::RenderWindow& window )
@@ -53,6 +52,5 @@ namespace obj
 	    {
 	        window.Draw( text );
         }
-
 	}
 }

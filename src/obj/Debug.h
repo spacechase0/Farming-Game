@@ -1,7 +1,8 @@
 #ifndef OBJ_DEBUG_H
 #define OBJ_DEBUG_H
 
-#include <iostream>
+#include <string>
+
 #include "obj/Base.h"
 
 namespace obj
