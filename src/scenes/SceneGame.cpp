@@ -25,6 +25,7 @@ void SceneGame::Initialize()
 	LoadItems( "misc.xml" );
 
 	LoadMap( "testing" );
+	LoadMap( "testing2" );
 	maps.currentMap = "testing";
 	if ( maps.maps.size() > 0 )
 	{

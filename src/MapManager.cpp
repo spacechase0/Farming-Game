@@ -61,19 +61,17 @@ void MapManager::Draw( sf::RenderWindow& window )
 		TileLayer& layer = ( * it );
 		DrawLayer( window, layer );
 	}
-	for ( auto it = maps.begin(); it != maps.end(); ++it )
 	{
-		ValidateLoop( maps, it, it->second.get() );
-		auto& gameObjects = it->second->objects;
+		auto& gameObjects = maps[ currentMap ]->objects;
 		
 		using namespace std::placeholders;
 		auto compare = std::bind( &MapManager::CompareObjects, this, _1, _2 );
 		gameObjects.sort( compare );
 
-		for ( auto it2 = gameObjects.begin(); it2 != gameObjects.end(); ++it2 )
+		for ( auto it = gameObjects.begin(); it != gameObjects.end(); ++it )
 		{
-			ValidateLoop( gameObjects, it2, it2->get() );
-			( * it2 )->Draw( window );
+			ValidateLoop( gameObjects, it, it->get() );
+			( * it )->Draw( window );
 		}
 	}
 	{
