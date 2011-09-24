@@ -150,7 +150,7 @@ void SceneGame::LoadMap( const std::string& mapName )
 	if ( !loader.LoadMap( mapName ) )
 	{
 		std::vector< std::string > str;
-		str.push_back( "Map '" + mapName + "'failed to load." );
+		str.push_back( "Map '" + mapName + "' failed to load." );
 		CreateChatDialog( str );
 		maps.maps.erase( maps.maps.find( mapName ) );
 	}
