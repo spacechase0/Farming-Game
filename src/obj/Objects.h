@@ -7,5 +7,6 @@
 #include "obj/CameraController.h"
 #include "obj/Scenery.h"
 #include "obj/Debug.h"
+#include "obj/Entrance.h"
 
 #endif // OBJ_OBJECTS_H

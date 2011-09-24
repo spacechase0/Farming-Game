@@ -170,6 +170,13 @@ bool MapLoader::ParseStaticObjects( xml::Node& node )
 				return false;
 			}
 		}
+		else if ( node.GetName() == "Entrance" )
+		{
+			if ( !ParseEntranceObject( node ) )
+			{
+				return false;
+			}
+		}
 	}
 
 	return true;
@@ -189,5 +196,24 @@ bool MapLoader::ParseSceneryObject( xml::Node& node )
 	boost::shared_ptr< obj::Base > scenery( new obj::Scenery( scene, tex, pos ) );
 	objects.push_back( scenery );
 
+	return true;
+}
+
+bool MapLoader::ParseEntranceObject( xml::Node& node )
+{
+	sf::Texture& tex = game.GetTexture( "scenery/" + xml::GetAttribute( node, "file" ).GetValue() + ".png" );
+	
+	std::string xStr = xml::GetAttribute( node, "x" ).GetValue();
+	std::string yStr = xml::GetAttribute( node, "y" ).GetValue();
+	std::string dxStr = xml::GetAttribute( node, "dx" ).GetValue();
+	std::string dyStr = xml::GetAttribute( node, "dy" ).GetValue();
+	
+	sf::Vector2i pos( util::FromString< int >( xStr ), util::FromString< int >( yStr ) );
+	std::string map = xml::GetAttribute( node, "map" ).GetValue();
+	sf::Vector2i dpos( util::FromString< int >( dxStr ), util::FromString< int >( dyStr ) );
+	
+	boost::shared_ptr< obj::Base > entrance( new obj::Entrance( scene, tex, pos, map, dpos ) );
+	objects.push_back( entrance );
+	
 	return true;
 }

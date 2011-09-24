@@ -17,10 +17,13 @@ namespace obj
 			virtual void Draw( sf::RenderWindow& window );
 			
 			virtual bool CanCollide() const;
+			virtual bool IsSolid()  const;
 			virtual sf::FloatRect GetCollisionRect() const;
+			virtual void CollidedWith( RenderObject* object );
+			
+			std::string GetDestination() const;
 		
 		protected:
-			sf::Vector2i gridPos;
 			std::string dest;
 			sf::Vector2i destPos;
 	};

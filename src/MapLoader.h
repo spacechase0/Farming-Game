@@ -28,6 +28,7 @@ class MapLoader
 		
 		bool ParseStaticObjects( xml::Node& node );
 		bool ParseSceneryObject( xml::Node& node );
+		bool ParseEntranceObject( xml::Node& node );
 };
 
 #endif // MAPLOADER_H

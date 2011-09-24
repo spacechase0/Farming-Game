@@ -13,6 +13,8 @@ namespace obj
 			virtual void Update();
 			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
+			
+			virtual void CollidedWith( RenderObject* object );
 		
 		protected:
 			struct

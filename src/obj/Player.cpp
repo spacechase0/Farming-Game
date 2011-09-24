@@ -2,6 +2,8 @@
 
 #include "Game.h"
 #include "scenes/SceneGame.h"
+#include "obj/Entrance.h"
+#include "util/Type.h"
 
 namespace obj
 {
@@ -85,5 +87,14 @@ namespace obj
 	void Player::Draw( sf::RenderWindow& window )
 	{
 		Npc::Draw( window );
+	}
+	
+	void Player::CollidedWith( RenderObject* object )
+	{
+		if ( util::IsOfType< Entrance* >( object ) )
+		{
+			Entrance* entrance = static_cast< Entrance* >( object );
+			game.maps.currentMap = entrance->GetDestination();
+		}
 	}
 }

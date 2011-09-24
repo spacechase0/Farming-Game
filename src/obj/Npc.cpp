@@ -18,15 +18,6 @@ namespace obj
 	void Npc::Update()
 	{
 		RenderObject::Update();
-		/*
-		if ( movement != None and IsDirectionEmpty( movement ) )
-		{
-			Movement( Up,    'y', -1 );
-			Movement( Down,  'y',  1 );
-			Movement( Left,  'x', -1 );
-			Movement( Right, 'x',  1 );
-		}
-		//*/
 	}
 	
 	void Npc::Update( const sf::Event& event )
@@ -37,6 +28,31 @@ namespace obj
 	void Npc::Draw( sf::RenderWindow& window )
 	{
 		RenderObject::Draw( window );
+	}
+	
+	void Npc::SetMap( MapManager::Map& theMap )
+	{
+		boost::shared_ptr< obj::Base > alive;
+		
+		auto it = map->objects.begin();
+		for ( ; it != map->objects.end(); ++it )
+		{
+			if ( it->get() != this )
+			{
+				continue;
+			}
+			
+			alive = ( * it );
+			break;
+		}
+		
+		game.maps.AddGarbage( it, &map->objects );
+		theMap.objects.push_back( alive );
+	}
+	
+	MapManager::Map& Npc::GetMap() const
+	{
+		return ( * map );
 	}
 	
 	sf::Vector2i Npc::GetGridPosition() const

@@ -103,5 +103,9 @@
 		<Scenery file="fence_h" x="24" y="17" />
 		
 		<Entrance file="" x="10" y="18" map="testing2" dx="10" dy="0" />
+		<Entrance file="" x="11" y="18" map="testing2" dx="11" dy="0" />
+		<Entrance file="" x="12" y="18" map="testing2" dx="12" dy="0" />
+		<Entrance file="" x="13" y="18" map="testing2" dx="13" dy="0" />
+		<Entrance file="" x="14" y="18" map="testing2" dx="14" dy="0" />
 	</StaticObjects>
 </Map>

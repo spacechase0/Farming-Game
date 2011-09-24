@@ -19,6 +19,9 @@ namespace obj
 			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
 			
+			void SetMap( MapManager::Map& theMap );
+			MapManager::Map& GetMap() const;
+			
 			enum MovementDirection
 			{
 				// Making Up be 0 makes the subrect thing a whole lot easier
