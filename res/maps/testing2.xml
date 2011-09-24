@@ -101,5 +101,11 @@
 		<Scenery file="fence_h" x="22" y="17" />
 		<Scenery file="fence_h" x="23" y="17" />
 		<Scenery file="fence_h" x="24" y="17" />
+		
+		<Entrance file="" x="10" y="-1" map="testing" dx="10" dy="17" />
+		<Entrance file="" x="11" y="-1" map="testing" dx="11" dy="17" />
+		<Entrance file="" x="12" y="-1" map="testing" dx="12" dy="17" />
+		<Entrance file="" x="13" y="-1" map="testing" dx="13" dy="17" />
+		<Entrance file="" x="14" y="-1" map="testing" dx="14" dy="17" />
 	</StaticObjects>
 </Map>
