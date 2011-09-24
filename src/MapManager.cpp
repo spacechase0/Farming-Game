@@ -92,12 +92,12 @@ void MapManager::Draw( sf::RenderWindow& window )
 
 void MapManager::AddGarbage( ObjectList::iterator it, ObjectList* list )
 {
-	
+	garbageObjects.push_back( GarbagePair( it, list ) );
 }
 
 void MapManager::AddMenuGarbage( ObjectList::iterator it )
 {
-	
+	AddGarbage( it, &menuObjects );
 }
 
 void MapManager::CollectGarbage()
