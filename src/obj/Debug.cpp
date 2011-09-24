@@ -1,4 +1,4 @@
-#include "debug.h"
+#include "obj/Debug.h"
 
 namespace obj
 {

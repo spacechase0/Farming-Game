@@ -1,5 +1,5 @@
-#ifndef DEBUG_H
-#define DEBUG_H
+#ifndef OBJ_DEBUG_H
+#define OBJ_DEBUG_H
 
 #include <iostream>
 #include "obj/Base.h"
@@ -31,4 +31,4 @@ namespace obj
 }
 
 
-#endif // DEBUG_H
+#endif // OBJ_DEBUG_H
