@@ -16,6 +16,7 @@ namespace obj
 	class GridObject;
 	class Player;
 	class CameraController;
+	class Debug;
 }
 
 class SceneGame : public SceneBase
@@ -44,6 +45,7 @@ class SceneGame : public SceneBase
 		// Misc
 		obj::Player* player;
 		obj::CameraController* cameraController;
+		obj::Debug* debug;
 		bool simulateWorld;
 
 		void CreateChatDialog( const std::vector< std::string >& messages );

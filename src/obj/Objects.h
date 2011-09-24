@@ -6,5 +6,6 @@
 #include "obj/DialogChat.h"
 #include "obj/CameraController.h"
 #include "obj/Scenery.h"
+#include "obj/Debug.h"
 
 #endif // OBJ_OBJECTS_H

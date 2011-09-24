@@ -10,7 +10,6 @@
 #include "util/Convert.h"
 #include "MapLoader.h"
 #include "util/Type.h"
-#include "obj/Debug.h"
 
 SceneGame::SceneGame( Game& game )
    : SceneBase::SceneBase( game )
@@ -32,12 +31,12 @@ void SceneGame::Initialize()
 		CreateTestObject();
 
 		cameraController = new obj::CameraController( ( * this ), game.window );
+		
+		debug = new obj::Debug( * this );
+		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( debug ) );
 
 		simulateWorld = true;
 	}
-
-	obj::Base* debug = new obj::Debug( *this );
-	maps[ maps.currentMap ]->objects.push_back( boost::shared_ptr< obj::Base >( debug ) );
 }
 
 void SceneGame::Terminate()
