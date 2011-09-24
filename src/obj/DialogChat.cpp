@@ -12,7 +12,8 @@ namespace obj
 	     buttonTexture( &theButtonTexture ),
 	     button( theButtonTexture ),
 	     text( theText ),
-	     currentText( 0 )
+	     currentText( 0 ),
+	     justMade( true )
 	{
 		SetPosition( 0, Game::WindowSize.y - backgroundTexture->GetHeight() );
 		
@@ -22,12 +23,17 @@ namespace obj
 		button.SetPosition( Game::WindowSize.x - 32, Game::WindowSize.y - 24 );
 	}
 	
+	void DialogChat::Update()
+	{
+		justMade = false;
+	}
+	
 	void DialogChat::Update( const sf::Event& event )
 	{
 		DialogBase::Update( event );
 		if ( event.Type == sf::Event::KeyPressed )
 		{
-			if ( event.Key.Code == sf::Keyboard::Z )
+			if ( event.Key.Code == sf::Keyboard::Z and !justMade )
 			{
 				if ( currentText + 1 >= text.size() )
 				{

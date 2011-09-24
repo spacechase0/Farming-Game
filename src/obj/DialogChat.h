@@ -10,6 +10,7 @@ namespace obj
 		public:
 			DialogChat( SceneGame& theGame, sf::Texture& theBackgroundTexture, sf::Texture& theButtonTexture, sf::Font& theFont, const std::vector< std::string >& theText );
 			
+			virtual void Update();
 			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
 			
@@ -24,6 +25,7 @@ namespace obj
 			
 			std::vector< std::string > text;
 			size_t currentText;
+			bool justMade;
 	};
 }
 
