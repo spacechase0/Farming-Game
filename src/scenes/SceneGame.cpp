@@ -100,21 +100,7 @@ void SceneGame::Draw( sf::RenderWindow& window )
 
 bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 {
-	for ( auto it = map.layers.begin(); it != map.layers.end(); ++it )
-	{
-		if ( x < 0 or x >= static_cast< int >( it->GetTiles().size() ) or
-			 y < 0 or y >= static_cast< int >( ( * it )[ x ].size() ) )
-		{
-			break;
-		}
-
-		bool solid = ( * it )[ x ][ y ].GetCollision();
-		if ( solid )
-		{
-			return false;
-		}
-	}
-
+	sf::FloatRect rect( x * Game::TileSize, y * Game::TileSize, Game::TileSize, Game::TileSize );
 	for ( auto it = map.objects.begin(); it != map.objects.end(); ++it )
 	{
 		if ( !util::IsOfType< obj::RenderObject* >( it->get() ) )
@@ -128,7 +114,7 @@ bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 			continue;
 		}
 
-		if ( object->IsSolid() and object->GetCollisionRect().Contains( x * Game::TileSize, y * Game::TileSize ) )
+		if ( object->IsSolid() and object->GetCollisionRect().Intersects( rect ) )
 		{
 			return false;
 		}

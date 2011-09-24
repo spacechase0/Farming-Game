@@ -149,12 +149,9 @@ std::vector< Tile > MapLoader::LoadTileTypes( sf::Texture& tex, const std::strin
 		}
 
 		std::string indexStr = xml::GetAttribute( node, "index" ).GetValue();
-		std::string collideStr = xml::GetAttribute( node, "collide" ).GetValue();
-
 		sf::Uint8 index = util::FromString< sf::Uint16 >( indexStr ); // 16 instead of 8 because 8 is really a char...
-		bool collide = util::FromString< bool >( collideStr );
 
-		tiles[ index ] = Tile( tex, index, collide );
+		tiles[ index ] = Tile( tex, index );
 	}
 
 	return tiles;

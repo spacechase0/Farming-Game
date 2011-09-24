@@ -74,12 +74,6 @@ namespace obj
 				break;
 		}
 		
-		sf::Vector2i nextGridPos( pos.x / Game::TileSize, pos.y / Game::TileSize );
-		if ( !game.IsTileEmpty( ( * map ), nextGridPos ) )
-		{
-			return;
-		}
-		
 		sf::FloatRect rect( pos.x, pos.y, Game::TileSize, Game::TileSize );
 		for ( auto it = map->objects.begin(); it != map->objects.end(); ++it )
 		{

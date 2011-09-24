@@ -4,10 +4,9 @@ Tile::Tile()
 {
 }
 
-Tile::Tile( sf::Texture& theTexture, sf::Uint8 theIndex, bool theCollision )
+Tile::Tile( sf::Texture& theTexture, sf::Uint8 theIndex )
    : texture( &theTexture ),
-     index( theIndex ),
-     collision( theCollision )
+     index( theIndex )
 {
 }
 
@@ -30,14 +29,3 @@ sf::Uint8 Tile::GetIndex() const
 {
 	return index;
 }
-
-void Tile::SetCollision( bool theCollision )
-{
-	collision = theCollision;
-}
-
-bool Tile::GetCollision() const
-{
-	return collision;
-}
-
