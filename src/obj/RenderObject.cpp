@@ -63,8 +63,6 @@ namespace obj
 	void RenderObject::Draw( sf::RenderWindow& window )
 	{
 		window.Draw( sprite );
-		sf::Shape shape = sf::Shape::Rectangle( GetCollisionRect(), sf::Color( 0, 0, 0, 0 ), 2.f, sf::Color::Red );
-		window.Draw( shape );
 	}
 	
 	bool RenderObject::CanCollide() const
