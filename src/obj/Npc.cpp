@@ -39,36 +39,6 @@ namespace obj
 		RenderObject::Draw( window );
 	}
 	
-	void Npc::Walk( MovementDirection theMovement, float speed )
-	{
-		if ( !IsDirectionEmpty( theMovement ) )
-		{
-			return;
-		}
-		
-		switch ( theMovement )
-		{
-			case Up:
-				sprite.Move( 0, -speed );
-				break;
-			
-			case Down:
-				sprite.Move( 0, speed );
-				break;
-			
-			case Left:
-				sprite.Move( -speed, 0 );
-				break;
-			
-			case Right:
-				sprite.Move( speed, 0 );
-				break;
-			
-			default:
-				break;
-		}
-	}
-	
 	sf::Vector2i Npc::GetGridPosition() const
 	{
 		sf::Vector2i gridPos( sprite.GetPosition().x, sprite.GetPosition().y );
@@ -78,7 +48,7 @@ namespace obj
 		return gridPos;
 	}
 	
-	bool Npc::IsDirectionEmpty( MovementDirection& dir, float speed ) const
+	void Npc::MoveInDirection( MovementDirection dir, float speed )
 	{
 		sf::Vector2f pos = sprite.GetPosition();
 		switch ( dir )
@@ -105,10 +75,9 @@ namespace obj
 		}
 		
 		sf::Vector2i nextGridPos( pos.x / Game::TileSize, pos.y / Game::TileSize );
-		
 		if ( !game.IsTileEmpty( ( * map ), nextGridPos ) )
 		{
-			return false;
+			return;
 		}
 		
 		sf::FloatRect rect( pos.x, pos.y, Game::TileSize, Game::TileSize );
@@ -125,12 +94,18 @@ namespace obj
 				continue;
 			}
 			
-			if ( object->IsSolid() and object->GetCollisionRect().Intersects( rect ) )
+			if ( object->GetCollisionRect().Intersects( rect ) )
 			{
-				return false;
+				object->CollidedWith( this );
+				this->CollidedWith( object );
+				
+				if ( object->IsSolid() )
+				{
+					return; 
+				}
 			}
 		}
 		
-		return true;
+		sprite.SetPosition( pos );
 	}
 }

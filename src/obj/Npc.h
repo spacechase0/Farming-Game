@@ -29,10 +29,9 @@ namespace obj
 				Left  = 2,
 				Right = 3
 			};
-			virtual void Walk( MovementDirection theMovement, float speed = 3.25 );
 			
 			sf::Vector2i GetGridPosition() const;
-			bool IsDirectionEmpty( MovementDirection& theDir, float speed = 3.25 ) const;
+			void MoveInDirection( MovementDirection theDir, float speed = 3.25 );
 		
 		protected:
 			MapManager::Map* map;

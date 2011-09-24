@@ -17,19 +17,19 @@ namespace obj
 		Npc::Update();
 		if ( pressed.up )
 		{
-			Walk( Up, 3.25 );
+			MoveInDirection( Up, 3.25 );
 		}
 		if ( pressed.down )
 		{
-			Walk( Down, 3.25 );
+			MoveInDirection( Down, 3.25 );
 		}
 		if ( pressed.left )
 		{
-			Walk( Left, 3.25 );
+			MoveInDirection( Left, 3.25 );
 		}
 		if ( pressed.right )
 		{
-			Walk( Right, 3.25 );
+			MoveInDirection( Right, 3.25 );
 		}
 	}
 

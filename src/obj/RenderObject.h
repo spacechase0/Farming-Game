@@ -26,6 +26,7 @@ namespace obj
 			virtual bool CanCollide() const;
 			virtual bool IsSolid() const;
 			virtual sf::FloatRect GetCollisionRect() const;
+			virtual void CollidedWith( RenderObject* object );
 		
 		protected:
 			sf::Sprite sprite;

@@ -81,4 +81,8 @@ namespace obj
 	{
 		return sf::FloatRect( sprite.GetPosition().x, sprite.GetPosition().y, Game::TileSize, Game::TileSize );
 	}
+	
+	void RenderObject::CollidedWith( RenderObject* object )
+	{
+	}
 }
