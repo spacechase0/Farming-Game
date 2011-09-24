@@ -88,7 +88,7 @@ namespace obj
 				break;
 			
 			case Down:
-				pos.y += Game::TileSize + speed;
+				pos.y += speed;
 				break;
 			
 			case Left:
@@ -96,7 +96,7 @@ namespace obj
 				break;
 			
 			case Right:
-				pos.x += Game::TileSize + speed;
+				pos.x += speed;
 				break;
 			
 			// Gets rid of "warning: enumeration value 'None' not handled in switch"
@@ -105,15 +105,12 @@ namespace obj
 		}
 		
 		sf::Vector2i nextGridPos( pos.x / Game::TileSize, pos.y / Game::TileSize );
-		/*
+		
 		if ( !game.IsTileEmpty( ( * map ), nextGridPos ) )
 		{
 			return false;
 		}
-		//*/
 		
-		#warning TO DO: Implement object collision
-		//*
 		sf::FloatRect rect( pos.x, pos.y, Game::TileSize, Game::TileSize );
 		for ( auto it = map->objects.begin(); it != map->objects.end(); ++it )
 		{
@@ -133,7 +130,6 @@ namespace obj
 				return false;
 			}
 		}
-		//*/
 		
 		return true;
 	}
