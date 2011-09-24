@@ -51,7 +51,14 @@ void SceneGame::Terminate()
 
 void SceneGame::Update( sf::RenderWindow& window )
 {
-	maps.Update();
+	if ( simulateWorld )
+	{
+		maps.Update();
+	}
+	else
+	{
+		maps.Update( false );
+	}
 }
 
 void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
@@ -68,8 +75,15 @@ void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
 			game.ChangeScene( "MainMenu" );
 		}
 	}
-
-	maps.Update( event );
+	
+	if ( simulateWorld )
+	{
+		maps.Update( event );
+	}
+	else
+	{
+		maps.Update( event, false );
+	}
 }
 
 void SceneGame::Draw( sf::RenderWindow& window )

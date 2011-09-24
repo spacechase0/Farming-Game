@@ -10,8 +10,8 @@
 class MapManager
 {
 	public:
-		void Update();
-		void Update( const sf::Event& event );
+		void Update( bool objects = true );
+		void Update( const sf::Event& event, bool objects = true );
 		void Draw( sf::RenderWindow& window );
 		
 		// Objects

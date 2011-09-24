@@ -67,7 +67,7 @@ namespace obj
 			obj::Base* obj = it->get();
 			if ( obj == this )
 			{
-				game.maps.AddGarbage( it, &game.maps.menuObjects );
+				game.maps.AddMenuGarbage( it );
 				return;
 			}
 		}

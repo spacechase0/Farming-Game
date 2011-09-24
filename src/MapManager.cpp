@@ -14,9 +14,9 @@
 			continue; \
 		}             \
 
-void MapManager::Update()
+void MapManager::Update( bool objects )
 {
-	for ( auto it = maps.begin(); it != maps.end(); ++it )
+	for ( auto it = maps.begin(); objects and it != maps.end(); ++it )
 	{
 		ValidateLoop( maps, it, it->second.get() );
 		
@@ -34,9 +34,9 @@ void MapManager::Update()
 	}
 }
 
-void MapManager::Update( const sf::Event& event )
+void MapManager::Update( const sf::Event& event, bool objects )
 {
-	for ( auto it = maps.begin(); it != maps.end(); ++it )
+	for ( auto it = maps.begin(); objects and it != maps.end(); ++it )
 	{
 		ValidateLoop( maps, it, it->second.get() );
 		
@@ -88,6 +88,8 @@ void MapManager::Draw( sf::RenderWindow& window )
 		
 		window.SetView( oldView );
 	}
+	
+	CollectGarbage();
 }
 
 void MapManager::AddGarbage( ObjectList::iterator it, ObjectList* list )
