@@ -11,7 +11,7 @@ namespace obj
         public:
         Debug( SceneGame& );
 
-        void setText(std::string);
+        void setText(const std::string&);
         std::string getText() const;
         void setColor(sf::Color);
         sf::Color getColor() const;

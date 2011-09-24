@@ -7,7 +7,7 @@ namespace obj
 
     }
 
-    void Debug::setText( std::string msg )
+    void Debug::setText( const std::string& msg )
     {
         text.SetString( msg );
     }
