@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
 <TileTypes>
-	<Type name="Dirt" index="0" />
-	<Type name="Grass" index="1" />
-	<Type name="Sand" index="2" />
-	<Type name="Soil" index="3" />
-	<Type name="Soil" index="4" />
+	<Type name="Dirt" index="0" collide="0" />
+	<Type name="Grass" index="1" collide="0" />
+	<Type name="Sand" index="2" collide="0" />
+	<Type name="Soil" index="3" collide="0" />
+	<Type name="Water" index="4" collide="1" />
 	
-	<Type name="Collider" index="255" />
+	<Type name="Collider" index="255" collide="1" />
 </TileTypes>

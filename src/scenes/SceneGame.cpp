@@ -100,6 +100,24 @@ void SceneGame::Draw( sf::RenderWindow& window )
 
 bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 {
+	for ( auto it = map.layers.begin(); it != map.layers.end(); ++it )
+	{
+		if ( x < 0 or static_cast< unsigned int >( x ) >= it->GetTiles().size() or
+			 y < 0 or static_cast< unsigned int >( y ) >= it->GetTiles()[ x ].size() )
+		{
+			continue;
+		}
+		
+		if ( it->GetTiles()[ x ][ y ].GetCollision() )
+		{
+			return false;
+		}
+	}
+	
+	// If we do this here, cases such as in Npc::MoveInDirection
+	// would end up looping through map.objects 5 times!
+	// Just leave this alone, for now. :P
+	/*
 	sf::FloatRect rect( x * Game::TileSize, y * Game::TileSize, Game::TileSize, Game::TileSize );
 	for ( auto it = map.objects.begin(); it != map.objects.end(); ++it )
 	{
@@ -119,6 +137,7 @@ bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 			return false;
 		}
 	}
+	//*/
 
 	return true;
 }

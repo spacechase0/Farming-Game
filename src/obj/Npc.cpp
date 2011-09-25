@@ -91,8 +91,9 @@ namespace obj
 			default:
 				break;
 		}
-		
 		sf::FloatRect rect( pos.x, pos.y, Game::TileSize, Game::TileSize );
+		
+		// Object collision
 		for ( auto it = map->objects.begin(); it != map->objects.end(); ++it )
 		{
 			if ( !util::IsOfType< obj::RenderObject* >( it->get() ) )
@@ -118,6 +119,17 @@ namespace obj
 			}
 		}
 		
-		sprite.SetPosition( pos );
+		// Tile collision
+		sf::Vector2i t1( ( pos.x                  ) / Game::TileSize, ( pos.y                  ) / Game::TileSize );
+		sf::Vector2i t2( ( pos.x + Game::TileSize ) / Game::TileSize, ( pos.y                  ) / Game::TileSize );
+		sf::Vector2i t3( ( pos.x                  ) / Game::TileSize, ( pos.y + Game::TileSize ) / Game::TileSize );
+		sf::Vector2i t4( ( pos.x + Game::TileSize ) / Game::TileSize, ( pos.y + Game::TileSize ) / Game::TileSize );
+		if ( !game.IsTileEmpty( ( * map ), t1.x, t1.y ) or !game.IsTileEmpty( ( * map ), t2.x, t2.y ) or
+			 !game.IsTileEmpty( ( * map ), t3.x, t3.y ) or !game.IsTileEmpty( ( * map ), t4.x, t4.y ) )
+		{
+			return;
+		}
+		
+		sprite.SetPosition( static_cast< int >( pos.x ), static_cast< int >( pos.y ) );
 	}
 }
