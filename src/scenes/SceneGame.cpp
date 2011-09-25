@@ -31,7 +31,7 @@ void SceneGame::Initialize()
 		CreateTestObject();
 
 		cameraController = new obj::CameraController( ( * this ), game.window );
-		
+
 		debug = new obj::Debug( * this );
 		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( debug ) );
 
@@ -74,7 +74,7 @@ void SceneGame::Update( sf::RenderWindow& window, const sf::Event& event )
 			game.ChangeScene( "MainMenu" );
 		}
 	}
-	
+
 	if ( simulateWorld )
 	{
 		maps.Update( event );

@@ -4,6 +4,7 @@
 	<Type name="Grass" index="1" />
 	<Type name="Sand" index="2" />
 	<Type name="Soil" index="3" />
+	<Type name="Soil" index="4" />
 	
 	<Type name="Collider" index="255" />
 </TileTypes>
