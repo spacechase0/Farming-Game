@@ -68,6 +68,9 @@ namespace obj
 	
 	void Npc::MoveInDirection( MovementDirection dir, float speed )
 	{
+		sf::IntRect subRect( frameSize.x * dir, frameSize.y * 0, frameSize.x, frameSize.y );
+		sprite.SetSubRect( subRect );
+		
 		sf::Vector2f pos = sprite.GetPosition();
 		switch ( dir )
 		{
@@ -125,9 +128,6 @@ namespace obj
 		{
 			return;
 		}
-		
-		sf::IntRect subRect( frameSize.x * dir, frameSize.y * 0, frameSize.x, frameSize.y );
-		sprite.SetSubRect( subRect );
 		
 		sprite.SetPosition( static_cast< int >( pos.x ), static_cast< int >( pos.y ) );
 	}
