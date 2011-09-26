@@ -25,8 +25,6 @@ namespace obj
 			enum MovementDirection
 			{
 				// Making Up be 0 makes the subrect thing a whole lot easier
-				None = -1,
-				
 				Up    = 0,
 				Down  = 1,
 				Left  = 2,

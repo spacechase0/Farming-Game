@@ -86,10 +86,6 @@ namespace obj
 			case Right:
 				pos.x += speed;
 				break;
-			
-			// Gets rid of "warning: enumeration value 'None' not handled in switch"
-			default:
-				break;
 		}
 		sf::FloatRect rect( pos.x, pos.y, Game::TileSize, Game::TileSize );
 		
