@@ -19,21 +19,27 @@ namespace obj
 		const float speed = 3.25;
 		
 		Npc::Update();
-		if ( pressed.left )
+		if ( pressed.left != pressed.right )
 		{
-			MoveInDirection( Left, speed );
+			if ( pressed.left )
+			{
+				MoveInDirection( Left, speed );
+			}
+			if ( pressed.right )
+			{
+				MoveInDirection( Right, speed );
+			}
 		}
-		if ( pressed.right )
+		if ( pressed.up != pressed.down )
 		{
-			MoveInDirection( Right, speed );
-		}
-		if ( pressed.up )
-		{
-			MoveInDirection( Up, speed );
-		}
-		if ( pressed.down )
-		{
-			MoveInDirection( Down, speed );
+			if ( pressed.up )
+			{
+				MoveInDirection( Up, speed );
+			}
+			if ( pressed.down )
+			{
+				MoveInDirection( Down, speed );
+			}
 		}
 	}
 
