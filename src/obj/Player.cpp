@@ -16,22 +16,24 @@ namespace obj
 
 	void Player::Update()
 	{
+		const float speed = 3.25;
+		
 		Npc::Update();
-		if ( pressed.up )
-		{
-			MoveInDirection( Up, 3.25 );
-		}
-		if ( pressed.down )
-		{
-			MoveInDirection( Down, 3.25 );
-		}
 		if ( pressed.left )
 		{
-			MoveInDirection( Left, 3.25 );
+			MoveInDirection( Left, speed );
 		}
 		if ( pressed.right )
 		{
-			MoveInDirection( Right, 3.25 );
+			MoveInDirection( Right, speed );
+		}
+		if ( pressed.up )
+		{
+			MoveInDirection( Up, speed );
+		}
+		if ( pressed.down )
+		{
+			MoveInDirection( Down, speed );
 		}
 	}
 
