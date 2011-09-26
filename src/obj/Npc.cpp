@@ -126,6 +126,9 @@ namespace obj
 			return;
 		}
 		
+		sf::IntRect subRect( frameSize.x * dir, frameSize.y * 0, frameSize.x, frameSize.y );
+		sprite.SetSubRect( subRect );
+		
 		sprite.SetPosition( static_cast< int >( pos.x ), static_cast< int >( pos.y ) );
 	}
 }
