@@ -23,6 +23,15 @@ class Game
 		void ChangeScene( const std::string& sceneName );
 		void AddScene( const std::string& sceneName, ScenePtr scene );
 
+		void loadSettings();
+		void saveSettings();
+		bool getFullscreen();
+		int getMusicVolume();
+		int getSoundVolume();
+		void setFullscreen( bool fullscreen );
+		void setMusicVolume( int volume );
+		void setSoundVolume( int volume );
+
 		sf::RenderWindow window;
 
 		// Without "res/"
@@ -57,6 +66,10 @@ class Game
 
 		bool isRunning;
 		sf::Clock simulationTimer;
+
+		bool fullscreen;
+		float sound;
+		float music;
 };
 
 #endif // GAME_H

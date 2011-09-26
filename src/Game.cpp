@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include <stdexcept>
+#include <fstream>
 
 #include "scenes/Scenes.h"
 
@@ -22,6 +23,8 @@ Game::Game()
 	// Just trust me on this, ok? :P
 	currentScene = "";
 	nextScene = "MainMenu";
+
+	loadSettings();
 }
 
 Game::~Game()
@@ -34,7 +37,15 @@ Game::~Game()
 
 int Game::Run()
 {
-	window.Create( sf::VideoMode( WindowSize.x, WindowSize.y ), WindowTitle, sf::Style::Titlebar | sf::Style::Close );
+    if (getFullscreen())
+    {
+        window.Create( sf::VideoMode( WindowSize.x, WindowSize.y ), WindowTitle, sf::Style::Fullscreen );
+    }
+    else
+    {
+        window.Create( sf::VideoMode( WindowSize.x, WindowSize.y ), WindowTitle, sf::Style::Titlebar | sf::Style::Close );
+    }
+
 	sf::Image icon;
     icon.LoadFromFile("res/icon.png");
     window.SetIcon(32,32,icon.GetPixelsPtr());
@@ -130,6 +141,62 @@ void Game::AddScene( const std::string& sceneName, ScenePtr scene )
 	}
 
 	scenes.insert( std::make_pair( sceneName, scene ) );
+}
+
+void Game::loadSettings()
+{
+    std::ifstream file;
+    file.open( "res/settings.txt" );
+    if ( file.is_open() )
+    {
+        file >> fullscreen;
+        file >> music;
+        file >> sound;
+        file.close();
+    }
+}
+
+void Game::saveSettings()
+{
+    std::ofstream file;
+    file.open( "res/settings.txt" );
+    if (file.is_open())
+    {
+        file << fullscreen;
+        file << music;
+        file << sound;
+        file.close();
+    }
+}
+
+bool Game::getFullscreen()
+{
+    return fullscreen;
+}
+
+int Game::getMusicVolume()
+{
+    return music;
+}
+
+int Game::getSoundVolume()
+{
+    return sound;
+}
+
+void Game::setFullscreen( bool fullscreen )
+{
+    Game::fullscreen = fullscreen;
+}
+
+void Game::setMusicVolume( int volume )
+{
+    music = volume;
+}
+
+void Game::setSoundVolume( int volume )
+{
+    sound = volume;
 }
 
 sf::Texture& Game::GetTexture( const std::string& filename )

@@ -84,6 +84,7 @@ void SceneOptions::ButtonCallback( gui::Button::EventType type, gui::Button& but
 
 	if ( btn->GetString() == "Back" )
 	{
+	    game.saveSettings();
 		game.ChangeScene( "MainMenu" );
 	}
 }
