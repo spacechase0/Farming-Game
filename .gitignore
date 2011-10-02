@@ -41,3 +41,7 @@ src/Farming Game.layout
 # 'obj' directory
 obj
 !src/obj
+
+# Editor
+!LevelEditor.exe
+Editor.lnk
