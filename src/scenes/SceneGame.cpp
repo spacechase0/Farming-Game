@@ -25,6 +25,7 @@ void SceneGame::Initialize()
 
 	LoadMap( "testing" );
 	LoadMap( "testing2" );
+	LoadMap( "house" );
 	maps.currentMap = "testing";
 	if ( maps.maps.size() > 0 )
 	{

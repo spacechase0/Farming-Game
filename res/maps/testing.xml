@@ -9,8 +9,8 @@
 		255 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 255
 		255 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 255
 		255 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 255
-		255 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 255
-		255 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 255
+		1 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 255
+		1 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 255
 		255 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 255
 		255 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 1 1 1 1 1 1 255
 		255 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 1 1 1 1 1 1 255
@@ -28,8 +28,6 @@
 		<Scenery file="fence_v" x="0" y="5" />
 		<Scenery file="fence_v" x="0" y="6" />
 		<Scenery file="fence_v" x="0" y="7" />
-		<Scenery file="fence_v" x="0" y="8" />
-		<Scenery file="fence_v" x="0" y="9" />
 		<Scenery file="fence_v" x="0" y="10" />
 		<Scenery file="fence_v" x="0" y="11" />
 		<Scenery file="fence_v" x="0" y="12" />
@@ -101,6 +99,9 @@
 		<Scenery file="fence_h" x="22" y="17" />
 		<Scenery file="fence_h" x="23" y="17" />
 		<Scenery file="fence_h" x="24" y="17" />
+		
+		<Entrance file="" x="-1" y="8" map="house" dx="21" dy="9" />
+		<Entrance file="" x="-1" y="9" map="house" dx="21" dy="10" />
 		
 		<Entrance file="" x="10" y="18" map="testing2" dx="10" dy="0" />
 		<Entrance file="" x="11" y="18" map="testing2" dx="11" dy="0" />
