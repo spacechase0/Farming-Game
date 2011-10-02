@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "scenes/Scenes.h"
+#include "util/Convert.h"
 
 const std::string Game::WindowTitle = "Farming Game";
 const sf::Vector2i Game::WindowSize( 640, 480 );
@@ -149,9 +150,18 @@ void Game::loadSettings()
     file.open( "res/settings.txt" );
     if ( file.is_open() )
     {
-        file >> fullscreen;
-        file >> music;
-        file >> sound;
+    	std::string fullscreenStr;
+    	std::string musicStr;
+    	std::string soundStr;
+    	
+    	std::getline( file, fullscreenStr );
+    	std::getline( file, musicStr );
+    	std::getline( file, soundStr );
+    	
+    	fullscreen = util::FromString< bool >( fullscreenStr );
+    	music = util::FromString< float >( musicStr );
+    	sound = util::FromString< float >( soundStr );
+    	
         file.close();
     }
 }
@@ -162,9 +172,10 @@ void Game::saveSettings()
     file.open( "res/settings.txt" );
     if (file.is_open())
     {
-        file << fullscreen;
-        file << music;
-        file << sound;
+        file << fullscreen << std::endl;
+        file << music << std::endl;
+        file << sound << std::endl;
+        
         file.close();
     }
 }
