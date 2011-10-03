@@ -76,6 +76,16 @@ bool MapLoader::LoadXml( xml::Document& doc, const std::string& filename )
 
 		contents += line;
 	}
+	
+	std::string utfHeader;
+	utfHeader += 0xEF;
+	utfHeader += 0xBB;
+	utfHeader += 0xBF;
+	
+	if ( contents.substr( 0, 3 ) == utfHeader )
+	{
+		contents.erase( 0, 3 );
+	}
 
 	return std::get< 0 >( doc.Parse( contents ) );
 }
