@@ -97,7 +97,7 @@ namespace obj
 						if ( npc->GetCollisionRect().Intersects( colRect ) )
 						{
 							npc->Talk();
-							npc->FaceDirection( dir );
+							npc->FaceDirection( GetOppositeDirection() );
 						}
 					}
 				}
