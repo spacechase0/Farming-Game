@@ -158,4 +158,29 @@ namespace obj
 			return Right;
 		}
 	}
+	
+	Npc::MovementDirection Npc::GetOppositeDirection() const
+	{
+		MovementDirection dir = GetDirection();
+		MovementDirection face = dir;
+		
+		if ( dir == Up )
+		{
+			face = Down;
+		}
+		else if ( dir == Down )
+		{
+			face = Up;
+		}
+		else if ( dir == Left )
+		{
+			face = Right;
+		}
+		else
+		{
+			face = Left;
+		}
+		
+		return face;
+	}
 }

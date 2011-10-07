@@ -35,6 +35,7 @@ namespace obj
 			void MoveInDirection( MovementDirection dir, float speed = 3.25 );
 			void FaceDirection( MovementDirection dir );
 			MovementDirection GetDirection() const;
+			MovementDirection GetOppositeDirection() const;
 		
 		protected:
 			MapManager::Map* map;
