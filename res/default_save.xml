@@ -1,6 +1,7 @@
 <?xml version="1.0" ?>
 <Save>
 	<Player>
+		<Position map="testing" x="13" y="5" />
 		<Name value="Name" />
 		<Inventory>
 			<Slot id="0" item="" amount="" />
