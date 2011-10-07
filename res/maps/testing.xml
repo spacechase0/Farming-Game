@@ -100,6 +100,11 @@
 		<Scenery file="fence_h" x="23" y="17" />
 		<Scenery file="fence_h" x="24" y="17" />
 		
+		<TalkingNpc file="characters/player.png" frameSizeX="32" frameSizeY="64" x="5" y="5">
+			<TextEntry>Hello</TextEntry>
+			<TextEntry>World!</TextEntry>
+		</TalkingNpc>
+		
 		<Entrance file="" x="-1" y="8" map="house" dx="21" dy="9" />
 		<Entrance file="" x="-1" y="9" map="house" dx="21" dy="10" />
 		
