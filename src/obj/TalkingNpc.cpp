@@ -5,8 +5,7 @@
 namespace obj
 {
 	TalkingNpc::TalkingNpc( SceneGame& theGame, MapManager::Map& theMap, sf::Texture& theTexture, sf::Vector2i theFrameSize, sf::Vector2f thePos )
-	   : Npc::Npc( theGame, theMap, theTexture, theFrameSize ),
-	     text{ "Hello", "World!" }
+	   : Npc::Npc( theGame, theMap, theTexture, theFrameSize )
 	{
 		SetPosition( thePos );
 	}
