@@ -103,7 +103,6 @@ namespace obj
 				}
 			}
 		}
-		
 	}
 
 	void Player::Draw( sf::RenderWindow& window )
