@@ -13,7 +13,7 @@ namespace obj
 	class Npc : public RenderObject
 	{
 		public:
-			Npc( SceneGame& theGame, MapManager::Map& theMap, sf::Texture& theTexture, sf::Vector2i theGridPos );
+			Npc( SceneGame& theGame, MapManager::Map& theMap, sf::Texture& theTexture, sf::Vector2i theFrameSize );
 			
 			virtual void Update();
 			virtual void Update( const sf::Event& event );
