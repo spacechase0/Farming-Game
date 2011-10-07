@@ -15,12 +15,15 @@ namespace obj
 			virtual void Draw( sf::RenderWindow& window );
 			
 			virtual void CollidedWith( RenderObject* object );
+			
+			std::string GetName() const;
 		
 		protected:
 			struct
 			{
 				bool up, down, left, right;
 			} pressed;
+			std::string name;
 			
 			void HandleKeyRelease();
 	};

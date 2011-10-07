@@ -10,7 +10,8 @@ namespace obj
 {
 	Player::Player( SceneGame& theGame, MapManager::Map& theMap, sf::Texture& theTexture, sf::Vector2f thePos )
 	   : Npc::Npc( theGame, theMap, theTexture, sf::Vector2i( 32, 64 ) ),
-	     pressed{ false, false, false, false }
+	     pressed{ false, false, false, false },
+	     name( "Name" )
 	{
 		SetPosition( thePos );
 	}
@@ -117,6 +118,11 @@ namespace obj
 			Entrance* entrance = static_cast< Entrance* >( object );
 			game.maps.currentMap = entrance->GetDestination();
 		}
+	}
+	
+	std::string Player::GetName() const
+	{
+		return name;
 	}
 	
 	void Player::HandleKeyRelease()
