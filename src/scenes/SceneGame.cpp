@@ -27,6 +27,7 @@ void SceneGame::Initialize()
 	LoadMap( "testing2" );
 	LoadMap( "house" );
 	maps.currentMap = "testing";
+	
 	if ( maps.maps.size() > 0 )
 	{
 		CreateTestObject();
@@ -35,6 +36,10 @@ void SceneGame::Initialize()
 
 		debug = new obj::Debug( * this );
 		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( debug ) );
+		
+		sf::Texture& texture = game.GetTexture( "characters/player.png" );
+		obj::Base* npc = new obj::TalkingNpc( ( * this ), ( * maps[ "testing" ] ), texture, sf::Vector2i( 32, 64 ), sf::Vector2f( 5*32, 5*32 ) );
+		maps[ "testing" ]->objects.push_back( boost::shared_ptr< obj::Base >( npc ) );
 
 		simulateWorld = true;
 	}

@@ -2,6 +2,7 @@
 
 #include "Game.h"
 #include "scenes/SceneGame.h"
+#include "obj/TalkingNpc.h"
 #include "obj/Entrance.h"
 #include "util/Type.h"
 
@@ -66,9 +67,38 @@ namespace obj
 			}
 			else if ( event.Key.Code == Game::PrimaryKey )
 			{
-				std::vector< std::string > str;
-				str.push_back( "Hello World!" );
-				game.CreateChatDialog( str );
+				for ( auto it = map->objects.begin(); it != map->objects.end(); ++it )
+				{
+					if ( util::IsOfType< TalkingNpc* >( it->get() ) )
+					{
+						sf::FloatRect colRect = GetCollisionRect();
+						MovementDirection dir = GetDirection();
+						
+						if ( dir == Up )
+						{
+							colRect.Top -= colRect.Height;
+						}
+						else if ( dir == Down )
+						{
+							colRect.Top += colRect.Height;
+						}
+						else if ( dir == Left )
+						{
+							colRect.Left -= colRect.Width;
+						}
+						else if ( dir == Right )
+						{
+							colRect.Left += colRect.Width;
+						}
+						
+						TalkingNpc* npc = static_cast< TalkingNpc* >( it->get() );
+						if ( npc->GetCollisionRect().Intersects( colRect ) )
+						{
+							npc->Talk();
+							npc->FaceDirection( dir );
+						}
+					}
+				}
 			}
 		}
 		else if ( event.Type == sf::Event::KeyReleased )

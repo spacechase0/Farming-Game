@@ -100,6 +100,8 @@
 		<Unit filename="obj\RenderObject.h" />
 		<Unit filename="obj\Scenery.cpp" />
 		<Unit filename="obj\Scenery.h" />
+		<Unit filename="obj\TalkingNpc.cpp" />
+		<Unit filename="obj\TalkingNpc.h" />
 		<Unit filename="scenes\SceneBase.h" />
 		<Unit filename="scenes\SceneGame.cpp" />
 		<Unit filename="scenes\SceneGame.h" />

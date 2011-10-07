@@ -8,5 +8,6 @@
 #include "obj/Scenery.h"
 #include "obj/Debug.h"
 #include "obj/Entrance.h"
+#include "obj/TalkingNpc.h"
 
 #endif // OBJ_OBJECTS_H
