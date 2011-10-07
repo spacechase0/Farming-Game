@@ -10,13 +10,14 @@ class Game;
 class MapLoader
 {
 	public:
-		MapLoader( Game& theGame, SceneGame& theScene, std::vector< TileLayer >& theLayers, MapManager::ObjectList& theObjects );
+		MapLoader( Game& theGame, SceneGame& theScene, MapManager::Map& theMap );
 		
 		bool LoadMap( const std::string& mapName );
 	
 	private:
 		Game& game;
 		SceneGame& scene;
+		MapManager::Map& map;
 		std::vector< TileLayer >& layers;
 		MapManager::ObjectList& objects;
 		size_t width, height;
@@ -28,6 +29,7 @@ class MapLoader
 		
 		bool ParseStaticObjects( xml::Node& node );
 		bool ParseSceneryObject( xml::Node& node );
+		bool ParseTalkingNpcObject( xml::Node& node );
 		bool ParseEntranceObject( xml::Node& node );
 };
 

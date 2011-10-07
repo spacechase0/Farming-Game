@@ -36,10 +36,6 @@ void SceneGame::Initialize()
 
 		debug = new obj::Debug( * this );
 		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( debug ) );
-		
-		sf::Texture& texture = game.GetTexture( "characters/player.png" );
-		obj::Base* npc = new obj::TalkingNpc( ( * this ), ( * maps[ "testing" ] ), texture, sf::Vector2i( 32, 64 ), sf::Vector2f( 5*32, 5*32 ) );
-		maps[ "testing" ]->objects.push_back( boost::shared_ptr< obj::Base >( npc ) );
 
 		simulateWorld = true;
 	}
@@ -170,7 +166,7 @@ void SceneGame::LoadMap( const std::string& mapName )
 	maps.maps.insert( std::make_pair( mapName, MapManager::MapPtr( new MapManager::Map ) ) );
 	MapManager::Map& map = ( * maps[ mapName ] );
 
-	MapLoader loader( game, ( * this ), map.layers, map.objects );
+	MapLoader loader( game, ( * this ), map );
 	if ( !loader.LoadMap( mapName ) )
 	{
 		std::vector< std::string > str;

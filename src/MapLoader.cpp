@@ -8,11 +8,12 @@
 #include "util/Tokenize.h"
 #include "obj/Objects.h"
 
-MapLoader::MapLoader( Game& theGame, SceneGame& theScene, std::vector< TileLayer >& theLayers, MapManager::ObjectList& theObjects )
+MapLoader::MapLoader( Game& theGame, SceneGame& theScene, MapManager::Map& theMap )
    : game( theGame ),
      scene( theScene ),
-     layers( theLayers ),
-     objects( theObjects )
+	 map( theMap ),
+     layers( theMap.layers ),
+     objects( theMap.objects )
 {
 }
 
@@ -183,6 +184,13 @@ bool MapLoader::ParseStaticObjects( xml::Node& node )
 				return false;
 			}
 		}
+		else if ( node.GetName() == "TalkingNpc" )
+		{
+			if ( !ParseTalkingNpcObject( node ) )
+			{
+				return false;
+			}
+		}
 		else if ( node.GetName() == "Entrance" )
 		{
 			if ( !ParseEntranceObject( node ) )
@@ -209,6 +217,49 @@ bool MapLoader::ParseSceneryObject( xml::Node& node )
 	boost::shared_ptr< obj::Base > scenery( new obj::Scenery( scene, tex, pos ) );
 	objects.push_back( scenery );
 
+	return true;
+}
+
+bool MapLoader::ParseTalkingNpcObject( xml::Node& node )
+{
+	sf::Texture& tex = game.GetTexture( "characters/" + xml::GetAttribute( node, "file" ).GetValue() + ".png" );
+	std::string frameSizeXStr = xml::GetAttribute( node, "frameSizeX" ).GetValue();
+	std::string frameSizeYStr = xml::GetAttribute( node, "frameSizeY" ).GetValue();
+	std::string xStr = xml::GetAttribute( node, "x" ).GetValue();
+	std::string yStr = xml::GetAttribute( node, "y" ).GetValue();
+	
+	int frameSizeX = util::FromString< int >( frameSizeXStr );
+	int frameSizeY = util::FromString< int >( frameSizeYStr );
+	float x = util::FromString< float >( xStr );
+	float y = util::FromString< float >( yStr );
+	
+	sf::Vector2i frameSize( frameSizeX, frameSizeY );
+	sf::Vector2f pos( x * Game::TileSize, y * Game::TileSize );
+	
+	obj::TalkingNpc* talkingNpc = new obj::TalkingNpc( scene, map, tex, frameSize, pos );
+	
+	auto children = node.GetChildren();
+	for ( auto it = children.begin(); it != children.end(); ++it )
+	{
+		xml::Node& childNode = ( * it->get() );
+		if ( childNode.GetName() == "TextEntry" )
+		{
+			std::string text = "";
+			for ( auto it2 = childNode.GetChildren().begin(); it2 != childNode.GetChildren().end(); ++it2 )
+			{
+				text += it2->get()->GetText();
+				if ( it2 != childNode.GetChildren().end() - 1 )
+				{
+					text += '\n';
+				}
+			}
+			talkingNpc->text.push_back( text );
+		}
+	}
+	
+	boost::shared_ptr< obj::Base > npc( talkingNpc );
+	objects.push_back( npc );
+	
 	return true;
 }
 
