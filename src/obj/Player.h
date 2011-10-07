@@ -21,6 +21,8 @@ namespace obj
 			{
 				bool up, down, left, right;
 			} pressed;
+			
+			void HandleKeyRelease();
 	};
 }
 

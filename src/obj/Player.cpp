@@ -20,6 +20,8 @@ namespace obj
 		const float speed = 3.25;
 		
 		Npc::Update();
+		HandleKeyRelease();
+		
 		if ( pressed.left != pressed.right )
 		{
 			if ( pressed.left )
@@ -101,25 +103,7 @@ namespace obj
 				}
 			}
 		}
-		else if ( event.Type == sf::Event::KeyReleased )
-		{
-			if ( event.Key.Code == sf::Keyboard::Up )
-			{
-				pressed.up = false;
-			}
-			else if ( event.Key.Code == sf::Keyboard::Down )
-			{
-				pressed.down = false;
-			}
-			else if ( event.Key.Code == sf::Keyboard::Left )
-			{
-				pressed.left = false;
-			}
-			else if ( event.Key.Code == sf::Keyboard::Right )
-			{
-				pressed.right = false;
-			}
-		}
+		
 	}
 
 	void Player::Draw( sf::RenderWindow& window )
@@ -133,6 +117,26 @@ namespace obj
 		{
 			Entrance* entrance = static_cast< Entrance* >( object );
 			game.maps.currentMap = entrance->GetDestination();
+		}
+	}
+	
+	void Player::HandleKeyRelease()
+	{
+		if ( pressed.up and !sf::Keyboard::IsKeyPressed( sf::Keyboard::Up ) )
+		{
+			pressed.up = false;
+		}
+		else if ( pressed.down and !sf::Keyboard::IsKeyPressed( sf::Keyboard::Down ) )
+		{
+			pressed.down = false;
+		}
+		else if ( pressed.left and !sf::Keyboard::IsKeyPressed( sf::Keyboard::Left ) )
+		{
+			pressed.left = false;
+		}
+		else if ( pressed.right and !sf::Keyboard::IsKeyPressed( sf::Keyboard::Right ) )
+		{
+			pressed.right = false;
 		}
 	}
 }
