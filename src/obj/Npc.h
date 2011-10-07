@@ -32,7 +32,9 @@ namespace obj
 			};
 			
 			sf::Vector2i GetGridPosition() const;
-			void MoveInDirection( MovementDirection theDir, float speed = 3.25 );
+			void MoveInDirection( MovementDirection dir, float speed = 3.25 );
+			void FaceDirection( MovementDirection dir );
+			MovementDirection GetDirection() const;
 		
 		protected:
 			MapManager::Map* map;

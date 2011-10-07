@@ -68,8 +68,7 @@ namespace obj
 	
 	void Npc::MoveInDirection( MovementDirection dir, float speed )
 	{
-		sf::IntRect subRect( frameSize.x * dir, frameSize.y * 0, frameSize.x, frameSize.y );
-		sprite.SetSubRect( subRect );
+		FaceDirection( dir );
 		
 		sf::Vector2f pos = sprite.GetPosition();
 		switch ( dir )
@@ -130,5 +129,33 @@ namespace obj
 		}
 		
 		sprite.SetPosition( static_cast< int >( pos.x ), static_cast< int >( pos.y ) );
+	}
+	
+	void Npc::FaceDirection( MovementDirection dir )
+	{
+		sf::IntRect subRect( frameSize.x * dir, frameSize.y * 0, frameSize.x, frameSize.y );
+		sprite.SetSubRect( subRect );
+	}
+	
+	Npc::MovementDirection Npc::GetDirection() const
+	{
+		sf::IntRect subRect = sprite.GetSubRect();
+		
+		if ( subRect.Left == frameSize.x * Up )
+		{
+			return Up;
+		}
+		else if ( subRect.Left == frameSize.x * Down )
+		{
+			return Down;
+		}
+		else if ( subRect.Left == frameSize.x * Left )
+		{
+			return Left;
+		}
+		else
+		{
+			return Right;
+		}
 	}
 }
