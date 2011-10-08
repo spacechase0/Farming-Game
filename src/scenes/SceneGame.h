@@ -9,6 +9,7 @@
 #include "util/Grid.h"
 #include "item/Items.h"
 #include "MapManager.h"
+#include "ColorScale.h"
 
 namespace obj
 {
@@ -57,6 +58,8 @@ class SceneGame : public SceneBase
 
 	private:
 		sf::Uint16 time;
+		sf::Image timeGradient;
+		
 		void LoadMap( const std::string& mapName );
 		void CreatePlayer();
 
