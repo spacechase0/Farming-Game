@@ -20,6 +20,7 @@ namespace obj
 			
 			sf::Text name;
 			sf::Text time;
+			sf::Text money;
 			sf::Font* font;
 	};
 }

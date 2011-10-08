@@ -1,5 +1,6 @@
 #include "obj/DialogIngameGui.h"
 
+#include <util/Convert.h>
 #include "Game.h"
 #include "scenes/SceneGame.h"
 #include "obj/Player.h"
@@ -23,6 +24,10 @@ namespace obj
 		time.SetFont( * font );
 		time.SetCharacterSize( 20 );
 		time.SetPosition( 128, startY + 6 );
+		
+		money.SetFont( * font );
+		money.SetCharacterSize( 20 );
+		money.SetPosition( 256, startY + 6 );
 	}
 
 	void DialogIngameGui::Update()
@@ -31,6 +36,7 @@ namespace obj
 		
 		name.SetString( game.player->GetName() );
 		time.SetString( game.GetTimeString() );
+		money.SetString( "Money: " + util::ToString( game.player->GetMoney() ) );
 	}
 	
 	void DialogIngameGui::Update( const sf::Event& event )
@@ -44,6 +50,7 @@ namespace obj
 		
 		window.Draw( name );
 		window.Draw( time );
+		window.Draw( money );
 		
 		slot.SetPosition( Game::WindowSize.x - ( slotTexture->GetWidth() * 1 ) - ( 10 * 1 ), Game::WindowSize.y - slotTexture->GetHeight() - 10 );
 		window.Draw( slot );

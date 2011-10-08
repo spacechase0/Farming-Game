@@ -11,7 +11,8 @@ namespace obj
 	Player::Player( SceneGame& theGame, MapManager::Map& theMap, sf::Texture& theTexture, sf::Vector2f thePos )
 	   : Npc::Npc( theGame, theMap, theTexture, sf::Vector2i( 32, 64 ) ),
 	     pressed{ false, false, false, false },
-	     name( "Name" )
+	     name( "Name" ),
+	     money( 0 )
 	{
 		SetPosition( thePos );
 	}
@@ -123,6 +124,21 @@ namespace obj
 	std::string Player::GetName() const
 	{
 		return name;
+	}
+	
+	void Player::SetMoney( int theMoney )
+	{
+		money = theMoney;
+	}
+	
+	void Player::SpendMoney( int amount )
+	{
+		money += amount;
+	}
+	
+	int Player::GetMoney() const
+	{
+		return money;
 	}
 	
 	void Player::HandleKeyRelease()

@@ -17,6 +17,10 @@ namespace obj
 			virtual void CollidedWith( RenderObject* object );
 			
 			std::string GetName() const;
+			
+			void SetMoney( int theMoney );
+			void SpendMoney( int amount );
+			int GetMoney() const;
 		
 		protected:
 			struct
@@ -24,6 +28,7 @@ namespace obj
 				bool up, down, left, right;
 			} pressed;
 			std::string name;
+			int money;
 			
 			void HandleKeyRelease();
 	};
