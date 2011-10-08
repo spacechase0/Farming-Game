@@ -6,20 +6,20 @@
  *  This software is provided 'as-is', without any express or
  *  implied warranty. In no event will the authors be held
  *  liable for any damages arising from the use of this software.
- *  
+ *
  *  Permission is granted to anyone to use this software for any purpose,
  *  including commercial applications, and to alter it and redistribute
  *  it freely, subject to the following restrictions:
- *  
+ *
  *  1. The origin of this software must not be misrepresented;
  *     you must not claim that you wrote the original software.
  *     If you use this software in a product, an acknowledgment
  *     in the product documentation would be appreciated but
  *     is not required.
- *  
+ *
  *  2. Altered source versions must be plainly marked as such,
  *     and must not be misrepresented as being the original software.
- *  
+ *
  *  3. This notice may not be removed or altered from any
  *     source distribution.
  *
@@ -49,7 +49,7 @@ double interpolateCosinus(double y1, double y2, double mu)
 sf::Color GradientLinear(sf::Color* colorTab,int size,const sf::Vector2f& start,const sf::Vector2f& end,int x,int y)
 {
     sf::Vector2f dir  = end-start;
-    sf::Vector2f pix  = sf::Vector2f(x,y)-start; 
+    sf::Vector2f pix  = sf::Vector2f(x,y)-start;
     double dotProduct = pix.x*dir.x+pix.y*dir.y;
     dotProduct       *= (size-1)/(dir.x*dir.x+dir.y*dir.y);
 
@@ -91,7 +91,7 @@ sf::Color GradientRadial(sf::Color* colorTab,int size,const sf::Vector2f& start,
 sf::Color GradientReflex(sf::Color* colorTab,int size,const sf::Vector2f& start,const sf::Vector2f& end,int x,int y)
 {
     sf::Vector2f dir  = end-start;
-    sf::Vector2f pix  = sf::Vector2f(x,y)-start; 
+    sf::Vector2f pix  = sf::Vector2f(x,y)-start;
     double dotProduct = pix.x*dir.x+pix.y*dir.y;
     dotProduct       *= (size-1)/(dir.x*dir.x+dir.y*dir.y);
     dotProduct        = std::abs(dotProduct);
@@ -111,8 +111,7 @@ bool ColorScale::insert(double position, sf::Color color)
     return ret.second;
 }
 
-
-#define ABS(a) (std::max(a, 0.d))
+#define ABS(a) (std::max(a, 0))
 
 void ColorScale::fillTab(sf::Color* colorTab, int size,InterpolationFunction::InterpolationFunction function) const
 {
@@ -127,7 +126,7 @@ void ColorScale::fillTab(sf::Color* colorTab, int size,InterpolationFunction::In
 
     double(*pFunction)(double,double,double);
 
-    switch (function) 
+    switch (function)
     {
         case InterpolationFunction::Cosinus: pFunction = interpolateCosinus;  break;
         case InterpolationFunction::Linear : pFunction = linearInterpolation; break;
@@ -145,10 +144,10 @@ void ColorScale::fillTab(sf::Color* colorTab, int size,InterpolationFunction::In
 
         for(int i = (int)pos;i<=(int)(pos+nb_color);i++)
         {
-            colorTab[i].r = (unsigned char)pFunction(startColor.r,endColor.r,ABS((double)i-pos)/(nb_color-1.0));
-            colorTab[i].g = (unsigned char)pFunction(startColor.g,endColor.g,ABS((double)i-pos)/(nb_color-1.0));
-            colorTab[i].b = (unsigned char)pFunction(startColor.b,endColor.b,ABS((double)i-pos)/(nb_color-1.0));
-            colorTab[i].a = (unsigned char)pFunction(startColor.a,endColor.a,ABS((double)i-pos)/(nb_color-1.0));
+            colorTab[i].r = (unsigned char)pFunction(startColor.r,endColor.r,abs(i-pos)/(nb_color-1.0));
+            colorTab[i].g = (unsigned char)pFunction(startColor.g,endColor.g,abs(i-pos)/(nb_color-1.0));
+            colorTab[i].b = (unsigned char)pFunction(startColor.b,endColor.b,abs(i-pos)/(nb_color-1.0));
+            colorTab[i].a = (unsigned char)pFunction(startColor.a,endColor.a,abs(i-pos)/(nb_color-1.0));
         }
         pos+=nb_color;
     }
@@ -165,7 +164,7 @@ void ColorScale::draw(sf::Image& img,const sf::Vector2f& start,const sf::Vector2
     sf::Color tab[size];
     fillTab(tab,size);
 
-    switch (style) 
+    switch (style)
     {
         case GradientStyle::Linear : pFunction = GradientLinear; break;
         case GradientStyle::Circle : pFunction = GradientCircle; break;
@@ -180,7 +179,7 @@ void ColorScale::draw(sf::Image& img,const sf::Vector2f& start,const sf::Vector2
         for(unsigned int j=0;j<img.GetHeight();j++)
         {
             img.SetPixel(i,j,pFunction(tab,size,start,end,i,j));
-        }       
+        }
     }
     //delete[] tab;
 }
