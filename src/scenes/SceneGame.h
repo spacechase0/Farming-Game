@@ -17,6 +17,7 @@ namespace obj
 	class Player;
 	class CameraController;
 	class Debug;
+	class DialogIngameGui;
 }
 
 class SceneGame : public SceneBase
@@ -45,6 +46,7 @@ class SceneGame : public SceneBase
 		// Misc
 		obj::Player* player;
 		obj::CameraController* cameraController;
+		obj::DialogIngameGui* ingameGui;
 		obj::Debug* debug;
 		bool simulateWorld;
 

@@ -89,6 +89,8 @@
 		<Unit filename="obj\DialogBase.h" />
 		<Unit filename="obj\DialogChat.cpp" />
 		<Unit filename="obj\DialogChat.h" />
+		<Unit filename="obj\DialogIngameGui.cpp" />
+		<Unit filename="obj\DialogIngameGui.h" />
 		<Unit filename="obj\Entrance.cpp" />
 		<Unit filename="obj\Entrance.h" />
 		<Unit filename="obj\Npc.cpp" />

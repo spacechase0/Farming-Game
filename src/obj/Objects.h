@@ -9,5 +9,6 @@
 #include "obj/Debug.h"
 #include "obj/Entrance.h"
 #include "obj/TalkingNpc.h"
+#include "obj/DialogIngameGui.h"
 
 #endif // OBJ_OBJECTS_H

@@ -33,7 +33,12 @@ void SceneGame::Initialize()
 		CreatePlayer();
 
 		cameraController = new obj::CameraController( ( * this ), game.window );
-
+		
+		sf::Texture& back = game.GetTexture( "dialogs/ingame-bottom.png" );
+		sf::Texture& slot = game.GetTexture( "gui/slot.png" );
+		ingameGui = new obj::DialogIngameGui( ( * this ), back, slot );
+		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( ingameGui ) );
+		
 		debug = new obj::Debug( * this );
 		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( debug ) );
 
