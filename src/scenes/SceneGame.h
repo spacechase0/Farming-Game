@@ -50,7 +50,7 @@ class SceneGame : public SceneBase
 
 		void CreateChatDialog( const std::vector< std::string >& messages );
 
-	protected:
+	private:
 		void LoadMap( const std::string& mapName );
 		void CreatePlayer();
 
