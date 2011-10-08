@@ -49,6 +49,8 @@
 			<Add option="-std=gnu++0x" />
 			<Add option='-include &quot;Global.h&quot;' />
 		</Compiler>
+		<Unit filename="ColorScale.cpp" />
+		<Unit filename="ColorScale.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
 		<Unit filename="Global.h" />
