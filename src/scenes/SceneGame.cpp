@@ -30,7 +30,7 @@ void SceneGame::Initialize()
 	
 	if ( maps.maps.size() > 0 )
 	{
-		CreateTestObject();
+		CreatePlayer();
 
 		cameraController = new obj::CameraController( ( * this ), game.window );
 
@@ -176,7 +176,7 @@ void SceneGame::LoadMap( const std::string& mapName )
 	}
 }
 
-void SceneGame::CreateTestObject()
+void SceneGame::CreatePlayer()
 {
 	sf::Texture& texture = game.GetTexture( "characters/player.png" );
 	player = new obj::Player( ( * this ), ( * maps[ maps.currentMap ] ), texture, sf::Vector2f( 13 * Game::TileSize, 5 * Game::TileSize ) );

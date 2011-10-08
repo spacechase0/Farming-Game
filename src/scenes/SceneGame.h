@@ -52,7 +52,7 @@ class SceneGame : public SceneBase
 
 	protected:
 		void LoadMap( const std::string& mapName );
-		void CreateTestObject();
+		void CreatePlayer();
 
 		void LoadItems( const std::string& filename );
 		item::Item::Type ToType( const std::string& str );
