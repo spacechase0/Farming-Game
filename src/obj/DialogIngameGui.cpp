@@ -1,21 +1,36 @@
 #include "obj/DialogIngameGui.h"
 
 #include "Game.h"
+#include "scenes/SceneGame.h"
+#include "obj/Player.h"
 
 namespace obj
 {
-	DialogIngameGui::DialogIngameGui( SceneGame& theGame, sf::Texture& theBackgroundTexture, sf::Texture& theSlotTexture )
+	DialogIngameGui::DialogIngameGui( SceneGame& theGame, sf::Font& theFont, sf::Texture& theBackgroundTexture, sf::Texture& theSlotTexture )
 	   : DialogBase::DialogBase( theGame, theBackgroundTexture ),
-	     slotTexture( &theSlotTexture )
+	     slotTexture( &theSlotTexture ),
+	     font( &theFont )
 	{
-		SetPosition( 0, Game::WindowSize.y - backgroundTexture->GetHeight() );
+		float startY = Game::WindowSize.y - backgroundTexture->GetHeight();
+		SetPosition( 0, startY );
 		
 		slot.SetTexture( * slotTexture );
+		
+		name.SetFont( * font );
+		name.SetCharacterSize( 20 );
+		name.SetPosition( 10, startY + 6 );
+		
+		time.SetFont( * font );
+		time.SetCharacterSize( 20 );
+		time.SetPosition( 128, startY + 6 );
 	}
 
 	void DialogIngameGui::Update()
 	{
 		DialogBase::Update();
+		
+		name.SetString( game.player->GetName() );
+		time.SetString( game.GetTimeString() );
 	}
 	
 	void DialogIngameGui::Update( const sf::Event& event )
@@ -26,6 +41,9 @@ namespace obj
 	void DialogIngameGui::Draw( sf::RenderWindow& window )
 	{
 		DialogBase::Draw( window );
+		
+		window.Draw( name );
+		window.Draw( time );
 		
 		slot.SetPosition( Game::WindowSize.x - ( slotTexture->GetWidth() * 1 ) - ( 10 * 1 ), Game::WindowSize.y - slotTexture->GetHeight() - 10 );
 		window.Draw( slot );

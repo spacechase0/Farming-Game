@@ -34,9 +34,10 @@ void SceneGame::Initialize()
 
 		cameraController = new obj::CameraController( ( * this ), game.window );
 		
+		sf::Font& font = game.GetFont( "fonts/Grantham/Grantham Bold.ttf" );
 		sf::Texture& back = game.GetTexture( "dialogs/ingame-bottom.png" );
 		sf::Texture& slot = game.GetTexture( "gui/slot.png" );
-		ingameGui = new obj::DialogIngameGui( ( * this ), back, slot );
+		ingameGui = new obj::DialogIngameGui( ( * this ), font, back, slot );
 		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( ingameGui ) );
 		
 		debug = new obj::Debug( * this );
@@ -59,6 +60,11 @@ void SceneGame::Update( sf::RenderWindow& window )
 {
 	if ( simulateWorld )
 	{
+		++time;
+		while ( time >= 30000 )
+		{
+			time -= 30000;
+		}
 		maps.Update();
 	}
 	else
@@ -152,6 +158,28 @@ bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 bool SceneGame::IsTileEmpty( MapManager::Map& map, sf::Vector2i pos )
 {
 	return IsTileEmpty( map, pos.x, pos.y );
+}
+
+sf::Uint16 SceneGame::GetTime() const
+{
+	return time;
+}
+
+std::string SceneGame::GetTimeString() const
+{
+	sf::Uint16 hour = time / 1250;
+	sf::Uint16 minute = ( static_cast< sf::Uint16 >( ( 60.f / 1250 ) * ( time % 1250 ) ) / 10 ) * 10;
+	std::string ampm = ( time < 15000 ) ? "AM" : "PM";
+	
+	std::stringstream ss;
+	ss << hour << ":";
+	ss.width( 2 );
+	ss.fill( '0' );
+	ss << minute;
+	ss.width( 0 );
+	ss << " " << ampm;
+	
+	return ss.str();
 }
 
 void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )

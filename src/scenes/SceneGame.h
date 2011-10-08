@@ -49,10 +49,14 @@ class SceneGame : public SceneBase
 		obj::DialogIngameGui* ingameGui;
 		obj::Debug* debug;
 		bool simulateWorld;
+		
+		sf::Uint16 GetTime() const;
+		std::string GetTimeString() const;
 
 		void CreateChatDialog( const std::vector< std::string >& messages );
 
 	private:
+		sf::Uint16 time;
 		void LoadMap( const std::string& mapName );
 		void CreatePlayer();
 

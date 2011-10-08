@@ -8,7 +8,7 @@ namespace obj
 	class DialogIngameGui : public DialogBase
 	{
 		public:
-			DialogIngameGui( SceneGame& theGame, sf::Texture& theBackgroundTexture, sf::Texture& theSlotTex );
+			DialogIngameGui( SceneGame& theGame, sf::Font& theFont, sf::Texture& theBackgroundTexture, sf::Texture& theSlotTex );
 			
 			virtual void Update();
 			virtual void Update( const sf::Event& event );
@@ -17,6 +17,10 @@ namespace obj
 		protected:
 			sf::Texture* slotTexture;
 			sf::Sprite slot;
+			
+			sf::Text name;
+			sf::Text time;
+			sf::Font* font;
 	};
 }
 
