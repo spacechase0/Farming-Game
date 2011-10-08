@@ -64,7 +64,7 @@ void SceneGame::Initialize()
 		simulateWorld = true;
 		
 		time = 7500;
-		weather = None;
+		RandomizeWeather();
 	}
 }
 
@@ -87,6 +87,7 @@ void SceneGame::Update( sf::RenderWindow& window )
 			time -= 30000;
 			RandomizeWeather();
 		}
+		
 		maps.Update();
 	}
 	else
@@ -159,31 +160,6 @@ bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 			return false;
 		}
 	}
-	
-	// If we do this here, cases such as in Npc::MoveInDirection
-	// would end up looping through map.objects 5 times!
-	// Just leave this alone, for now. :P
-	/*
-	sf::FloatRect rect( x * Game::TileSize, y * Game::TileSize, Game::TileSize, Game::TileSize );
-	for ( auto it = map.objects.begin(); it != map.objects.end(); ++it )
-	{
-		if ( !util::IsOfType< obj::RenderObject* >( it->get() ) )
-		{
-			continue;
-		}
-
-		obj::RenderObject* object = static_cast< obj::RenderObject* >( it->get() );
-		if ( !object->CanCollide() )
-		{
-			continue;
-		}
-
-		if ( object->IsSolid() and object->GetCollisionRect().Intersects( rect ) )
-		{
-			return false;
-		}
-	}
-	//*/
 
 	return true;
 }
@@ -230,10 +206,8 @@ void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
 void SceneGame::RandomizeWeather()
 {
 	int random = rand() % 100;
-	if ( random < 50 )
+	if ( random < 10 )
 	{
-		std::cout << "Raining" << std::endl;
-		
 		weather = Rain;
 	}
 	else
