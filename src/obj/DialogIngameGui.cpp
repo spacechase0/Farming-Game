@@ -9,6 +9,8 @@ namespace obj
 	     slotTexture( &theSlotTexture )
 	{
 		SetPosition( 0, Game::WindowSize.y - backgroundTexture->GetHeight() );
+		
+		slot.SetTexture( * slotTexture );
 	}
 
 	void DialogIngameGui::Update()
@@ -24,5 +26,14 @@ namespace obj
 	void DialogIngameGui::Draw( sf::RenderWindow& window )
 	{
 		DialogBase::Draw( window );
+		
+		slot.SetPosition( Game::WindowSize.x - ( slotTexture->GetWidth() * 1 ) - ( 10 * 1 ), Game::WindowSize.y - slotTexture->GetHeight() - 10 );
+		window.Draw( slot );
+		slot.SetPosition( Game::WindowSize.x - ( slotTexture->GetWidth() * 2 ) - ( 10 * 2 ), Game::WindowSize.y - slotTexture->GetHeight() - 10 );
+		window.Draw( slot );
+		slot.SetPosition( Game::WindowSize.x - ( slotTexture->GetWidth() * 3 ) - ( 10 * 3 ), Game::WindowSize.y - slotTexture->GetHeight() - 10 );
+		window.Draw( slot );
+		slot.SetPosition( Game::WindowSize.x - ( slotTexture->GetWidth() * 4 ) - ( 10 * 4 ), Game::WindowSize.y - slotTexture->GetHeight() - 10 );
+		window.Draw( slot );
 	}
 }

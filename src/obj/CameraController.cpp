@@ -11,6 +11,8 @@ namespace obj
 	     window( theWindow ),
 	     view( theWindow.GetView() )
 	{
+		view.SetViewport( sf::FloatRect( 0, 0, 1, ( Game::WindowSize.y - 64.f ) / Game::WindowSize.y ) );
+		view.SetSize( view.GetSize().x, Game::WindowSize.y - 64 );
 	}
 	
 	void CameraController::Update()
@@ -28,7 +30,7 @@ namespace obj
 		
 		TileLayer& layer = game.maps[ game.maps.currentMap ]->layers[ 0 ];
 		sf::Vector2i layerSize( layer.GetTiles().size(), layer.GetTiles()[ 0 ].size() );
-		sf::Vector2i visibleTiles( Game::WindowSize.x / Game::TileSize, Game::WindowSize.y / Game::TileSize );
+		sf::Vector2i visibleTiles( Game::WindowSize.x / Game::TileSize, ( Game::WindowSize.y - 64 ) / Game::TileSize );
 		sf::Vector2i halfScreen( ( visibleTiles.x / 2 ) * Game::TileSize, ( visibleTiles.y / 2 ) * Game::TileSize );
 		
 		if ( pos.x < halfScreen.x )

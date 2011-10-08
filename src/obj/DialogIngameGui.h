@@ -16,6 +16,7 @@ namespace obj
 			
 		protected:
 			sf::Texture* slotTexture;
+			sf::Sprite slot;
 	};
 }
 
