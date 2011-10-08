@@ -12,13 +12,13 @@
 #include "util/Type.h"
 
 SceneGame::SceneGame( Game& game )
-   : SceneBase::SceneBase( game )
+   : SceneBase::SceneBase( game ),
+     weatherHeight( 0 )
 {
 	const sf::Color sunrise( 241, 174, 79, 75 );
 	const sf::Color sunset( 241, 174, 79, 75 );
 	const sf::Color day( 255, 255, 255, 0 );
 	const sf::Color night( 9, 11, 36, 200 );
-	
 	
 	ColorScale scale;
 	scale.insert( 0.00, night );
@@ -64,6 +64,7 @@ void SceneGame::Initialize()
 		simulateWorld = true;
 		
 		time = 7500;
+		RandomizeWeather();
 	}
 }
 
@@ -80,11 +81,13 @@ void SceneGame::Update( sf::RenderWindow& window )
 {
 	if ( simulateWorld )
 	{
-		time += 1;
-		while ( time >= 30000 )
+		++time;
+		if ( time >= 30000 )
 		{
 			time -= 30000;
+			RandomizeWeather();
 		}
+		
 		maps.Update();
 	}
 	else
@@ -130,12 +133,8 @@ void SceneGame::Draw( sf::RenderWindow& window )
 		sf::View newView = window.GetDefaultView();
 		window.SetView( newView );
 		
-		int px = ( time / 5 );
-		sf::Color mix = timeGradient.GetPixel( 0, px );
-		
-		sf::Shape shape = sf::Shape::Rectangle( 0, 0, Game::WindowSize.x + 2, Game::WindowSize.y - 64 + 1, mix );
-		shape.SetBlendMode( sf::Blend::Alpha );
-		window.Draw( shape );
+		DrawWeather( window );
+		DrawTime( window );
 		
 		window.SetView( oldView );
 	}
@@ -161,31 +160,6 @@ bool SceneGame::IsTileEmpty( MapManager::Map& map, int x, int y )
 			return false;
 		}
 	}
-	
-	// If we do this here, cases such as in Npc::MoveInDirection
-	// would end up looping through map.objects 5 times!
-	// Just leave this alone, for now. :P
-	/*
-	sf::FloatRect rect( x * Game::TileSize, y * Game::TileSize, Game::TileSize, Game::TileSize );
-	for ( auto it = map.objects.begin(); it != map.objects.end(); ++it )
-	{
-		if ( !util::IsOfType< obj::RenderObject* >( it->get() ) )
-		{
-			continue;
-		}
-
-		obj::RenderObject* object = static_cast< obj::RenderObject* >( it->get() );
-		if ( !object->CanCollide() )
-		{
-			continue;
-		}
-
-		if ( object->IsSolid() and object->GetCollisionRect().Intersects( rect ) )
-		{
-			return false;
-		}
-	}
-	//*/
 
 	return true;
 }
@@ -229,6 +203,59 @@ void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
 	simulateWorld = false;
 }
 
+void SceneGame::RandomizeWeather()
+{
+	int random = rand() % 100;
+	if ( random < 10 )
+	{
+		weather = Rain;
+	}
+	else
+	{
+		weather = None;
+	}
+}
+
+void SceneGame::DrawWeather( sf::RenderWindow& window )
+{
+	if ( weather != None )
+	{
+		weatherHeight += 500 * ( window.GetFrameTime() / 1000.f );
+		while ( weatherHeight > 480 - 64 )
+		{
+			weatherHeight -= 480 - 64;
+		}
+		
+		for ( size_t i = 0; i < 640; i += 64 )
+		{
+			sf::Texture* tex = NULL;
+			if ( weather == Rain )
+			{
+				tex = &game.GetTexture( "misc/rain.png" );
+			}
+			
+			sf::Sprite top( * tex );
+			sf::Sprite bottom( * tex );
+			
+			top.SetPosition( i * 64, weatherHeight - tex->GetHeight() );
+			bottom.SetPosition( i * 64, weatherHeight );
+			
+			window.Draw( top );
+			window.Draw( bottom );
+		}
+	}
+}
+
+void SceneGame::DrawTime( sf::RenderWindow& window )
+{
+	int px = ( time / 5 );
+	sf::Color mix = timeGradient.GetPixel( 0, px );
+	
+	sf::Shape shape = sf::Shape::Rectangle( 0, 0, Game::WindowSize.x + 2, Game::WindowSize.y - 64 + 1, mix );
+	shape.SetBlendMode( sf::Blend::Alpha );
+	window.Draw( shape );
+}
+
 void SceneGame::LoadMap( const std::string& mapName )
 {
 	maps.maps.insert( std::make_pair( mapName, MapManager::MapPtr( new MapManager::Map ) ) );
@@ -252,141 +279,4 @@ void SceneGame::CreatePlayer()
 	maps[ maps.currentMap ]->objects.push_back( boost::shared_ptr< obj::Base >( player ) );
 }
 
-void SceneGame::LoadItems( const std::string& filename )
-{
-	std::fstream file( ( "res/items/" + filename ).c_str(), std::fstream::in );
-	if ( !file )
-	{
-		std::cout << "Failed to load '" << file << "'." << std::endl;
-		return;
-	}
-
-	std::string contents;
-	while ( true )
-	{
-		std::string line;
-		std::getline( file, line );
-		if ( !file.eof() )
-		{
-			contents += line;
-		}
-		else
-		{
-			break;
-		}
-	}
-
-	xml::Document doc;
-	auto status = doc.Parse( contents );
-	if ( !std::get< 0 >( status ) )
-	{
-		std::cout << "Failed to parse '" << file << "': " << std::get< 1 >( status ) << std::endl;
-		return;
-	}
-
-	auto children = doc.GetRootNode().GetChildren();
-	for ( auto it = children.begin(); it != children.end(); ++it )
-	{
-		xml::Node& node = ( * ( * it ) );
-		std::string name = xml::GetAttribute( node, "name" ).GetValue();
-		std::string desc = xml::GetAttribute( node, "desc" ).GetValue();
-		std::string indexStr = xml::GetAttribute( node, "index" ).GetValue();
-		std::string typeStr = xml::GetAttribute( node, "type" ).GetValue();
-
-		item::Item::Type type = ToType( typeStr );
-		size_t index = util::FromString< size_t >( indexStr );
-
-		item::Item* item;
-		switch ( type )
-		{
-			using namespace item;
-
-			case Item::Type::Food:
-				{
-					std::string priceStr = xml::GetAttribute( node, "price" ).GetValue();
-					size_t price = util::FromString< size_t >( priceStr );
-
-					item = new Food( name, desc, index, price );
-				}
-				break;
-
-			case Item::Type::Meal:
-				{
-					std::string priceStr = xml::GetAttribute( node, "price" ).GetValue();
-					size_t price = util::FromString< size_t >( priceStr );
-
-					item = new Food( name, desc, index, price );
-					#warning TO DO: Make a class for Meal (since they have a seperate item file)
-				}
-				break;
-
-			case Item::Type::Seed:
-				{
-					std::string crop = xml::GetAttribute( node, "crop" ).GetValue();
-					item = new Seed( name, desc, index, crop );
-				}
-				break;
-
-			case Item::Type::Tool:
-				{
-					std::string actionStr = xml::GetAttribute( node, "action" ).GetValue();
-					std::string breakChanceStr = xml::GetAttribute( node, "breakchance" ).GetValue();
-
-					Tool::Action action = ToAction( actionStr );
-					float breakChance = util::FromString< float >( breakChanceStr );
-
-					item = new Tool( name, desc, index, action, breakChance );
-				}
-				break;
-
-			case Item::Type::Misc:
-				{
-					item = new Item( name, desc, index );
-				}
-				break;
-		};
-		itemDefs.insert( std::make_pair( name, boost::shared_ptr< item::Item >( item ) ) );
-	}
-}
-
-item::Item::Type SceneGame::ToType( const std::string& str )
-{
-	using item::Item;
-	if ( str == "food" )
-	{
-		return Item::Type::Food;
-	}
-	else if ( str == "meal" )
-	{
-		return Item::Type::Meal;
-	}
-	else if ( str == "seed" )
-	{
-		return Item::Type::Seed;
-	}
-	else if ( str == "tool" )
-	{
-		return Item::Type::Tool;
-	}
-
-	return Item::Type::Misc;
-}
-
-item::Tool::Action SceneGame::ToAction( const std::string& str )
-{
-	using item::Tool;
-	if ( str == "dig" )
-	{
-		return Tool::Action::Dig;
-	}
-	else if ( str == "chop" )
-	{
-		return Tool::Action::Chop;
-	}
-	else if ( str == "fish" )
-	{
-		return Tool::Action::Fish;
-	}
-
-	return Tool::Action::None;
-}
+#include "scenes/SceneGame/LoadItems.inl"

@@ -109,6 +109,7 @@
 		<Unit filename="scenes\SceneBase.h" />
 		<Unit filename="scenes\SceneGame.cpp" />
 		<Unit filename="scenes\SceneGame.h" />
+		<Unit filename="scenes\SceneGame\LoadItems.inl" />
 		<Unit filename="scenes\SceneGuiBase.cpp" />
 		<Unit filename="scenes\SceneGuiBase.h" />
 		<Unit filename="scenes\SceneLoad.cpp" />
