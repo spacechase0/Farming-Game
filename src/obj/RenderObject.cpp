@@ -47,7 +47,7 @@ namespace obj
 		sprite.SetPosition( thePos.x, thePos.y );
 	}
 	
-	sf::Vector2f RenderObject::GetPosition()
+	sf::Vector2f RenderObject::GetPosition() const
 	{
 		return sprite.GetPosition();
 	}
@@ -63,6 +63,11 @@ namespace obj
 	void RenderObject::Draw( sf::RenderWindow& window )
 	{
 		window.Draw( sprite );
+	}
+	
+	int RenderObject::GetDepth() const
+	{
+		return -( GetPosition().y );
 	}
 	
 	bool RenderObject::CanCollide() const

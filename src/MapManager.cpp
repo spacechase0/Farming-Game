@@ -141,5 +141,5 @@ bool MapManager::CompareObjects( const boost::shared_ptr< obj::Base >& obj1, con
 	obj::RenderObject* firstObj = static_cast< obj::RenderObject* >( &( * obj1 ) );
 	obj::RenderObject* secondObj = static_cast< obj::RenderObject* >( &( * obj2 ) );
 
-	return ( -firstObj->GetPosition().y ) > ( -secondObj->GetPosition().y );
+	return firstObj->GetDepth() > secondObj->GetDepth();
 }

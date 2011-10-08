@@ -17,11 +17,13 @@ namespace obj
 			
 			void SetPosition( float x, float y );
 			void SetPosition( sf::Vector2f thePos );
-			sf::Vector2f GetPosition();
+			sf::Vector2f GetPosition() const;
 			
 			virtual void Update();
 			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
+			
+			virtual int GetDepth() const;
 			
 			virtual bool CanCollide() const;
 			virtual bool IsSolid() const;
