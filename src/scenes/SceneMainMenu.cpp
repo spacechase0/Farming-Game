@@ -9,6 +9,8 @@ SceneMainMenu::SceneMainMenu( Game& theGame )
 
 void SceneMainMenu::Initialize()
 {
+	game.window.EnableKeyRepeat( false );
+	
 	sf::Texture& tex = game.GetTexture( "gui/menu-button.png" );
 	sf::Font& font = game.GetFont( "fonts/Grantham/Grantham Bold.ttf" );
 
@@ -84,7 +86,7 @@ void SceneMainMenu::ButtonCallback( gui::Button::EventType type, gui::Button& bu
 	}
 
 	gui::TextButton* btn = static_cast< gui::TextButton* >( &button );
-	
+	std::cout<<btn->GetString()<<std::endl;
 	if ( btn->GetString() == "New Game" )
 	{
 		game.ChangeScene( "NewGame" );
