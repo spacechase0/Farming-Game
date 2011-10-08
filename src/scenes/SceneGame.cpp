@@ -81,7 +81,7 @@ void SceneGame::Update( sf::RenderWindow& window )
 {
 	if ( simulateWorld )
 	{
-		time += 100;
+		++time;
 		if ( time >= 30000 )
 		{
 			time -= 30000;
