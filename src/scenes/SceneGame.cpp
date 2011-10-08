@@ -36,6 +36,8 @@ SceneGame::SceneGame( Game& game )
 
 void SceneGame::Initialize()
 {
+	game.window.EnableKeyRepeat( false );
+	
 	LoadItems( "food.xml" );
 	LoadItems( "seeds.xml" );
 	LoadItems( "tools.xml" );
