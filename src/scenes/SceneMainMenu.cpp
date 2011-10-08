@@ -84,8 +84,6 @@ void SceneMainMenu::ButtonCallback( gui::Button::EventType type, gui::Button& bu
 	}
 
 	gui::TextButton* btn = static_cast< gui::TextButton* >( &button );
-
-	std::string bugs = btn->GetString();
 	
 	if ( btn->GetString() == "New Game" )
 	{
