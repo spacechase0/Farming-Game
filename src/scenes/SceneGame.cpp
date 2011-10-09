@@ -72,7 +72,7 @@ void SceneGame::Update( sf::RenderWindow& window )
 {
 	if ( simulateWorld )
 	{
-		time+=100;
+		++time;
 		if ( time >= 30000 )
 		{
 			time -= 30000;
@@ -199,7 +199,7 @@ void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
 void SceneGame::RandomizeWeather()
 {
 	int random = rand() % 100;
-	if ( random < 1000 )
+	if ( random < 5 )
 	{
 		weather = Rain;
 	}
