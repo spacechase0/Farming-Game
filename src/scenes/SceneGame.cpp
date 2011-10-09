@@ -12,26 +12,8 @@
 #include "util/Type.h"
 
 SceneGame::SceneGame( Game& game )
-   : SceneBase::SceneBase( game ),
-     weatherHeight( 0 )
+   : SceneBase::SceneBase( game )
 {
-	const sf::Color sunrise( 241, 174, 79, 75 );
-	const sf::Color sunset( 241, 174, 79, 75 );
-	const sf::Color day( 255, 255, 255, 0 );
-	const sf::Color night( 9, 11, 36, 200 );
-	
-	ColorScale scale;
-	scale.insert( 0.00, night );
-	scale.insert( 0.25, night );
-	scale.insert( 0.29, sunrise );
-	scale.insert( 0.295, day );
-	scale.insert( 0.755, day );
-	scale.insert( 0.76, sunset );
-	scale.insert( 0.80, night );
-	scale.insert( 1.00, night );
-	
-	timeGradient.Create( 1, 30000 / 5 );
-	scale.draw( timeGradient, sf::Vector2f( 0, 0 ), sf::Vector2f( 0, 30000 / 5 ), GradientStyle::Linear, 30000 / 5 );
 }
 
 void SceneGame::Initialize()
@@ -62,6 +44,13 @@ void SceneGame::Initialize()
 		
 		debug = new obj::Debug( * this );
 		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( debug ) );
+		
+		obj::TimeDisplay* timeDisplay = new obj::TimeDisplay( * this );
+		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( timeDisplay ) );
+		
+		sf::Texture& rain = game.GetTexture( "misc/rain.png" );
+		obj::WeatherDisplay* weatherDisplay = new obj::WeatherDisplay( ( * this ), rain );
+		maps.menuObjects.push_back( boost::shared_ptr< obj::Base >( weatherDisplay ) );
 
 		simulateWorld = true;
 		
@@ -83,7 +72,7 @@ void SceneGame::Update( sf::RenderWindow& window )
 {
 	if ( simulateWorld )
 	{
-		++time;
+		time+=100;
 		if ( time >= 30000 )
 		{
 			time -= 30000;
@@ -134,9 +123,6 @@ void SceneGame::Draw( sf::RenderWindow& window )
 		sf::View oldView = window.GetView();
 		sf::View newView = window.GetDefaultView();
 		window.SetView( newView );
-		
-		DrawWeather( window );
-		DrawTime( window );
 		
 		window.SetView( oldView );
 	}
@@ -193,6 +179,11 @@ std::string SceneGame::GetTimeString() const
 	return ss.str();
 }
 
+SceneGame::WeatherType SceneGame::GetWeather() const
+{
+	return weather;
+}
+
 void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
 {
 	sf::Texture& background = game.GetTexture( "dialogs/chat-base.png" );
@@ -208,7 +199,7 @@ void SceneGame::CreateChatDialog( const std::vector< std::string >& messages )
 void SceneGame::RandomizeWeather()
 {
 	int random = rand() % 100;
-	if ( random < 10 )
+	if ( random < 1000 )
 	{
 		weather = Rain;
 	}
@@ -216,46 +207,6 @@ void SceneGame::RandomizeWeather()
 	{
 		weather = None;
 	}
-}
-
-void SceneGame::DrawWeather( sf::RenderWindow& window )
-{
-	if ( weather != None )
-	{
-		weatherHeight += 500 * ( window.GetFrameTime() / 1000.f );
-		while ( weatherHeight > 480 - 64 )
-		{
-			weatherHeight -= 480 - 64;
-		}
-		
-		for ( size_t i = 0; i < 640; i += 64 )
-		{
-			sf::Texture* tex = NULL;
-			if ( weather == Rain )
-			{
-				tex = &game.GetTexture( "misc/rain.png" );
-			}
-			
-			sf::Sprite top( * tex );
-			sf::Sprite bottom( * tex );
-			
-			top.SetPosition( i * 64, weatherHeight - tex->GetHeight() );
-			bottom.SetPosition( i * 64, weatherHeight );
-			
-			window.Draw( top );
-			window.Draw( bottom );
-		}
-	}
-}
-
-void SceneGame::DrawTime( sf::RenderWindow& window )
-{
-	int px = ( time / 5 );
-	sf::Color mix = timeGradient.GetPixel( 0, px );
-	
-	sf::Shape shape = sf::Shape::Rectangle( 0, 0, Game::WindowSize.x + 2, Game::WindowSize.y - 64 + 1, mix );
-	shape.SetBlendMode( sf::Blend::Alpha );
-	window.Draw( shape );
 }
 
 void SceneGame::LoadMap( const std::string& mapName )

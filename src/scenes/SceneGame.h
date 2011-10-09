@@ -59,18 +59,15 @@ class SceneGame : public SceneBase
 			None,
 			Rain
 		};
+		WeatherType GetWeather() const;
 
 		void CreateChatDialog( const std::vector< std::string >& messages );
 
 	private:
 		sf::Uint16 time;
-		sf::Image timeGradient;
 		WeatherType weather;
-		float weatherHeight;
 		
 		void RandomizeWeather();
-		void DrawWeather( sf::RenderWindow& window );
-		void DrawTime( sf::RenderWindow& window );
 		
 		void LoadMap( const std::string& mapName );
 		void CreatePlayer();

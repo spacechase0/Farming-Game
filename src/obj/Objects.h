@@ -10,5 +10,7 @@
 #include "obj/Entrance.h"
 #include "obj/TalkingNpc.h"
 #include "obj/DialogIngameGui.h"
+#include "obj/TimeDisplay.h"
+#include "obj/WeatherDisplay.h"
 
 #endif // OBJ_OBJECTS_H

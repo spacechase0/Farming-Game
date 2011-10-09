@@ -49,4 +49,9 @@ namespace obj
 			( * it )->Draw( window );
 		}
 	}
+	
+	int DialogBase::GetDepth() const
+	{
+		return -50;
+	}
 }

@@ -75,6 +75,10 @@ void MapManager::Draw( sf::RenderWindow& window )
 		}
 	}
 	{
+		using namespace std::placeholders;
+		auto compare = std::bind( &MapManager::CompareObjects, this, _1, _2 );
+		menuObjects.sort( compare );
+		
 		// We want the GUI to have a static position on the screen
 		sf::View oldView = window.GetView();
 		sf::View newView( sf::Vector2f( Game::WindowSize.x / 2, Game::WindowSize.y / 2 ), sf::Vector2f( Game::WindowSize ) );
@@ -133,13 +137,5 @@ void MapManager::DrawLayer( sf::RenderWindow& window, const TileLayer& layer ) c
 
 bool MapManager::CompareObjects( const boost::shared_ptr< obj::Base >& obj1, const boost::shared_ptr< obj::Base >& obj2 )
 {
-	if ( !util::IsOfType< obj::RenderObject* >( obj1.get() ) or !util::IsOfType< obj::RenderObject* >( obj2.get() ) )
-	{
-		return false;
-	}
-
-	obj::RenderObject* firstObj = static_cast< obj::RenderObject* >( &( * obj1 ) );
-	obj::RenderObject* secondObj = static_cast< obj::RenderObject* >( &( * obj2 ) );
-
-	return firstObj->GetDepth() > secondObj->GetDepth();
+	return obj1->GetDepth() > obj2->GetDepth();
 }

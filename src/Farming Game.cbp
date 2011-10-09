@@ -106,6 +106,10 @@
 		<Unit filename="obj\Scenery.h" />
 		<Unit filename="obj\TalkingNpc.cpp" />
 		<Unit filename="obj\TalkingNpc.h" />
+		<Unit filename="obj\TimeDisplay.cpp" />
+		<Unit filename="obj\TimeDisplay.h" />
+		<Unit filename="obj\WeatherDisplay.cpp" />
+		<Unit filename="obj\WeatherDisplay.h" />
 		<Unit filename="scenes\SceneBase.h" />
 		<Unit filename="scenes\SceneGame.cpp" />
 		<Unit filename="scenes\SceneGame.h" />

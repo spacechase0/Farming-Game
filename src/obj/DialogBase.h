@@ -19,6 +19,8 @@ namespace obj
 			virtual void Update( const sf::Event& event );
 			virtual void Draw( sf::RenderWindow& window );
 			
+			virtual int GetDepth() const;
+			
 		protected:
 			sf::Texture* backgroundTexture;
 			sf::Sprite sprite;
