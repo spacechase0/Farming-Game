@@ -32,16 +32,3 @@
 ehthumbs.db
 Icon?
 Thumbs.db
-
-# Codeblocks stuff
-src/Farming Game_build_log.html
-src/Farming Game.depend
-src/Farming Game.layout
-
-# 'obj' directory
-obj
-!src/obj
-
-# Editor
-!LevelEditor.exe
-Editor.lnk

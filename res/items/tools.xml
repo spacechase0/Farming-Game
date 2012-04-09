@@ -1,5 +1,0 @@
-<?xml version="1.0" ?>
-<Items>
-	<Item name="Trowel" desc="A trowel." type="tool" index="0" action="dig" breakchance="0.05" />
-	<Item name="Axe" desc="An axe." type="tool" index="1" action="woodcut" breakchance="0.05" />
-</Items>
