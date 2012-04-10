@@ -32,3 +32,9 @@
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Code::Blocks Stuff #
+######################
+*.depend
+*.layout
+*_build_log.html
