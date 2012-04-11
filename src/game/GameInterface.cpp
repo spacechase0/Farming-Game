@@ -53,6 +53,14 @@ void GameInterface::renderWorld( sf::RenderWindow& window, const World& world )
 			window.draw( spr );
 		}
 	}
+	
+	sf::RectangleShape shape;
+	shape.setSize( sf::Vector2f( map.getSize().x * 32 - 8, map.getSize().y * 32 - 8 ) );
+	shape.setOrigin( sf::Vector2f( -4, -4 ) );
+	shape.setFillColor( sf::Color( 0, 0, 0, 0 ) );
+	shape.setOutlineColor( sf::Color( 0, 0, 0, 128 ) );
+	shape.setOutlineThickness( 4.f );
+	window.draw( shape );
 }
 
 void GameInterface::renderInterface( sf::RenderWindow& window, const World& world )
