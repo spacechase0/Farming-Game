@@ -17,10 +17,6 @@ Npc::~Npc()
 {
 }
 
-void Npc::update()
-{
-}
-
 std::string Npc::getName() const
 {
 	return name;

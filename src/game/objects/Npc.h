@@ -16,8 +16,6 @@ class Npc
 		Npc( World& theWorld, const std::string& theName, Gender theGender, Season theBirthSeason, sf::Uint8 theBirthDay );
 		virtual ~Npc();
 		
-		virtual void update();
-		
 		std::string getName() const;
 		Gender getGender() const;
 		Season getBirthSeason() const;

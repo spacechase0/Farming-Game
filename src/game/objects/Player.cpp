@@ -4,3 +4,12 @@ Player::Player( World& theWorld, const std::string& theName, Gender theGender, S
    : Npc::Npc( theWorld, theName, theGender, theBirthSeason, theBirthDay )
 {
 }
+
+void Player::update()
+{
+}
+
+std::string Player::getName() const
+{
+	return "Player";
+}

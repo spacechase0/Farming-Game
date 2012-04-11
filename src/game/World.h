@@ -31,7 +31,11 @@ class World
 		sf::Uint8 getDay() const;
 		sf::Uint16 getTime() const;
 		
+		const std::vector< MapData >& getMaps() const;
+		std::vector< MapData >& getMaps();
+		
 		std::vector< std::shared_ptr< Npc > >& getNpcs();
+		std::shared_ptr< const Player > getPlayer() const;
 		std::shared_ptr< Player > getPlayer();
 	
 	private:

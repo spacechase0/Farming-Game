@@ -98,9 +98,24 @@ sf::Uint16 World::getTime() const
 	return time;
 }
 
+const std::vector< MapData >& World::getMaps() const
+{
+	return maps;
+}
+
+std::vector< MapData >& World::getMaps()
+{
+	return maps;
+}
+
 std::vector< std::shared_ptr< Npc > >& World::getNpcs()
 {
 	return npcs;
+}
+
+std::shared_ptr< const Player > World::getPlayer() const
+{
+	return std::const_pointer_cast< const Player >( player );
 }
 
 std::shared_ptr< Player > World::getPlayer()
