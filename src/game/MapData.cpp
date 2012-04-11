@@ -61,7 +61,7 @@ bool MapData::loadFromFile( const std::string& filename )
 			for ( sf::Uint16 iy = 0; iy < size.y; ++iy )
 			{
 				sf::Uint8 tile = 0;
-				file.read( reinterpret_cast< char* >( &tileset ), 1 );
+				file.read( reinterpret_cast< char* >( &tile ), 1 );
 				
 				layer.setTile( sf::Vector2< sf::Uint16 >( ix, iy ), tile );
 			}
