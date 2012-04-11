@@ -16,8 +16,8 @@ class LayerData
 		void setSize( sf::Vector2< sf::Uint16 > theSize );
 		sf::Vector2< sf::Uint16 > getSize() const;
 		
-		void setTile( sf::Vector2< sf::Uint8 > pos, sf::Uint8 num );
-		sf::Uint8 getTile( sf::Vector2< sf::Uint8 > pos );
+		void setTile( sf::Vector2< sf::Uint16 > pos, sf::Uint8 num );
+		sf::Uint8 getTile( sf::Vector2< sf::Uint16 > pos );
 		const std::vector< sf::Uint8 >& getTiles() const;
 	
 	private:

@@ -27,7 +27,7 @@ sf::Vector2< sf::Uint16 > LayerData::getSize() const
 	return size;
 }
 
-void LayerData::setTile( sf::Vector2< sf::Uint8 > pos, sf::Uint8 num )
+void LayerData::setTile( sf::Vector2< sf::Uint16 > pos, sf::Uint8 num )
 {
 	std::size_t index = pos.x + pos.y * size.x;
 	if ( index >= tiles.size() )
@@ -38,7 +38,7 @@ void LayerData::setTile( sf::Vector2< sf::Uint8 > pos, sf::Uint8 num )
 	tiles[ index ] = num;
 }
 
-sf::Uint8 LayerData::getTile( sf::Vector2< sf::Uint8 > pos )
+sf::Uint8 LayerData::getTile( sf::Vector2< sf::Uint16 > pos )
 {
 	std::size_t index = pos.x + pos.y * size.x;
 	if ( index >= tiles.size() )

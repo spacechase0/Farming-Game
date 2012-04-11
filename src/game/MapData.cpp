@@ -1,5 +1,8 @@
 #include "game/MapData.h"
 
+#include <iostream>
+#include <fstream>
+
 MapData::MapData()
    : indoor( false ),
      size( 0, 0 )
@@ -8,7 +11,66 @@ MapData::MapData()
 
 bool MapData::loadFromFile( const std::string& filename )
 {
-	return false;
+	std::fstream file( filename.c_str(), std::fstream::in | std::fstream::binary );
+	if ( !file )
+	{
+		std::cout << "Failed to open file '" << filename << "'." << std::endl;
+		return false;
+	}
+	
+	while ( true )
+	{
+		char c = 0;
+		file.read( &c, 1 );
+		
+		if ( c == 0 )
+		{
+			break;
+		}
+		
+		name += c;
+	}
+	
+	file.read( reinterpret_cast< char* >( &indoor ), 1 );
+	
+	file.read( reinterpret_cast< char* >( &size.x ), 2 );
+	file.read( reinterpret_cast< char* >( &size.y ), 2 );
+	
+	collisions.resize( size.x * size.y );
+	for ( sf::Uint32 i = 0; i < static_cast< sf::Uint32 >( size.x * size.y ); ++i )
+	{
+		bool col = false;
+		file.read( reinterpret_cast< char* >( &col ), 1 );
+		
+		collisions[ i ] = col;
+	}
+	
+	sf::Uint8 layerCount = 0;
+	file.read( reinterpret_cast< char* >( &layerCount ), 1 );
+	for ( sf::Uint8 i = 0; i < layerCount; ++i )
+	{
+		LayerData layer;
+		layer.setSize( sf::Vector2< sf::Uint16 >( size.x, size.y ) );
+		
+		sf::Uint16 tileset = 0;
+		file.read( reinterpret_cast< char* >( &tileset ), 2 );
+		layer.setTileset( tileset );
+		
+		for ( sf::Uint16 ix = 0; ix < size.x; ++ix )
+		{
+			for ( sf::Uint16 iy = 0; iy < size.y; ++iy )
+			{
+				sf::Uint8 tile = 0;
+				file.read( reinterpret_cast< char* >( &tileset ), 1 );
+				
+				layer.setTile( sf::Vector2< sf::Uint16 >( ix, iy ), tile );
+			}
+		}
+		
+		layers.push_back( layer );
+	}
+	
+	return file.good();
 }
 
 bool MapData::saveToFile( const std::string& filename )
