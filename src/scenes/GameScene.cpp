@@ -1,5 +1,7 @@
 #include "scenes/GameScene.h"
 
+#include "game/NewFileData.h"
+
 GameScene::GameScene( Game& theGame )
    : Scene::Scene( theGame )
 {
@@ -7,6 +9,8 @@ GameScene::GameScene( Game& theGame )
 
 void GameScene::initialize( SceneChangeEvent& event )
 {
+	NewFileData data;
+	world.createNewSave( data );
 }
 
 void GameScene::terminate()

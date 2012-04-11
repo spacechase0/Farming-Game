@@ -53,6 +53,12 @@
 		<Unit filename="Scene.h" />
 		<Unit filename="SceneChangeEvent.cpp" />
 		<Unit filename="SceneChangeEvent.h" />
+		<Unit filename="game\Gender.h" />
+		<Unit filename="game\NewFileData.cpp" />
+		<Unit filename="game\NewFileData.h" />
+		<Unit filename="game\Season.h" />
+		<Unit filename="game\World.cpp" />
+		<Unit filename="game\World.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="scenes\GameScene.cpp" />
 		<Unit filename="scenes\GameScene.h" />

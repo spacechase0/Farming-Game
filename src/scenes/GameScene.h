@@ -2,6 +2,7 @@
 #define GAMESCENE_H
 
 #include "Scene.h"
+#include "game/World.h"
 
 class GameScene : public Scene
 {
@@ -14,6 +15,9 @@ class GameScene : public Scene
 		virtual void update();
 		virtual void update( const sf::Event& event );
 		virtual void render( sf::RenderWindow& window );
+	
+	private:
+		World world;
 };
 
 #endif // GAMESCENE_H
