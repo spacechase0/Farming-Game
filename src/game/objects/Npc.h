@@ -6,11 +6,12 @@
 #include <string>
 
 #include "game/Gender.h"
+#include "game/objects/GameObject.h"
 #include "game/Season.h"
 
 class World;
 
-class Npc
+class Npc : public GameObject
 {
 	public:
 		Npc( World& theWorld, const std::string& theName, Gender theGender, Season theBirthSeason, sf::Uint8 theBirthDay );

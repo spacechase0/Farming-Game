@@ -9,7 +9,7 @@ void Player::update()
 {
 }
 
-std::string Player::getName() const
+std::string Player::getType() const
 {
 	return "Player";
 }

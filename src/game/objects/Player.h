@@ -10,7 +10,7 @@ class Player : public Npc
 		
 		virtual void update();
 		
-		virtual std::string getName() const;
+		virtual std::string getType() const;
 };
 
 #endif // PLAYER_H
