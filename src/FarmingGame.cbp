@@ -68,6 +68,8 @@
 		<Unit filename="game\World.h" />
 		<Unit filename="game\objects\Npc.cpp" />
 		<Unit filename="game\objects\Npc.h" />
+		<Unit filename="game\objects\Player.cpp" />
+		<Unit filename="game\objects\Player.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="scenes\GameScene.cpp" />
 		<Unit filename="scenes\GameScene.h" />
