@@ -62,8 +62,6 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="scenes\GameScene.cpp" />
 		<Unit filename="scenes\GameScene.h" />
-		<Unit filename="util\VersionManager.h" />
-		<Unit filename="util\VersionManager.inl" />
 		<Extensions>
 			<code_completion />
 			<envvars />
