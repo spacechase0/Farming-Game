@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "game/World.h"
+#include "game/GameInterface.h"
 
 class GameScene : public Scene
 {
@@ -18,6 +19,7 @@ class GameScene : public Scene
 	
 	private:
 		World world;
+		GameInterface interface;
 };
 
 #endif // GAMESCENE_H
