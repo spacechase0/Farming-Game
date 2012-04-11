@@ -54,6 +54,10 @@
 		<Unit filename="SceneChangeEvent.cpp" />
 		<Unit filename="SceneChangeEvent.h" />
 		<Unit filename="game\Gender.h" />
+		<Unit filename="game\LayerData.cpp" />
+		<Unit filename="game\LayerData.h" />
+		<Unit filename="game\MapData.cpp" />
+		<Unit filename="game\MapData.h" />
 		<Unit filename="game\NewFileData.cpp" />
 		<Unit filename="game\NewFileData.h" />
 		<Unit filename="game\Season.h" />
