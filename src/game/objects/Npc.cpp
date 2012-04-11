@@ -41,12 +41,22 @@ sf::Uint8 Npc::getBirthDay() const
 	return birthDay;
 }
 
+void Npc::setMap( sf::Uint16 theMap )
+{
+	map = theMap;
+}
+
 sf::Uint16 Npc::getMap() const
 {
 	return map;
 }
 
-sf::Vector2f Npc::getPos() const
+void Npc::setPosition( sf::Vector2f thePos )
+{
+	pos = thePos;
+}
+
+sf::Vector2f Npc::getPosition() const
 {
 	return pos;
 }

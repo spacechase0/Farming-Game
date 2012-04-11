@@ -4,6 +4,8 @@
 #include <iostream>
 
 #include "game/NewFileData.h"
+#include "game/objects/Npc.h"
+#include "game/objects/Player.h"
 
 void World::createNewSave( const NewFileData& data )
 {
@@ -12,12 +14,18 @@ void World::createNewSave( const NewFileData& data )
 	setDay( 0 );
 	setTime( 60 * 6 );
 	
+	player.reset( new Player( ( * this ), data.name, data.gender, data.birthSeason, data.birthDay ) );
+	player->setMap( 0 );
+	player->setPosition( sf::Vector2f( 5.5f, 5.5f ) );
+	
 	initializeMaps();
+	initializeNpcs();
 }
 
 bool World::loadSaveData( const std::string& filename )
 {
 	initializeMaps();
+	initializeNpcs();
 	
 	return false;
 }
@@ -90,6 +98,16 @@ sf::Uint16 World::getTime() const
 	return time;
 }
 
+std::vector< std::shared_ptr< Npc > >& World::getNpcs()
+{
+	return npcs;
+}
+
+std::shared_ptr< Player > World::getPlayer()
+{
+	return player;
+}
+
 void World::initializeMaps()
 {
 	std::fstream file( "res/maps/maps.txt", std::fstream::in );
@@ -118,4 +136,9 @@ void World::initializeMaps()
 		
 		maps.push_back( map );
 	}
+}
+
+void World::initializeNpcs()
+{
+	npcs.push_back( std::static_pointer_cast< Npc >( player ) );
 }

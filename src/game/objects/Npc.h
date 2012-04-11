@@ -23,8 +23,11 @@ class Npc
 		Season getBirthSeason() const;
 		sf::Uint8 getBirthDay() const;
 		
+		void setMap( sf::Uint16 theMap );
 		sf::Uint16 getMap() const;
-		sf::Vector2f getPos() const;
+		
+		void setPosition( sf::Vector2f thePos );
+		sf::Vector2f getPosition() const;
 	
 	protected:
 		World& world;
