@@ -1,5 +1,8 @@
 #include "game/World.h"
 
+#include <fstream>
+#include <iostream>
+
 #include "game/NewFileData.h"
 
 void World::createNewSave( const NewFileData& data )
@@ -8,10 +11,14 @@ void World::createNewSave( const NewFileData& data )
 	setSeason( Spring );
 	setDay( 0 );
 	setTime( 60 * 6 );
+	
+	initializeMaps();
 }
 
 bool World::loadSaveData( const std::string& filename )
 {
+	initializeMaps();
+	
 	return false;
 }
 
@@ -81,4 +88,34 @@ void World::setTime( sf::Uint16 theTime )
 sf::Uint16 World::getTime() const
 {
 	return time;
+}
+
+void World::initializeMaps()
+{
+	std::fstream file( "res/maps/maps.txt", std::fstream::in );
+	if ( !file )
+	{
+		std::cout << "Failed to open 'res/maps/maps.txt'." << std::endl;
+		return;
+	}
+	
+	while ( true )
+	{
+		std::string line;
+		std::getline( file, line );
+		
+		if ( !file )
+		{
+			break;
+		}
+		
+		MapData map;
+		if ( !map.loadFromFile( "res/maps/" + line ) )
+		{
+			std::cout << "Failed to load 'res/maps/" << line << "'." << std::endl;
+			break;
+		}
+		
+		maps.push_back( map );
+	}
 }

@@ -6,6 +6,7 @@
 #include <string>
 
 #include "game/Season.h"
+#include "game/MapData.h"
 
 class NewFileData;
 
@@ -31,6 +32,10 @@ class World
 		sf::Uint16 year;
 		sf::Uint8 seasonAndDay;
 		sf::Uint16 time;
+		
+		std::vector< MapData > maps;
+		
+		void initializeMaps();
 };
 
 #endif // WORLD_H
