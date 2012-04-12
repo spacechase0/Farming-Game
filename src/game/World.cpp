@@ -37,6 +37,10 @@ bool World::saveSaveData( const std::string& filename ) const
 
 void World::update()
 {
+	for ( auto it = npcs.begin(); it != npcs.end(); ++it )
+	{
+		it->get()->update();
+	}
 }
 
 void World::setYear( sf::Uint16 theYear )

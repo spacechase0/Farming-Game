@@ -5,10 +5,6 @@ Player::Player( World& theWorld, const std::string& theName, Gender theGender, S
 {
 }
 
-void Player::update()
-{
-}
-
 std::string Player::getType() const
 {
 	return "Player";

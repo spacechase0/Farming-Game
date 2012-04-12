@@ -8,7 +8,7 @@
 #include "game/objects/GameObject.h"
 #include "game/objects/Player.h"
 #include "game/renderers/BaseRenderer.h"
-#include "game/renderers/PlayerRenderer.h"
+#include "game/renderers/NpcRenderer.h"
 #include "game/LayerData.h"
 #include "ResourceManager.h"
 
@@ -17,7 +17,7 @@ void GameInterface::initialize( World& world )
 	{
 		auto raw = []( std::shared_ptr< GameObject > obj )
 	               {
-					return std::shared_ptr< BaseRenderer >( new PlayerRenderer( obj ) );
+					return std::shared_ptr< BaseRenderer >( new NpcRenderer( obj ) );
 	               };
 		
 		using namespace std::placeholders;
@@ -33,6 +33,68 @@ void GameInterface::terminate()
 
 void GameInterface::update( const sf::Event& event, World& world )
 {
+	std::shared_ptr< Player > player = world.getPlayer();
+	
+	if ( event.type == sf::Event::KeyPressed )
+	{
+		bool movement = false;
+		Direction::Direction dir;
+		if ( event.key.code == sf::Keyboard::W or event.key.code == sf::Keyboard::Up )
+		{
+			movement = true;
+			dir = Direction::Up;
+		}
+		else if ( event.key.code == sf::Keyboard::D or event.key.code == sf::Keyboard::Right )
+		{
+			movement = true;
+			dir = Direction::Right;
+		}
+		else if ( event.key.code == sf::Keyboard::S or event.key.code == sf::Keyboard::Down )
+		{
+			movement = true;
+			dir = Direction::Down;
+		}
+		else if ( event.key.code == sf::Keyboard::A or event.key.code == sf::Keyboard::Left )
+		{
+			movement = true;
+			dir = Direction::Left;
+		}
+		
+		if ( movement )
+		{
+			player->walk( dir );
+		}
+	}
+	else if ( event.type == sf::Event::KeyReleased )
+	{
+		bool stopping = false;
+		Direction::Direction dir;
+		if ( event.key.code == sf::Keyboard::W or event.key.code == sf::Keyboard::Up )
+		{
+			stopping = true;
+			dir = Direction::Up;
+		}
+		else if ( event.key.code == sf::Keyboard::D or event.key.code == sf::Keyboard::Right )
+		{
+			stopping = true;
+			dir = Direction::Right;
+		}
+		else if ( event.key.code == sf::Keyboard::S or event.key.code == sf::Keyboard::Down )
+		{
+			stopping = true;
+			dir = Direction::Down;
+		}
+		else if ( event.key.code == sf::Keyboard::A or event.key.code == sf::Keyboard::Left )
+		{
+			stopping = true;
+			dir = Direction::Left;
+		}
+		
+		if ( stopping and player->getFacingDirection() == dir )
+		{
+			player->stop();
+		}
+	}
 }
 
 void GameInterface::render( sf::RenderWindow& window, World& world )

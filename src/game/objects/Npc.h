@@ -5,6 +5,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <string>
 
+#include "game/Direction.h"
 #include "game/Gender.h"
 #include "game/objects/GameObject.h"
 #include "game/Season.h"
@@ -17,6 +18,8 @@ class Npc : public GameObject
 		Npc( World& theWorld, const std::string& theName, Gender theGender, Season theBirthSeason, sf::Uint8 theBirthDay );
 		virtual ~Npc();
 		
+		virtual void update();
+		
 		std::string getName() const;
 		Gender getGender() const;
 		Season getBirthSeason() const;
@@ -27,6 +30,11 @@ class Npc : public GameObject
 		
 		void setPosition( sf::Vector2f thePos );
 		sf::Vector2f getPosition() const;
+		
+		Direction::Direction getFacingDirection() const;
+		bool isWalking() const;
+		void walk( Direction::Direction dir );
+		void stop();
 	
 	protected:
 		World& world;
@@ -38,6 +46,8 @@ class Npc : public GameObject
 		
 		sf::Uint16 map;
 		sf::Vector2f pos;
+		Direction::Direction facing;
+		bool walking;
 };
 
 #endif // NPC_H
