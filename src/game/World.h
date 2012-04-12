@@ -42,6 +42,7 @@ class World
 		sf::Uint16 year;
 		sf::Uint8 seasonAndDay;
 		sf::Uint16 time;
+		sf::Uint8 timeBuffer;
 		
 		std::vector< MapData > maps;
 		std::vector< std::shared_ptr< Npc > > npcs;

@@ -37,6 +37,12 @@ bool World::saveSaveData( const std::string& filename ) const
 
 void World::update()
 {
+	if ( ++timeBuffer >= 50 )
+	{
+		timeBuffer -= 50;
+		++time;
+	}
+	
 	for ( auto it = npcs.begin(); it != npcs.end(); ++it )
 	{
 		it->get()->update();
