@@ -54,6 +54,7 @@
 		<Unit filename="SceneChangeEvent.cpp" />
 		<Unit filename="SceneChangeEvent.h" />
 		<Unit filename="Tileset.h" />
+		<Unit filename="game\Direction.h" />
 		<Unit filename="game\GameInterface.cpp" />
 		<Unit filename="game\GameInterface.h" />
 		<Unit filename="game\Gender.h" />
@@ -66,10 +67,16 @@
 		<Unit filename="game\Season.h" />
 		<Unit filename="game\World.cpp" />
 		<Unit filename="game\World.h" />
+		<Unit filename="game\objects\GameObject.cpp" />
+		<Unit filename="game\objects\GameObject.h" />
 		<Unit filename="game\objects\Npc.cpp" />
 		<Unit filename="game\objects\Npc.h" />
 		<Unit filename="game\objects\Player.cpp" />
 		<Unit filename="game\objects\Player.h" />
+		<Unit filename="game\renderers\BaseRenderer.cpp" />
+		<Unit filename="game\renderers\BaseRenderer.h" />
+		<Unit filename="game\renderers\NpcRenderer.cpp" />
+		<Unit filename="game\renderers\NpcRenderer.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="scenes\GameScene.cpp" />
 		<Unit filename="scenes\GameScene.h" />
