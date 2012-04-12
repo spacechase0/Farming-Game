@@ -39,8 +39,15 @@ void World::update()
 {
 	if ( ++timeBuffer >= 50 )
 	{
-		timeBuffer -= 50;
+		timeBuffer = 0;
 		++time;
+	}
+	
+	if ( time >= 1440 )
+	{
+		time = 0;
+		setDay( getDay() + 1 );
+		// TO DO: Seasons
 	}
 	
 	for ( auto it = npcs.begin(); it != npcs.end(); ++it )
@@ -52,11 +59,6 @@ void World::update()
 void World::setYear( sf::Uint16 theYear )
 {
 	year = theYear;
-}
-
-sf::Uint16 World::getYear() const
-{
-	return year;
 }
 
 void World::setSeason( Season season )
@@ -72,11 +74,6 @@ void World::setSeason( Season season )
 	seasonAndDay = s | day;
 }
 
-Season World::getSeason() const
-{
-	return Season( ( 0xC0 & seasonAndDay ) >> 6 );
-}
-
 void World::setDay( sf::Uint8 day )
 {
 	if ( day >= 64 )
@@ -88,11 +85,6 @@ void World::setDay( sf::Uint8 day )
 	seasonAndDay = season | day;
 }
 
-sf::Uint8 World::getDay() const
-{
-	return 0x3F & seasonAndDay;
-}
-
 void World::setTime( sf::Uint16 theTime )
 {
 	if ( theTime >= 1440 )
@@ -101,6 +93,21 @@ void World::setTime( sf::Uint16 theTime )
 	}
 	
 	time = theTime;
+}
+
+sf::Uint16 World::getYear() const
+{
+	return year;
+}
+
+Season World::getSeason() const
+{
+	return Season( ( 0xC0 & seasonAndDay ) >> 6 );
+}
+
+sf::Uint8 World::getDay() const
+{
+	return 0x3F & seasonAndDay;
 }
 
 sf::Uint16 World::getTime() const

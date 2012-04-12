@@ -26,6 +26,45 @@ void GameInterface::initialize( World& world )
 		using namespace std::placeholders;
 		rendererMapping.insert( std::make_pair( "Player", std::bind( &createNpcRenderer, _1 ) ) );
 	}
+	
+	{
+		sf::Texture& tex = ( * ResourceManager::getTexture( "res/gui/dial.png" ) );
+		
+		time.sky.setTexture( tex );
+		time.sky.setTextureRect( sf::IntRect( 64, 0, 64, 64 ) );
+		time.sky.setOrigin( 32, 32 );
+		time.sky.setPosition( 32 + 10, 32 + 10 );
+		
+		time.stars.setTexture( tex );
+		time.stars.setTextureRect( sf::IntRect( 128, 0, 64, 64 ) );
+		time.stars.setOrigin( 32, 32 );
+		time.stars.setPosition( 32 + 10, 32 + 10 );
+		
+		time.glow.setTexture( tex );
+		time.glow.setTextureRect( sf::IntRect( 64, 32, 32, 32 ) );
+		time.glow.setOrigin( 20, 20 );
+		time.glow.setPosition( 32 + 10, 32 + 10 );
+		
+		time.moon.setTexture( tex );
+		time.moon.setTextureRect( sf::IntRect( 32, 96, 16, 16 ) );
+		time.moon.setOrigin( 20, 20 );
+		time.moon.setPosition( 32 + 10, 32 + 10 );
+		
+		time.sun.setTexture( tex );
+		time.sun.setTextureRect( sf::IntRect( 0, 96, 32, 32 ) );
+		time.sun.setOrigin( 28, 28 );
+		time.sun.setPosition( 32 + 10, 32 + 10 );
+		
+		time.ground.setTexture( tex );
+		time.ground.setTextureRect( sf::IntRect( 128, 64, 64, 64 ) );
+		time.ground.setOrigin( 32, 32 );
+		time.ground.setPosition( 32 + 10, 32 + 10 );
+		
+		time.rim.setTexture( tex );
+		time.rim.setTextureRect( sf::IntRect( 0, 0, 64, 64 ) );
+		time.rim.setOrigin( 32, 32 );
+		time.rim.setPosition( 32 + 10, 32 + 10 );
+	}
 }
 
 void GameInterface::terminate()
@@ -166,4 +205,19 @@ void GameInterface::renderWorld( sf::RenderWindow& window, World& world )
 
 void GameInterface::renderInterface( sf::RenderWindow& window, World& world )
 {
+	int mainRot = ( world.getTime() / 1440.f ) * -360;
+	int bodyRot = mainRot + 45;
+	time.stars.setRotation( mainRot );
+	time.sky  .setRotation( mainRot );
+	time.glow .setRotation( bodyRot + 180 );
+	time.moon .setRotation( bodyRot + 180 );
+	time.sun  .setRotation( bodyRot );
+	
+	window.draw( time.sky    );
+	window.draw( time.stars  );
+	//window.draw( time.glow   );
+	window.draw( time.moon   );
+	window.draw( time.sun    );
+	window.draw( time.ground );
+	window.draw( time.rim    );
 }

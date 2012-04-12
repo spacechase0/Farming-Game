@@ -4,6 +4,7 @@
 #include <functional>
 #include <map>
 #include <memory>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Clock.hpp>
 #include <string>
 #include <util/unsorted_map.h>
@@ -33,6 +34,19 @@ class GameInterface
 		
 		void renderWorld( sf::RenderWindow& window, World& world );
 		void renderInterface( sf::RenderWindow& window, World& world );
+		
+		struct
+		{
+			sf::Sprite sky;
+			sf::Sprite stars;
+			
+			sf::Sprite glow;
+			sf::Sprite moon;
+			sf::Sprite sun;
+			
+			sf::Sprite ground;
+			sf::Sprite rim;
+		} time;
 };
 
 #endif // GAMEINTERFACE_H

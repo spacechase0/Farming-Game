@@ -43,6 +43,7 @@ class World
 		sf::Uint8 seasonAndDay;
 		sf::Uint16 time;
 		sf::Uint8 timeBuffer;
+		sf::Uint8 moonPhase;
 		
 		std::vector< MapData > maps;
 		std::vector< std::shared_ptr< Npc > > npcs;
