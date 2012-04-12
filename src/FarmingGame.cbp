@@ -45,6 +45,8 @@
 		</Compiler>
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
+		<Unit filename="Localization.cpp" />
+		<Unit filename="Localization.h" />
 		<Unit filename="ResourceManager.cpp" />
 		<Unit filename="ResourceManager.h" />
 		<Unit filename="Scene.cpp" />
