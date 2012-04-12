@@ -2,6 +2,7 @@
 #define NPCRENDEERER_H
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Clock.hpp>
 
 #include "game/renderers/BaseRenderer.h"
 
@@ -17,6 +18,8 @@ class NpcRenderer : public BaseRenderer
 	private:
 		std::shared_ptr< Npc > npc;
 		sf::Sprite spr;
+		sf::Clock animTimer;
+		int animStage;
 };
 
 #endif // NPCRENDEERER_H
