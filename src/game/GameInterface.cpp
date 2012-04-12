@@ -12,18 +12,19 @@
 #include "game/LayerData.h"
 #include "ResourceManager.h"
 
+namespace
+{
+	std::shared_ptr< BaseRenderer > createNpcRenderer( std::shared_ptr< GameObject > obj )
+	{
+		return std::shared_ptr< BaseRenderer >( new NpcRenderer( obj ) );
+	}
+}
+
 void GameInterface::initialize( World& world )
 {
 	{
-		auto raw = []( std::shared_ptr< GameObject > obj )
-	               {
-					return std::shared_ptr< BaseRenderer >( new NpcRenderer( obj ) );
-	               };
-		
 		using namespace std::placeholders;
-		std::function< std::shared_ptr< BaseRenderer >( std::shared_ptr< GameObject > ) > func = std::bind( raw, _1 );
-		
-		rendererMapping.insert( std::make_pair( "Player", func ) );
+		rendererMapping.insert( std::make_pair( "Player", std::bind( &createNpcRenderer, _1 ) ) );
 	}
 }
 
