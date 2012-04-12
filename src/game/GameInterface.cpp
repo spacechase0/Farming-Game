@@ -90,7 +90,7 @@ void GameInterface::update( const sf::Event& event, World& world )
 			dir = Direction::Left;
 		}
 		
-		if ( stopping and player->getFacingDirection() == dir )
+		if ( stopping and player->getNextWalkingDirection() == dir )
 		{
 			player->stop();
 		}

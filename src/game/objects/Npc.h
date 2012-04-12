@@ -32,6 +32,7 @@ class Npc : public GameObject
 		sf::Vector2f getPosition() const;
 		
 		Direction::Direction getFacingDirection() const;
+		Direction::Direction getNextWalkingDirection() const;
 		bool isWalking() const;
 		void walk( Direction::Direction dir );
 		void stop();
@@ -47,6 +48,8 @@ class Npc : public GameObject
 		sf::Uint16 map;
 		sf::Vector2f pos;
 		Direction::Direction facing;
+		Direction::Direction nextDir;
+		bool shouldStop;
 		bool walking;
 };
 
