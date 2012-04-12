@@ -132,7 +132,7 @@ bool Npc::isWalking() const
 }
 
 void Npc::walk( Direction::Direction dir )
-{std::cout<<"walk " << dir<<std::endl;
+{
 	nextDir = dir;
 	if ( !walking )
 	{

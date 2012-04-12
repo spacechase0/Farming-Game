@@ -16,6 +16,9 @@ NpcRenderer::NpcRenderer( std::shared_ptr< GameObject > theObject )
 
 void NpcRenderer::render( sf::RenderWindow& window, const World& world )
 {
+	sf::Uint8 mult = npc->getFacingDirection();
+	spr.setTextureRect( sf::IntRect( 0, 64 * mult, 32, 64 ) );
+	
 	spr.setPosition( npc->getPosition().x * 32, npc->getPosition().y * 32 );
 	window.draw( spr );
 }
