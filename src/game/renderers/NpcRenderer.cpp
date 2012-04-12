@@ -17,7 +17,7 @@ NpcRenderer::NpcRenderer( std::shared_ptr< GameObject > theObject )
 
 void NpcRenderer::render( sf::RenderWindow& window, const World& world )
 {
-	if ( animTimer.getElapsedTime() >= sf::milliseconds( 50 ) )
+	if ( animTimer.getElapsedTime() >= sf::milliseconds( 75 ) )
 	{
 		animTimer.restart();
 		++animStage;
