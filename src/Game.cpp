@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "scenes/GameScene.h"
+#include "Localization.h"
 
 const int Game::UPDATE_RATE = 50;
 const int Game::RENDER_RATE = 50;
@@ -16,11 +17,11 @@ Game::Game()
 void Game::run()
 {
 	initialize();
-	
+
 	const float DELTA = 1.f / UPDATE_RATE;
 	float updateBuffer = 0.f; // Can't think of a good name. :P
 	sf::Clock updateTimer;
-	
+
 	isRunning = true;
 	while ( isRunning )
 	{
@@ -31,17 +32,17 @@ void Game::run()
 			{
 				scenes[ currentScene ]->terminate();
 			}
-			
+
 			scene = scenes[ nextScene ];
 			scene->initialize( changeEvent );
-			
+
 			currentScene = nextScene;
 		}
 		else if ( currentScene != "" )
 		{
 			scene = scenes[ currentScene ];
 		}
-		
+
 		while ( updateBuffer >= DELTA )
 		{
 			sf::Event event;
@@ -51,21 +52,21 @@ void Game::run()
 				{
 					close();
 				}
-				
+
 				scene->update( event );
 			}
-			
+
 			scene->update();
-			
+
 			updateBuffer -= DELTA;
 		}
 		updateBuffer += updateTimer.restart().asSeconds();
-		
+
 		window.clear();
 		scene->render( window );
 		window.display();
 	}
-	
+
 	terminate();
 }
 
@@ -87,7 +88,7 @@ std::shared_ptr< Scene > Game::getScene( const std::string& name )
 		std::cout << "Failed to find scene '" << name << "'." << std::endl;
 		return std::shared_ptr< Scene >();
 	}
-	
+
 	return scenes.find( name )->second;
 }
 
@@ -95,10 +96,14 @@ void Game::initialize()
 {
 	window.create( sf::VideoMode( 640, 480 ), "Farming Game" );
 	window.setFramerateLimit( RENDER_RATE );
-	
+
 	addScene( "Game", std::shared_ptr< Scene >( new GameScene( * this ) ) );
-	
+
 	changeScenes( "Game", SceneChangeEvent( SceneChangeEvent::GameStarted ) );
+
+	Loc::load("res/locale/korean.txt");
+	//std::cout << Loc::get("test") << std::endl;
+	Loc::get("test");
 }
 
 void Game::terminate()
