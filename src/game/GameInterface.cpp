@@ -157,65 +157,92 @@ void GameInterface::render( sf::RenderWindow& window, World& world )
 	renderWorld( window, world );
 	renderInterface( window, world );
 }
-
+#include<iostream>
 void GameInterface::renderWorld( sf::RenderWindow& window, World& world )
 {
 	std::shared_ptr< const Player > player = world.getPlayer();
 	const MapData& map = world.getMaps()[ player->getMap() ];
 	
-	for ( std::size_t i = 0; i < map.getLayerCount(); ++i )
+	sf::View oldView = window.getView();
 	{
-		const LayerData& layer = map.getLayer( i );
+		sf::View newView( player->getPosition() * 32.f, sf::Vector2f( 640, 480 ) );
 		
-		sf::Texture& tex = ( * ResourceManager::getTexture( "res/tilesets/" + util::toString( layer.getTileset() ) + ".png" ) );
-		sf::Sprite spr( tex );
+		if ( newView.getCenter().x - ( newView.getSize().x / 2 ) < 0 )
+		{
+			newView.setCenter( newView.getSize().x / 2, newView.getCenter().y );
+		}
+		if ( newView.getCenter().y - ( newView.getSize().y / 2 ) < 0 )
+		{
+			newView.setCenter( newView.getCenter().x, newView.getSize().y / 2 );
+		}
 		
-		auto tiles = layer.getTiles();
-		for ( std::size_t i = 0; i < tiles.size(); ++i )
+		if ( newView.getCenter().x + ( newView.getSize().x / 2 ) > map.getSize().x * 32 )
 		{
-			float x = ( i % layer.getSize().x ) * 32;
-			float y = ( i / layer.getSize().x ) * 32;
-			spr.setPosition( x, y );
+			newView.setCenter( ( map.getSize().x * 32 ) - ( newView.getSize().x / 2 ), newView.getCenter().y );
+		}
+		if ( newView.getCenter().y + ( newView.getSize().y / 2 ) > map.getSize().y * 32 )
+		{
+			newView.setCenter( newView.getCenter().x, ( map.getSize().y * 32 ) - ( newView.getSize().y / 2 ) );
+		}
+		
+		window.setView( newView );
+	}
+	{
+		for ( std::size_t i = 0; i < map.getLayerCount(); ++i )
+		{
+			const LayerData& layer = map.getLayer( i );
 			
-			int tx = ( tiles[ i ] % 16 ) * 32;
-			int ty = ( tiles[ i ] / 16 ) * 32;
-			spr.setTextureRect( sf::IntRect( tx, ty, 32, 32 ) );
+			sf::Texture& tex = ( * ResourceManager::getTexture( "res/tilesets/" + util::toString( layer.getTileset() ) + ".png" ) );
+			sf::Sprite spr( tex );
 			
-			window.draw( spr );
+			auto tiles = layer.getTiles();
+			for ( std::size_t i = 0; i < tiles.size(); ++i )
+			{
+				float x = ( i % layer.getSize().x ) * 32;
+				float y = ( i / layer.getSize().x ) * 32;
+				spr.setPosition( x, y );
+				
+				int tx = ( tiles[ i ] % 16 ) * 32;
+				int ty = ( tiles[ i ] / 16 ) * 32;
+				spr.setTextureRect( sf::IntRect( tx, ty, 32, 32 ) );
+				
+				window.draw( spr );
+			}
+		}
+		
+		{
+			sf::RectangleShape border;
+			border.setSize( sf::Vector2f( map.getSize().x * 32 - 8, map.getSize().y * 32 - 8 ) );
+			border.setOrigin( sf::Vector2f( -4, -4 ) );
+			border.setFillColor( sf::Color( 0, 0, 0, 0 ) );
+			border.setOutlineColor( sf::Color( 0, 0, 0, 128 ) );
+			border.setOutlineThickness( 4.f );
+			window.draw( border );
+		}
+		
+		if ( rendererClearTimer.getElapsedTime() > sf::seconds( 60.f ) )
+		{
+			renderers.clear();
+			rendererClearTimer.restart();
+		}
+		
+		for ( auto it = world.getNpcs().begin(); it != world.getNpcs().end(); ++it )
+		{
+			std::shared_ptr< GameObject > obj = std::static_pointer_cast< GameObject >( * it );
+			if ( renderers.find( obj.get() ) == renderers.end() )
+			{
+				std::shared_ptr< BaseRenderer > renderer = rendererMapping[ obj->getType() ]( obj );
+				renderers.push_back( std::make_pair( obj.get(), renderer ) );
+				
+				renderer->render( window, world );
+			}
+			else
+			{
+				renderers[ obj.get() ]->render( window, world );
+			}
 		}
 	}
-	
-	{
-		sf::RectangleShape border;
-		border.setSize( sf::Vector2f( map.getSize().x * 32 - 8, map.getSize().y * 32 - 8 ) );
-		border.setOrigin( sf::Vector2f( -4, -4 ) );
-		border.setFillColor( sf::Color( 0, 0, 0, 0 ) );
-		border.setOutlineColor( sf::Color( 0, 0, 0, 128 ) );
-		border.setOutlineThickness( 4.f );
-		window.draw( border );
-	}
-	
-	if ( rendererClearTimer.getElapsedTime() > sf::seconds( 60.f ) )
-	{
-		renderers.clear();
-		rendererClearTimer.restart();
-	}
-	
-	for ( auto it = world.getNpcs().begin(); it != world.getNpcs().end(); ++it )
-	{
-		std::shared_ptr< GameObject > obj = std::static_pointer_cast< GameObject >( * it );
-		if ( renderers.find( obj.get() ) == renderers.end() )
-		{
-			std::shared_ptr< BaseRenderer > renderer = rendererMapping[ obj->getType() ]( obj );
-			renderers.push_back( std::make_pair( obj.get(), renderer ) );
-			
-			renderer->render( window, world );
-		}
-		else
-		{
-			renderers[ obj.get() ]->render( window, world );
-		}
-	}
+	window.setView( oldView );
 }
 
 void GameInterface::renderInterface( sf::RenderWindow& window, World& world )
