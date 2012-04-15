@@ -1,5 +1,8 @@
 #include "game/objects/Npc.h"
 
+#include "game/MapData.h"
+#include "game/World.h"
+
 namespace
 {
 	void doWalkPart( const bool& shouldStop, bool& walking, Direction::Direction& facing, const Direction::Direction& nextDir )
@@ -48,6 +51,15 @@ void Npc::update()
 			case Direction::Right: pos.x += 0.09375; break;
 			case Direction::Down : pos.y += 0.09375; break;
 			case Direction::Left : pos.x -= 0.09375; break;
+		}
+		
+		{
+			const MapData& map = world.getMaps()[ this->map ];
+			
+			if ( pos.x <                   0.5 ) { pos.x = 0; prevPos.x = 1;                         shouldStop = true; }
+			if ( pos.y <                   0.5 ) { pos.y = 0; prevPos.y = 1;                         shouldStop = true; }
+			if ( pos.x > map.getSize().x - 0.5 ) { prevPos.x = pos.x = map.getSize().x - 2; ++pos.x; shouldStop = true; }
+			if ( pos.y > map.getSize().y - 0.5 ) { prevPos.y = pos.y = map.getSize().y - 2; ++pos.y; shouldStop = true; }
 		}
 		
 		if ( shouldStop or facing != nextDir )
