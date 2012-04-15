@@ -47,6 +47,13 @@ class GameInterface
 			sf::Sprite ground;
 			sf::Sprite rim;
 		} time;
+		
+		struct
+		{
+			sf::Sprite back;
+			sf::Sprite fat;
+			sf::Sprite star;
+		} bars;
 };
 
 #endif // GAMEINTERFACE_H

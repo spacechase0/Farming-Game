@@ -65,6 +65,21 @@ void GameInterface::initialize( World& world )
 		time.rim.setOrigin( 32, 32 );
 		time.rim.setPosition( 32 + 10, 32 + 10 );
 	}
+	{
+		sf::Texture& tex = ( * ResourceManager::getTexture( "res/gui/bars.png" ) );
+		
+		bars.back.setTexture( tex );
+		bars.back.setTextureRect( sf::IntRect( 0, 0, 128, 22 ) );
+		bars.back.setPosition( 640 - 128 - 5, 5 );
+		
+		bars.fat.setTexture( tex );
+		bars.fat.setTextureRect( sf::IntRect( 0, 22, 124, 8 ) );
+		bars.fat.setPosition( bars.back.getPosition().x + 2, bars.back.getPosition().y + 2 );
+		
+		bars.star.setTexture( tex );
+		bars.star.setTextureRect( sf::IntRect( 0, 30, 124, 8 ) );
+		bars.star.setPosition( bars.back.getPosition().x + 2, bars.back.getPosition().y + 2 + 8 + 2 );
+	}
 }
 
 void GameInterface::terminate()
@@ -205,19 +220,32 @@ void GameInterface::renderWorld( sf::RenderWindow& window, World& world )
 
 void GameInterface::renderInterface( sf::RenderWindow& window, World& world )
 {
-	int mainRot = ( world.getTime() / 1440.f ) * -360;
-	int bodyRot = mainRot + 45;
-	time.stars.setRotation( mainRot );
-	time.sky  .setRotation( mainRot );
-	time.glow .setRotation( bodyRot + 180 );
-	time.moon .setRotation( bodyRot + 180 );
-	time.sun  .setRotation( bodyRot );
-	
-	window.draw( time.sky    );
-	window.draw( time.stars  );
-	//window.draw( time.glow   );
-	window.draw( time.moon   );
-	window.draw( time.sun    );
-	window.draw( time.ground );
-	window.draw( time.rim    );
+	{
+		int mainRot = ( world.getTime() / 1440.f ) * -360 + 180;
+		int bodyRot = mainRot + 45;
+		time.stars.setRotation( mainRot );
+		time.sky  .setRotation( mainRot );
+		time.glow .setRotation( bodyRot + 180 );
+		time.moon .setRotation( bodyRot + 180 );
+		time.sun  .setRotation( bodyRot );
+		
+		window.draw( time.sky    );
+		window.draw( time.stars  );
+		//window.draw( time.glow   );
+		window.draw( time.moon   );
+		window.draw( time.sun    );
+		window.draw( time.ground );
+		window.draw( time.rim    );
+	}
+	{
+		int fatWidth = ( world.getPlayer()->getFatigue() / static_cast< float >( world.getPlayer()->getFatigueMax() ) ) * 124;
+		int starWidth = ( world.getPlayer()->getStarvation() / static_cast< float >( world.getPlayer()->getStarvationMax() ) ) * 124;
+		
+		bars.fat.setTextureRect( sf::IntRect( 0, 22, fatWidth, 8 ) );
+		bars.star.setTextureRect( sf::IntRect( 0, 30, starWidth, 8 ) );
+		
+		window.draw( bars.back );
+		window.draw( bars.fat );
+		window.draw( bars.star );
+	}
 }
