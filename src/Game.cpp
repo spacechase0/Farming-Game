@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "scenes/GameScene.h"
 #include "Localization.h"
+#include "Debug.h"
 
 const int Game::UPDATE_RATE = 50;
 const int Game::RENDER_RATE = 50;
@@ -25,6 +26,8 @@ void Game::run()
 	isRunning = true;
 	while ( isRunning )
 	{
+	    Debug::draw(window);
+
 		std::shared_ptr< Scene > scene;
 		if ( currentScene != nextScene )
 		{
@@ -100,6 +103,8 @@ void Game::initialize()
 	addScene( "Game", std::shared_ptr< Scene >( new GameScene( * this ) ) );
 
 	changeScenes( "Game", SceneChangeEvent( SceneChangeEvent::GameStarted ) );
+
+	Debug::setText("test");
 
 	Loc::load("res/locale/korean.txt");
 	//std::cout << Loc::get("test") << std::endl;

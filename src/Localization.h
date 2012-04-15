@@ -6,12 +6,11 @@
 
 class Localization
 {
-	static std::map<std::string, std::string> entries;
-	~Localization() = delete;
+    static std::map<std::string, std::string> entries;
 
-	public:
-	static void load(const std::string&);
-	static std::string get(const std::string&);
+    public:
+    static void load(std::string);
+    static std::string get(std::string);
 };
 
 typedef Localization Loc;
