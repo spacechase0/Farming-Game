@@ -107,8 +107,7 @@ void Game::initialize()
 	Debug::setText("test");
 
 	Loc::load("res/locale/korean.txt");
-	//std::cout << Loc::get("test") << std::endl;
-	Loc::get("test");
+	std::cout << Loc::get("test") << std::endl;
 }
 
 void Game::terminate()

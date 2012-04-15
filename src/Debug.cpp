@@ -1,8 +1,9 @@
 #include "Debug.h"
 
+sf::Text Debug::text;
+
 void Debug::initialize()
 {
-    text = sf::Text();
     text.setColor(sf::Color::Yellow);
 }
 

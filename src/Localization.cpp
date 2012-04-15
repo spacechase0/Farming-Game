@@ -9,7 +9,7 @@ std::string getKey(std::string entry)
 
 std::string getValue(std::string entry)
 {
-    return entry.substr(entry.find('='));
+    return entry.substr(entry.find('=') + 1);
 }
 
 std::map<std::string, std::string> Localization::entries;
@@ -27,5 +27,5 @@ void Localization::load(std::string filename)
 
 std::string Localization::get(std::string key)
 {
-    entries[key];
+    return entries[key];
 }
