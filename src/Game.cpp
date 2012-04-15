@@ -104,9 +104,8 @@ void Game::initialize()
 
 	changeScenes( "Game", SceneChangeEvent( SceneChangeEvent::GameStarted ) );
 
-	Debug::setText("test");
-
-	Loc::load("res/locale/korean.txt");
+	Loc::load("res/locale/english.txt");
+	Debug::setText(Loc::get("test"));
 	std::cout << Loc::get("test") << std::endl;
 }
 
