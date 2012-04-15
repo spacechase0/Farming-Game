@@ -70,7 +70,7 @@ void GameInterface::initialize( World& world )
 		
 		bars.back.setTexture( tex );
 		bars.back.setTextureRect( sf::IntRect( 0, 0, 128, 22 ) );
-		bars.back.setPosition( 640 - 128 - 5, 5 );
+		bars.back.setPosition( 640 - 128 - 10, 10 );
 		
 		bars.fat.setTexture( tex );
 		bars.fat.setTextureRect( sf::IntRect( 0, 22, 124, 8 ) );
