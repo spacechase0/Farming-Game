@@ -69,6 +69,10 @@
 		<Unit filename="game\Season.h" />
 		<Unit filename="game\World.cpp" />
 		<Unit filename="game\World.h" />
+		<Unit filename="game\items\ItemSlot.cpp" />
+		<Unit filename="game\items\ItemSlot.h" />
+		<Unit filename="game\items\ItemType.cpp" />
+		<Unit filename="game\items\ItemType.h" />
 		<Unit filename="game\objects\GameObject.cpp" />
 		<Unit filename="game\objects\GameObject.h" />
 		<Unit filename="game\objects\Npc.cpp" />

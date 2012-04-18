@@ -11,10 +11,8 @@ class Debug
 
     public:
     static void initialize();
-    static void setText(std::string);
-    static void setText(std::wstring);
-    static void showMessage(std::string);
-    static void showMessage(std::wstring);
+    static void setText(const std::string&);
+    static void setText(const std::wstring&);
     static void draw(sf::RenderWindow&);
 };
 

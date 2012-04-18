@@ -1,6 +1,5 @@
 #include "Debug.h"
 #include <SFML/Config.hpp>
-#include <Windows.h>
 
 sf::String Debug::text;
 sf::Font Debug::font;
@@ -13,7 +12,7 @@ void Debug::initialize()
     }
 }
 
-void Debug::setText(std::string str)
+void Debug::setText(const std::string& str)
 {
     /*std::size_t size = sf::Utf< 8 >::count( str.begin(), str.end() );
 
@@ -31,7 +30,7 @@ void Debug::setText(std::string str)
     text = tmp;
 }
 
-void Debug::setText(std::wstring str)
+void Debug::setText(const std::wstring& str)
 {
     /*std::size_t size = sf::Utf< 8 >::count( str.begin(), str.end() );
 
@@ -47,16 +46,6 @@ void Debug::setText(std::wstring str)
     sf::Utf<8>::toUtf32( str.begin(), str.end(), std::back_inserter( tmp ) );
 
     text = tmp;
-}
-
-void Debug::showMessage(std::string str)
-{
-    MessageBox(NULL, str.c_str(), NULL, NULL);
-}
-
-void Debug::showMessage(std::wstring str)
-{
-    //MessageBox(NULL, str.c_str(), NULL, NULL);
 }
 
 void Debug::draw(sf::RenderWindow& window)
