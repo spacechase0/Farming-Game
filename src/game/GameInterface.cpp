@@ -18,6 +18,30 @@ namespace
 	{
 		return std::shared_ptr< BaseRenderer >( new NpcRenderer( obj ) );
 	}
+	
+	void doTransparency( bool trans )
+	{
+	}
+	
+	template< typename DRAWABLE >
+	void doTransparency( bool trans, DRAWABLE& draw )
+	{
+		if ( trans )
+		{
+			draw.setColor( sf::Color( 255, 255, 255, 96 ) );
+		}
+		else
+		{
+			draw.setColor( sf::Color::White );
+		}
+	}
+	
+	template < typename DRAWABLE, typename... Args >
+	void doTransparency( bool trans, DRAWABLE& draw, Args&... args )
+	{
+		doTransparency( trans, draw );
+		doTransparency( trans, args... );
+	}
 }
 
 void GameInterface::initialize( World& world )
@@ -157,7 +181,7 @@ void GameInterface::render( sf::RenderWindow& window, World& world )
 	renderWorld( window, world );
 	renderInterface( window, world );
 }
-#include<iostream>
+
 void GameInterface::renderWorld( sf::RenderWindow& window, World& world )
 {
 	std::shared_ptr< const Player > player = world.getPlayer();
@@ -165,27 +189,27 @@ void GameInterface::renderWorld( sf::RenderWindow& window, World& world )
 	
 	sf::View oldView = window.getView();
 	{
-		sf::View newView( player->getPosition() * 32.f, sf::Vector2f( 640, 480 ) );
+		worldView = sf::View( player->getPosition() * 32.f, sf::Vector2f( 640, 480 ) );
 		
-		if ( newView.getCenter().x - ( newView.getSize().x / 2 ) < 0 )
+		if ( worldView.getCenter().x - ( worldView.getSize().x / 2 ) < 0 )
 		{
-			newView.setCenter( newView.getSize().x / 2, newView.getCenter().y );
+			worldView.setCenter( worldView.getSize().x / 2, worldView.getCenter().y );
 		}
-		if ( newView.getCenter().y - ( newView.getSize().y / 2 ) < 0 )
+		if ( worldView.getCenter().y - ( worldView.getSize().y / 2 ) < 0 )
 		{
-			newView.setCenter( newView.getCenter().x, newView.getSize().y / 2 );
-		}
-		
-		if ( newView.getCenter().x + ( newView.getSize().x / 2 ) > map.getSize().x * 32 )
-		{
-			newView.setCenter( ( map.getSize().x * 32 ) - ( newView.getSize().x / 2 ), newView.getCenter().y );
-		}
-		if ( newView.getCenter().y + ( newView.getSize().y / 2 ) > map.getSize().y * 32 )
-		{
-			newView.setCenter( newView.getCenter().x, ( map.getSize().y * 32 ) - ( newView.getSize().y / 2 ) );
+			worldView.setCenter( worldView.getCenter().x, worldView.getSize().y / 2 );
 		}
 		
-		window.setView( newView );
+		if ( worldView.getCenter().x + ( worldView.getSize().x / 2 ) > map.getSize().x * 32 )
+		{
+			worldView.setCenter( ( map.getSize().x * 32 ) - ( worldView.getSize().x / 2 ), worldView.getCenter().y );
+		}
+		if ( worldView.getCenter().y + ( worldView.getSize().y / 2 ) > map.getSize().y * 32 )
+		{
+			worldView.setCenter( worldView.getCenter().x, ( map.getSize().y * 32 ) - ( worldView.getSize().y / 2 ) );
+		}
+		
+		window.setView( worldView );
 	}
 	{
 		for ( std::size_t i = 0; i < map.getLayerCount(); ++i )
@@ -247,6 +271,11 @@ void GameInterface::renderWorld( sf::RenderWindow& window, World& world )
 
 void GameInterface::renderInterface( sf::RenderWindow& window, World& world )
 {
+	sf::Vector2f playerPos = world.getPlayer()->getPosition();
+	playerPos.x *= 32;
+	playerPos.y *= 32;
+	playerPos -= worldView.getCenter() - sf::Vector2f( 320, 240 );
+	
 	{
 		int mainRot = ( world.getTime() / 1440.f ) * -360 + 180;
 		int bodyRot = mainRot + 45;
@@ -255,6 +284,9 @@ void GameInterface::renderInterface( sf::RenderWindow& window, World& world )
 		time.glow .setRotation( bodyRot + 180 );
 		time.moon .setRotation( bodyRot + 180 );
 		time.sun  .setRotation( bodyRot );
+		
+		doTransparency( time.rim.getGlobalBounds().contains( playerPos ),
+						time.sky, time.stars, time.glow, time.moon, time.sun, time.ground, time.rim );
 		
 		window.draw( time.sky    );
 		window.draw( time.stars  );
@@ -270,6 +302,9 @@ void GameInterface::renderInterface( sf::RenderWindow& window, World& world )
 		
 		bars.fat.setTextureRect( sf::IntRect( 0, 22, fatWidth, 8 ) );
 		bars.star.setTextureRect( sf::IntRect( 0, 30, starWidth, 8 ) );
+		
+		doTransparency( bars.back.getGlobalBounds().contains( playerPos ),
+						bars.back, bars.fat, bars.star );
 		
 		window.draw( bars.back );
 		window.draw( bars.fat );

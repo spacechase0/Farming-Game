@@ -5,6 +5,7 @@
 #include <map>
 #include <memory>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/View.hpp>
 #include <SFML/System/Clock.hpp>
 #include <string>
 #include <util/unsorted_map.h>
@@ -32,6 +33,7 @@ class GameInterface
 		util::unsorted_map< GameObject*, std::shared_ptr< BaseRenderer > > renderers;
 		sf::Clock rendererClearTimer;
 		
+		sf::View worldView;
 		void renderWorld( sf::RenderWindow& window, World& world );
 		void renderInterface( sf::RenderWindow& window, World& world );
 		
