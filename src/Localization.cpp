@@ -20,6 +20,10 @@ void Localization::load(std::string filename)
     std::string entry;
     while (std::getline(file, entry))
     {
+        if (entry.find("\xEF\xBB\xBF") != std::string::npos)
+        {
+            entry = entry.substr(3);
+        }
         entries.insert(std::make_pair(getKey(entry), getValue(entry)));
     }
     file.close();
