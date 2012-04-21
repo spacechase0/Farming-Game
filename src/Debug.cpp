@@ -14,37 +14,15 @@ void Debug::initialize()
 
 void Debug::setText(const std::string& str)
 {
-    /*std::size_t size = sf::Utf< 8 >::count( str.begin(), str.end() );
-
-    std::vector< sf::Uint32 > c;
-    c.resize( size );
-
-    sf::Utf< 8 >::toUtf32( str.begin(), str.end(), c.begin() );
-
-    sf::String strr( &c[ 0 ] );*/
-
     std::basic_string<sf::Uint32> tmp;
-
-    sf::Utf<8>::toUtf32( str.begin(), str.end(), std::back_inserter( tmp ) );
-
+    sf::Utf<8>::toUtf32(str.begin(), str.end(), std::back_inserter(tmp));
     text = tmp;
 }
 
 void Debug::setText(const std::wstring& str)
 {
-    /*std::size_t size = sf::Utf< 8 >::count( str.begin(), str.end() );
-
-    std::vector< sf::Uint32 > c;
-    c.resize( size );
-
-    sf::Utf< 8 >::toUtf32( str.begin(), str.end(), c.begin() );
-
-    sf::String strr( &c[ 0 ] );*/
-
     std::basic_string<sf::Uint32> tmp;
-
-    sf::Utf<8>::toUtf32( str.begin(), str.end(), std::back_inserter( tmp ) );
-
+    sf::Utf<8>::toUtf32(str.begin(), str.end(), std::back_inserter(tmp));
     text = tmp;
 }
 
